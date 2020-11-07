@@ -2061,6 +2061,34 @@ namespace SystAnalys_lr1
                 AnimationGraphics = Graphics.FromImage(AnimationBitmap);
                 foreach (var bus in Data.Buses)
                 {
+                    
+                    //
+                    foreach (var bus2 in Data.Buses)
+                    {
+                        if (bus.Tracker == false && GetDistance(bus.Coordinates[bus.PositionAt].X, bus.Coordinates[bus.PositionAt].Y, bus2.Coordinates[bus2.PositionAt].X, bus2.Coordinates[bus2.PositionAt].Y) <10)
+                        {
+                            if (bus2.Tracker)
+                            {
+                                bus2.Tracker = false;
+                                Bitmap busPic = new Bitmap(Bus.OffBusImg);
+                                busPic = new Bitmap(busPic, new Size(15, 15));
+                                Bitmap num = new Bitmap(busPic.Height, busPic.Width);
+                                Bitmap original = new Bitmap(Math.Max(busPic.Width, num.Width), Math.Max(busPic.Height, num.Height) * 2);
+                                using (Graphics graphics = Graphics.FromImage(original))
+                                {
+
+                                    graphics.DrawImage(busPic, 0, 0);
+                                    graphics.DrawImage(num, 0, 15);
+                                    graphics.Dispose();
+
+                                }
+                                bus2.BusPic = new Bitmap(original);
+                            }
+                            
+                           
+                        }
+                    }
+                    //
                     bus.MoveWithGraphics(AnimationGraphics);
                     AnimationBox.Image = AnimationBitmap;
                     if (Data.Buses.Count <= 20)
