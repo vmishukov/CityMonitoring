@@ -1391,7 +1391,7 @@ namespace SystAnalys_lr1
                            
                             Bitmap carcrash = new Bitmap("../../Resources/CarCrash.PNG");
                             carcrash = new Bitmap(carcrash, new Size(50,50));
-                            Main.G.Gr.DrawImage(new Bitmap(carcrash),new PointF(e.X * Main.zoom - carcrash.Width/2,e.Y*Main.zoom - carcrash.Height / 2));
+                            Main.G.Gr.DrawImage(new Bitmap(carcrash),new PointF(e.X  - carcrash.Width/2,e.Y - carcrash.Height / 2));
                          
                             c.MapUpdate(sheet);                  
                           
@@ -2077,7 +2077,23 @@ namespace SystAnalys_lr1
                 {
                     foreach (var CarCrash in Data.CarCrashes)
                     {
+                        if (!bus.Tracker  && GetDistance(CarCrash.X, CarCrash.Y, bus.Coordinates[bus.PositionAt].X, bus.Coordinates[bus.PositionAt].Y) < 10)
+                        {
+                            bus.Tracker = true;
+                            Bitmap busPic = new Bitmap(Bus.BusImg);
+                            busPic = new Bitmap(busPic, new Size(15, 15));
+                            Bitmap num = new Bitmap(busPic.Height, busPic.Width);
+                            Bitmap original = new Bitmap(Math.Max(busPic.Width, num.Width), Math.Max(busPic.Height, num.Height) * 2);
+                            using (Graphics graphics = Graphics.FromImage(original))
+                            {
 
+                                graphics.DrawImage(busPic, 0, 0);
+                                graphics.DrawImage(num, 0, 15);
+                                graphics.Dispose();
+
+                            }
+                            bus.BusPic = new Bitmap(original);
+                        }
 
 
                     }
@@ -2085,7 +2101,7 @@ namespace SystAnalys_lr1
 
                     foreach (var bus2 in Data.Buses)
                     {
-                        if (bus.Tracker == true && GetDistance(bus.Coordinates[bus.PositionAt].X, bus.Coordinates[bus.PositionAt].Y, bus2.Coordinates[bus2.PositionAt].X, bus2.Coordinates[bus2.PositionAt].Y) <10)
+                        if (bus.Tracker && GetDistance(bus.Coordinates[bus.PositionAt].X, bus.Coordinates[bus.PositionAt].Y, bus2.Coordinates[bus2.PositionAt].X, bus2.Coordinates[bus2.PositionAt].Y) <10)
                         {
                             if (!bus2.Tracker)
                             {
