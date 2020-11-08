@@ -34,7 +34,8 @@ namespace SystAnalys_lr1
             VertexAndEdge,
             All,
             TheBuses,
-            Station
+            Station,
+            CarCrash
         }
 
         delegate void Del(string text);
@@ -1382,11 +1383,24 @@ namespace SystAnalys_lr1
                     {
                         case ElementConstructorType.Station:
                             G.DrawStation(e.X, e.Y, 2, new SolidBrush(Color.FromArgb(128, 178, 34, 34)));
-                            Data.Staions.Add(new Vertex(e.X, e.Y));
+                            Data.Staions.Add(new Vertex(e.X / Main.zoom, e.Y / Main.zoom));
+                            break;
+                        case ElementConstructorType.CarCrash:
+                            Data.CarCrashes.Add(new Vertex(e.X / Main.zoom, e.Y / Main.zoom));
+
+                           
+                            Bitmap carcrash = new Bitmap("../../Resources/CarCrash.PNG");
+                            carcrash = new Bitmap(carcrash, new Size(50,50));
+                            Main.G.Gr.DrawImage(new Bitmap(carcrash),new PointF(e.X * Main.zoom - carcrash.Width/2,e.Y*Main.zoom - carcrash.Height / 2));
+                         
+                            c.MapUpdate(sheet);                  
+                          
+                           
                             break;
                         case ElementConstructorType.VertexAndEdge:
                             c.DrawVertex(e, Data.V, sheet);
                             break;
+
                     }
                     return;
                 }
@@ -2061,16 +2075,22 @@ namespace SystAnalys_lr1
                 AnimationGraphics = Graphics.FromImage(AnimationBitmap);
                 foreach (var bus in Data.Buses)
                 {
-                    
-                    //
+                    foreach (var CarCrash in Data.CarCrashes)
+                    {
+
+
+
+                    }
+
+
                     foreach (var bus2 in Data.Buses)
                     {
-                        if (bus.Tracker == false && GetDistance(bus.Coordinates[bus.PositionAt].X, bus.Coordinates[bus.PositionAt].Y, bus2.Coordinates[bus2.PositionAt].X, bus2.Coordinates[bus2.PositionAt].Y) <10)
+                        if (bus.Tracker == true && GetDistance(bus.Coordinates[bus.PositionAt].X, bus.Coordinates[bus.PositionAt].Y, bus2.Coordinates[bus2.PositionAt].X, bus2.Coordinates[bus2.PositionAt].Y) <10)
                         {
-                            if (bus2.Tracker)
+                            if (!bus2.Tracker)
                             {
-                                bus2.Tracker = false;
-                                Bitmap busPic = new Bitmap(Bus.OffBusImg);
+                                bus2.Tracker = true;
+                                Bitmap busPic = new Bitmap(Bus.BusImg);
                                 busPic = new Bitmap(busPic, new Size(15, 15));
                                 Bitmap num = new Bitmap(busPic.Height, busPic.Width);
                                 Bitmap original = new Bitmap(Math.Max(busPic.Width, num.Width), Math.Max(busPic.Height, num.Height) * 2);
@@ -2544,6 +2564,28 @@ namespace SystAnalys_lr1
                 if (!Data.StopPointsInGrids.ContainsKey(sp.Key))
                     Data.StopPointsInGrids.Add(sp.Key, new List<int>());
             }
+        }
+
+        private void TurnOffBuses_Click(object sender, EventArgs e)
+        {
+            foreach (var bus in Data.Buses)
+            {
+                bus.Tracker = false;
+                Bitmap busPic = new Bitmap(Bus.OffBusImg);
+                busPic = new Bitmap(busPic, new Size(15, 15));
+                Bitmap num = new Bitmap(busPic.Height, busPic.Width);
+                Bitmap original = new Bitmap(Math.Max(busPic.Width, num.Width), Math.Max(busPic.Height, num.Height) * 2);
+                using (Graphics graphics = Graphics.FromImage(original))
+                {
+
+                    graphics.DrawImage(busPic, 0, 0);
+                    graphics.DrawImage(num, 0, 15);
+                    graphics.Dispose();
+
+                }
+                bus.BusPic = new Bitmap(original);
+            }
+        
         }
 
         public void AnimationSettings()

@@ -46,6 +46,10 @@ namespace SystAnalys_lr1.Forms
             Main.GlobalDel = MainStrings.VandE;
         }
 
-      
+        private void CarCrash_CheckedChanged(object sender, EventArgs e)
+        {
+            Main.DelType = Main.ElementConstructorType.CarCrash;
+            Main.GlobalDel = MainStrings.CarCrash;
+        }
     }
 }

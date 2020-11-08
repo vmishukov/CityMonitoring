@@ -13,7 +13,10 @@ namespace SystAnalys_lr1.Classes
     {
         //Лист всех эпицентров
         public static List<Epicenter> Epics { get; set; } = new List<Epicenter>();
+        //Лист всех сианций
         public static List<Vertex> Staions { get; set; } = new List<Vertex>();
+        //Лист всех аварий
+        public static List<Vertex> CarCrashes { get; set; } = new List<Vertex>();
         //Лист, в котором хранится сетка
         public static List<GridPart> TheGrid { get; set; } = new List<GridPart>();
         //Лист, в котором хранятся автобусы

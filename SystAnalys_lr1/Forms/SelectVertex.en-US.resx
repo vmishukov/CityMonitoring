@@ -121,11 +121,23 @@
     <value>Done</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="metroPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>101, 63</value>
+  </data>
+  <data name="metroPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>247, 144</value>
+  </data>
+  <data name="station.Location" type="System.Drawing.Point, System.Drawing">
+    <value>69, 22</value>
+  </data>
   <data name="station.Size" type="System.Drawing.Size, System.Drawing">
     <value>65, 15</value>
   </data>
   <data name="station.Text" xml:space="preserve">
     <value>Stations</value>
+  </data>
+  <data name="V.Location" type="System.Drawing.Point, System.Drawing">
+    <value>69, 52</value>
   </data>
   <data name="V.Size" type="System.Drawing.Size, System.Drawing">
     <value>63, 15</value>

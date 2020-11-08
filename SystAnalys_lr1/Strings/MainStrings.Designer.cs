@@ -518,7 +518,16 @@ namespace SystAnalys_lr1.Strings {
                 return ResourceManager.GetString("station", resourceCulture);
             }
         }
-        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Аварии.
+        /// </summary>
+        internal static string CarCrash
+        {
+            get
+            {
+                return ResourceManager.GetString("CarCrash", resourceCulture);
+            }
+        }
         /// <summary>
         ///   Ищет локализованную строку, похожую на Автобусы.
         /// </summary>

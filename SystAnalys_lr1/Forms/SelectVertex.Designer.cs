@@ -33,6 +33,7 @@
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
             this.station = new MetroFramework.Controls.MetroRadioButton();
             this.V = new MetroFramework.Controls.MetroRadioButton();
+            this.CarCrash = new MetroFramework.Controls.MetroRadioButton();
             this.metroPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,12 +46,13 @@
             // 
             // metroPanel1
             // 
-            resources.ApplyResources(this.metroPanel1, "metroPanel1");
+            this.metroPanel1.Controls.Add(this.CarCrash);
             this.metroPanel1.Controls.Add(this.station);
             this.metroPanel1.Controls.Add(this.V);
             this.metroPanel1.HorizontalScrollbarBarColor = true;
             this.metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
             this.metroPanel1.HorizontalScrollbarSize = 10;
+            resources.ApplyResources(this.metroPanel1, "metroPanel1");
             this.metroPanel1.Name = "metroPanel1";
             this.metroPanel1.VerticalScrollbarBarColor = true;
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
@@ -69,6 +71,13 @@
             this.V.Name = "V";
             this.V.UseSelectable = true;
             this.V.CheckedChanged += new System.EventHandler(this.V_CheckedChanged);
+            // 
+            // CarCrash
+            // 
+            resources.ApplyResources(this.CarCrash, "CarCrash");
+            this.CarCrash.Name = "CarCrash";
+            this.CarCrash.UseSelectable = true;
+            this.CarCrash.CheckedChanged += new System.EventHandler(this.CarCrash_CheckedChanged);
             // 
             // SelectVertex
             // 
@@ -92,5 +101,6 @@
         private MetroFramework.Controls.MetroPanel metroPanel1;
         public MetroFramework.Controls.MetroRadioButton station;
         public MetroFramework.Controls.MetroRadioButton V;
+        public MetroFramework.Controls.MetroRadioButton CarCrash;
     }
 }

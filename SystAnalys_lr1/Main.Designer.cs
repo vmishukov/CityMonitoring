@@ -98,6 +98,7 @@
             this.saved = new MetroFramework.Controls.MetroLabel();
             this.loadingSpinner = new MetroFramework.Controls.MetroProgressSpinner();
             this.themes = new MetroFramework.Controls.MetroToggle();
+            this.TurnOffBuses = new MetroFramework.Controls.MetroButton();
             this.panelOpt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.results)).BeginInit();
             this.panelSettings.SuspendLayout();
@@ -308,6 +309,7 @@
             // 
             this.allBusSettings.BackColor = System.Drawing.Color.DimGray;
             this.allBusSettings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.allBusSettings.Controls.Add(this.TurnOffBuses);
             this.allBusSettings.Controls.Add(this.backsideCheck);
             this.allBusSettings.Controls.Add(this.stopBuses);
             this.allBusSettings.Controls.Add(this.launchBuses);
@@ -722,6 +724,13 @@
             this.themes.UseSelectable = true;
             this.themes.CheckedChanged += new System.EventHandler(this.Themes_CheckedChanged);
             // 
+            // TurnOffBuses
+            // 
+            resources.ApplyResources(this.TurnOffBuses, "TurnOffBuses");
+            this.TurnOffBuses.Name = "TurnOffBuses";
+            this.TurnOffBuses.UseSelectable = true;
+            this.TurnOffBuses.Click += new System.EventHandler(this.TurnOffBuses_Click);
+            // 
             // Main
             // 
             resources.ApplyResources(this, "$this");
@@ -836,6 +845,7 @@
         private MetroFramework.Controls.MetroLabel saved;
         private MetroFramework.Controls.MetroProgressSpinner loadingSpinner;
         private MetroFramework.Controls.MetroToggle themes;
+        private MetroFramework.Controls.MetroButton TurnOffBuses;
     }
 }
 

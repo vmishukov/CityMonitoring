@@ -471,6 +471,30 @@
   <data name="&gt;&gt;selectedLanguage.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="TurnOffBuses.Location" type="System.Drawing.Point, System.Drawing">
+    <value>147, 72</value>
+  </data>
+  <data name="TurnOffBuses.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 23</value>
+  </data>
+  <data name="TurnOffBuses.TabIndex" type="System.Int32, mscorlib">
+    <value>103</value>
+  </data>
+  <data name="TurnOffBuses.Text" xml:space="preserve">
+    <value>Очистить информацию</value>
+  </data>
+  <data name="&gt;&gt;TurnOffBuses.Name" xml:space="preserve">
+    <value>TurnOffBuses</value>
+  </data>
+  <data name="&gt;&gt;TurnOffBuses.Type" xml:space="preserve">
+    <value>MetroFramework.Controls.MetroButton, MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a</value>
+  </data>
+  <data name="&gt;&gt;TurnOffBuses.Parent" xml:space="preserve">
+    <value>allBusSettings</value>
+  </data>
+  <data name="&gt;&gt;TurnOffBuses.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="backsideCheck.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -496,10 +520,10 @@
     <value>allBusSettings</value>
   </data>
   <data name="&gt;&gt;backsideCheck.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="stopBuses.Location" type="System.Drawing.Point, System.Drawing">
-    <value>146, 56</value>
+    <value>148, 42</value>
   </data>
   <data name="stopBuses.Size" type="System.Drawing.Size, System.Drawing">
     <value>123, 23</value>
@@ -520,10 +544,10 @@
     <value>allBusSettings</value>
   </data>
   <data name="&gt;&gt;stopBuses.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="launchBuses.Location" type="System.Drawing.Point, System.Drawing">
-    <value>145, 27</value>
+    <value>147, 13</value>
   </data>
   <data name="launchBuses.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 23</value>
@@ -544,7 +568,7 @@
     <value>allBusSettings</value>
   </data>
   <data name="&gt;&gt;launchBuses.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="trackerCheck.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -571,7 +595,7 @@
     <value>allBusSettings</value>
   </data>
   <data name="&gt;&gt;trackerCheck.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="allBusSettings.Location" type="System.Drawing.Point, System.Drawing">
     <value>11, 89</value>
