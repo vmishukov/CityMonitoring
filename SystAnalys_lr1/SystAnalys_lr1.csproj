@@ -286,6 +286,7 @@
     <Folder Include="Results\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="README.md" />
     <None Include="Resources\criss-cross.png" />
   </ItemGroup>
   <ItemGroup>
