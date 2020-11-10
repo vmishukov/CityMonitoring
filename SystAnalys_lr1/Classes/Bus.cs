@@ -265,11 +265,29 @@ namespace SystAnalys_lr1.Classes
 
         private int SlowDown { get; set; }
 
+        private void ProvideInfo(List<Bus> buses, Graphics G)
+        {
+            Data.Staions.ForEach(st =>
+            {
+                if (this.Tracker == true)
+                {
+                    if (Math.Pow((double.Parse((st.X * (int)ZoomCoef - Coordinates[PositionAt].X * (int)ZoomCoef).ToString())), 2) + Math.Pow((double.Parse(((st.Y * (int)ZoomCoef - Coordinates[PositionAt].Y * (int)ZoomCoef)).ToString())), 2) <= Main.G.R * (int)ZoomCoef * 700)
+                    {
+                        G.FillEllipse(Brushes.Green, (st.X - Main.zoom * 2), (st.Y - Main.zoom * 2), 4 * Main.zoom * 2, 4 * Main.zoom * 2);
+                        G.FillEllipse(new SolidBrush(Color.FromArgb(72, 17, 187, 17)), (st.X - 30 * Main.zoom * 2), (st.Y - 30 * Main.zoom * 2), 60 * Main.zoom * 2, 60 * Main.zoom * 2);
+                        return;
+                    }
+                }
+            }
+            );
+        }
+
         public void MoveWithGraphics(Graphics G)
         {
             Bus thisBus = new Bus(BusPic, PositionAt, TurnBack, Route, Coordinates, Tracker);
             List<Bus> buses = Data.Buses;
             buses.Remove(thisBus);
+            ProvideInfo(buses, G);
             if (CheckStops.CheckStop == 0)
             {
                 if (TurnBack == false)
