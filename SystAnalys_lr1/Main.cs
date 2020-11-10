@@ -1386,16 +1386,12 @@ namespace SystAnalys_lr1
                             Data.Staions.Add(new Vertex(e.X / Main.zoom, e.Y / Main.zoom));
                             break;
                         case ElementConstructorType.CarCrash:
-                            Data.CarCrashes.Add(new Vertex(e.X / Main.zoom, e.Y / Main.zoom));
-
-                           
+                            Data.CarCrashes.Add(new Vertex(e.X / Main.zoom, e.Y / Main.zoom));                          
                             Bitmap carcrash = new Bitmap("../../Resources/CarCrash.PNG");
                             carcrash = new Bitmap(carcrash, new Size(50,50));
-                            Main.G.Gr.DrawImage(new Bitmap(carcrash),new PointF(e.X  - carcrash.Width/2,e.Y - carcrash.Height / 2));
-                         
+                            Main.G.Gr.DrawImage(new Bitmap(carcrash),new PointF(e.X  - carcrash.Width/2,e.Y - carcrash.Height / 2));                        
                             c.MapUpdate(sheet);                  
-                          
-                           
+                                                
                             break;
                         case ElementConstructorType.VertexAndEdge:
                             c.DrawVertex(e, Data.V, sheet);

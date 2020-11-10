@@ -70,7 +70,14 @@ namespace SystAnalys_lr1.Classes
             Gr.FillEllipse(Brushes.Red, (x - r), (y - r), 4 * r, 4 * r);
             Gr.FillEllipse(b, (x - 30 * r), (y - 30 * r), 60 * r, 60 * r);
         }
-
+        public void DrawCarCrash(int x, int y)
+        {
+            //Data.CarCrashes.Add(new Vertex(e.X / Main.zoom, e.Y / Main.zoom));
+            Bitmap carcrash = new Bitmap("../../Resources/CarCrash.PNG");
+            carcrash = new Bitmap(carcrash, new Size(50, 50));
+            Gr.DrawImage(new Bitmap(carcrash), new PointF(x - carcrash.Width / 2, y- carcrash.Height / 2));
+          
+        }
         public void DrawVertex(int x, int y)
         {
             Gr.FillEllipse(Brushes.GreenYellow, (x - R) * Main.zoom, (y - R) * Main.zoom, R * 2 * Main.zoom, R * 2 * Main.zoom);
@@ -162,6 +169,10 @@ namespace SystAnalys_lr1.Classes
                 foreach (var s in Data.Staions)
                 {
                     DrawStation(s.X * Main.zoom, s.Y * Main.zoom, 2 * Main.zoom, new SolidBrush(Color.FromArgb(128, 178, 34, 34)));
+                }
+                foreach (var s in Data.CarCrashes)
+                {
+                    DrawCarCrash(s.X, s.Y);
                 }
             };
             for (int i = 0; i < E.Count; i++)
