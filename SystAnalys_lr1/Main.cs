@@ -1383,7 +1383,7 @@ namespace SystAnalys_lr1
                     {
                         case ElementConstructorType.Station:
                             G.DrawStation(e.X, e.Y, 2, new SolidBrush(Color.FromArgb(128, 178, 34, 34)));
-                            Data.Staions.Add(new Vertex(e.X / Main.zoom, e.Y / Main.zoom));
+                            Data.Staions.Add(new Station(e.X / Main.zoom, e.Y / Main.zoom));
                             break;
                         case ElementConstructorType.CarCrash:
                             Data.CarCrashes.Add(new Vertex(e.X / Main.zoom, e.Y / Main.zoom));                          
