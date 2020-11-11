@@ -16,7 +16,7 @@ namespace SystAnalys_lr1.Classes
         //Лист всех сианций
         public static List<Station> Staions { get; set; } = new List<Station>();
         //Лист всех аварий
-        public static List<Vertex> CarCrashes { get; set; } = new List<Vertex>();
+        public static List<CarAccident> CarAccidents { get; set; } = new List<CarAccident>();
         //Лист, в котором хранится сетка
         public static List<GridPart> TheGrid { get; set; } = new List<GridPart>();
         //Лист, в котором хранятся автобусы

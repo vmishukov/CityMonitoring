@@ -170,7 +170,7 @@ namespace SystAnalys_lr1.Classes
                 {
                     DrawStation(s.X * Main.zoom, s.Y * Main.zoom, 2 * Main.zoom, new SolidBrush(Color.FromArgb(128, 178, 34, 34)));
                 }
-                foreach (var s in Data.CarCrashes)
+                foreach (var s in Data.CarAccidents)
                 {
                     DrawCarCrash(s.X, s.Y);
                 }

@@ -1386,7 +1386,7 @@ namespace SystAnalys_lr1
                             Data.Staions.Add(new Station(e.X / Main.zoom, e.Y / Main.zoom));
                             break;
                         case ElementConstructorType.CarCrash:
-                            Data.CarCrashes.Add(new Vertex(e.X / Main.zoom, e.Y / Main.zoom));                          
+                            Data.CarAccidents.Add(new CarAccident(e.X / Main.zoom, e.Y / Main.zoom));                          
                             Bitmap carcrash = new Bitmap("../../Resources/CarCrash.PNG");
                             carcrash = new Bitmap(carcrash, new Size(50,50));
                             Main.G.Gr.DrawImage(new Bitmap(carcrash),new PointF(e.X  - carcrash.Width/2,e.Y - carcrash.Height / 2));                        
@@ -2071,7 +2071,7 @@ namespace SystAnalys_lr1
                 AnimationGraphics = Graphics.FromImage(AnimationBitmap);
                 foreach (var bus in Data.Buses)
                 {
-                    foreach (var CarCrash in Data.CarCrashes)
+                    foreach (var CarCrash in Data.CarAccidents)
                     {
                         if (!bus.Tracker  && GetDistance(CarCrash.X, CarCrash.Y, bus.Coordinates[bus.PositionAt].X, bus.Coordinates[bus.PositionAt].Y) < 10)
                         {
