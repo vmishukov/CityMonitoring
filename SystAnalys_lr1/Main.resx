@@ -493,7 +493,7 @@
     <value>allBusSettings</value>
   </data>
   <data name="&gt;&gt;TurnOffBuses.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="backsideCheck.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
