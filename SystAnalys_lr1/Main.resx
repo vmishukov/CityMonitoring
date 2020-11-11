@@ -415,7 +415,31 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;panelOpt.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
+  </data>
+  <data name="TurnOffBuses.Location" type="System.Drawing.Point, System.Drawing">
+    <value>167, 208</value>
+  </data>
+  <data name="TurnOffBuses.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 23</value>
+  </data>
+  <data name="TurnOffBuses.TabIndex" type="System.Int32, mscorlib">
+    <value>103</value>
+  </data>
+  <data name="TurnOffBuses.Text" xml:space="preserve">
+    <value>Очистить информацию</value>
+  </data>
+  <data name="&gt;&gt;TurnOffBuses.Name" xml:space="preserve">
+    <value>TurnOffBuses</value>
+  </data>
+  <data name="&gt;&gt;TurnOffBuses.Type" xml:space="preserve">
+    <value>MetroFramework.Controls.MetroButton, MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a</value>
+  </data>
+  <data name="&gt;&gt;TurnOffBuses.Parent" xml:space="preserve">
+    <value>panelSettings</value>
+  </data>
+  <data name="&gt;&gt;TurnOffBuses.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="busOptions.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -442,7 +466,7 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;busOptions.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="selectedLanguage.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -469,31 +493,7 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;selectedLanguage.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="TurnOffBuses.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 72</value>
-  </data>
-  <data name="TurnOffBuses.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 23</value>
-  </data>
-  <data name="TurnOffBuses.TabIndex" type="System.Int32, mscorlib">
-    <value>103</value>
-  </data>
-  <data name="TurnOffBuses.Text" xml:space="preserve">
-    <value>Очистить информацию</value>
-  </data>
-  <data name="&gt;&gt;TurnOffBuses.Name" xml:space="preserve">
-    <value>TurnOffBuses</value>
-  </data>
-  <data name="&gt;&gt;TurnOffBuses.Type" xml:space="preserve">
-    <value>MetroFramework.Controls.MetroButton, MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a</value>
-  </data>
-  <data name="&gt;&gt;TurnOffBuses.Parent" xml:space="preserve">
-    <value>allBusSettings</value>
-  </data>
-  <data name="&gt;&gt;TurnOffBuses.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="backsideCheck.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -520,7 +520,7 @@
     <value>allBusSettings</value>
   </data>
   <data name="&gt;&gt;backsideCheck.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="stopBuses.Location" type="System.Drawing.Point, System.Drawing">
     <value>148, 42</value>
@@ -544,7 +544,7 @@
     <value>allBusSettings</value>
   </data>
   <data name="&gt;&gt;stopBuses.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="launchBuses.Location" type="System.Drawing.Point, System.Drawing">
     <value>147, 13</value>
@@ -568,7 +568,7 @@
     <value>allBusSettings</value>
   </data>
   <data name="&gt;&gt;launchBuses.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="trackerCheck.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -595,7 +595,7 @@
     <value>allBusSettings</value>
   </data>
   <data name="&gt;&gt;trackerCheck.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="allBusSettings.Location" type="System.Drawing.Point, System.Drawing">
     <value>11, 89</value>
@@ -616,7 +616,7 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;allBusSettings.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="changeRoute.IntegralHeight" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -646,7 +646,7 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;changeRoute.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="matrixLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -673,7 +673,7 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;matrixLabel.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="zoomLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -700,7 +700,7 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;zoomLabel.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="optimization.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -727,7 +727,7 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;optimization.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="matrix.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -778,7 +778,7 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;panelMatrix.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="zoomBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>29, 635</value>
@@ -805,7 +805,7 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;zoomBar.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="panelSettings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Left</value>

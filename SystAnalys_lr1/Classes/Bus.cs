@@ -285,7 +285,7 @@ namespace SystAnalys_lr1.Classes
             Bus thisBus = new Bus(BusPic, PositionAt, TurnBack, Route, Coordinates, Tracker);
             List<Bus> buses = Data.Buses;
             buses.Remove(thisBus);
-            ProvideInfo(buses, G);
+            //ProvideInfo(buses, G);
             if (CheckStops.CheckStop == 0)
             {
                 if (TurnBack == false)

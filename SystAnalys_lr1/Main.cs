@@ -1382,13 +1382,15 @@ namespace SystAnalys_lr1
                     switch (DelType)
                     {
                         case ElementConstructorType.Station:
-                            G.DrawStation(e.X, e.Y, 2, new SolidBrush(Color.FromArgb(128, 178, 34, 34)));
+                            G.DrawStation(e.X, e.Y, 2,false,new SolidBrush(Color.FromArgb(128, 178, 34, 34)));
                             Data.Staions.Add(new Station(e.X / Main.zoom, e.Y / Main.zoom));
                             break;
                         case ElementConstructorType.CarCrash:
-                            Data.CarAccidents.Add(new CarAccident(e.X / Main.zoom, e.Y / Main.zoom));                          
                             Bitmap carcrash = new Bitmap("../../Resources/CarCrash.PNG");
-                            carcrash = new Bitmap(carcrash, new Size(50,50));
+                            carcrash = new Bitmap(carcrash, new Size(30, 30));
+                            Data.CarAccidents.Add(new CarAccident(e.X  / Main.zoom, e.Y  / Main.zoom));                          
+                        
+                         
                             Main.G.Gr.DrawImage(new Bitmap(carcrash),new PointF(e.X  - carcrash.Width/2,e.Y - carcrash.Height / 2));                        
                             c.MapUpdate(sheet);                  
                                                 
@@ -2067,13 +2069,12 @@ namespace SystAnalys_lr1
             {
                 AnimationBitmap = new Bitmap(sheet.Width, sheet.Height);
                 AnimationBitmap.MakeTransparent();
-
                 AnimationGraphics = Graphics.FromImage(AnimationBitmap);
                 foreach (var bus in Data.Buses)
                 {
                     foreach (var CarCrash in Data.CarAccidents)
                     {
-                        if (!bus.Tracker  && GetDistance(CarCrash.X, CarCrash.Y, bus.Coordinates[bus.PositionAt].X, bus.Coordinates[bus.PositionAt].Y) < 10)
+                        if (!bus.Tracker  && GetDistance(CarCrash.X, CarCrash.Y , bus.Coordinates[bus.PositionAt].X, bus.Coordinates[bus.PositionAt].Y) < 10)
                         {
                             bus.Tracker = true;
                             Bitmap busPic = new Bitmap(Bus.BusImg);
@@ -2082,7 +2083,6 @@ namespace SystAnalys_lr1
                             Bitmap original = new Bitmap(Math.Max(busPic.Width, num.Width), Math.Max(busPic.Height, num.Height) * 2);
                             using (Graphics graphics = Graphics.FromImage(original))
                             {
-
                                 graphics.DrawImage(busPic, 0, 0);
                                 graphics.DrawImage(num, 0, 15);
                                 graphics.Dispose();
@@ -2090,10 +2090,17 @@ namespace SystAnalys_lr1
                             }
                             bus.BusPic = new Bitmap(original);
                         }
-
-
                     }
-
+                    Data.Staions.ForEach(st =>
+                    {
+                        if (((Math.Pow((double.Parse((st.X * Main.zoom - bus.Coordinates[bus.PositionAt].X * Main.zoom).ToString())), 2) + Math.Pow((double.Parse(((st.Y * Main.zoom - bus.Coordinates[bus.PositionAt].Y * Main.zoom)).ToString())), 2) <= Main.G.R * Main.zoom * 700)) &&(bus.Tracker == true) &&(!st.HaveInfo))
+                        {                          
+                                st.HaveInfo = true;
+                                G.ClearSheet();
+                                G.DrawALLGraph(Data.V, Data.E);                   
+                                GridCreator.DrawGrid(sheet);                                              
+                        }
+                    });
 
                     foreach (var bus2 in Data.Buses)
                     {
@@ -2108,16 +2115,12 @@ namespace SystAnalys_lr1
                                 Bitmap original = new Bitmap(Math.Max(busPic.Width, num.Width), Math.Max(busPic.Height, num.Height) * 2);
                                 using (Graphics graphics = Graphics.FromImage(original))
                                 {
-
                                     graphics.DrawImage(busPic, 0, 0);
                                     graphics.DrawImage(num, 0, 15);
                                     graphics.Dispose();
-
                                 }
                                 bus2.BusPic = new Bitmap(original);
-                            }
-                            
-                           
+                            }                                                   
                         }
                     }
                     //
@@ -2127,7 +2130,6 @@ namespace SystAnalys_lr1
                     {
                         GC.Collect();
                     }
-
                 }
             }
         }
@@ -2597,7 +2599,14 @@ namespace SystAnalys_lr1
                 }
                 bus.BusPic = new Bitmap(original);
             }
-        
+            Data.Staions.ForEach(st =>
+            {
+                st.HaveInfo = false;
+            });
+            Data.CarAccidents.Clear();
+            G.ClearSheet();
+            G.DrawALLGraph(Data.V, Data.E);
+            GridCreator.DrawGrid(sheet);
         }
 
         public void AnimationSettings()

@@ -47,6 +47,7 @@
             this.busOptions = new MetroFramework.Controls.MetroLabel();
             this.selectedLanguage = new MetroFramework.Controls.MetroLabel();
             this.allBusSettings = new MetroFramework.Controls.MetroPanel();
+            this.TurnOffBuses = new MetroFramework.Controls.MetroButton();
             this.backsideCheck = new MetroFramework.Controls.MetroCheckBox();
             this.stopBuses = new MetroFramework.Controls.MetroButton();
             this.launchBuses = new MetroFramework.Controls.MetroButton();
@@ -98,7 +99,6 @@
             this.saved = new MetroFramework.Controls.MetroLabel();
             this.loadingSpinner = new MetroFramework.Controls.MetroProgressSpinner();
             this.themes = new MetroFramework.Controls.MetroToggle();
-            this.TurnOffBuses = new MetroFramework.Controls.MetroButton();
             this.panelOpt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.results)).BeginInit();
             this.panelSettings.SuspendLayout();
@@ -276,6 +276,7 @@
             // panelSettings
             // 
             this.panelSettings.BackColor = System.Drawing.SystemColors.Menu;
+            this.panelSettings.Controls.Add(this.TurnOffBuses);
             this.panelSettings.Controls.Add(this.busOptions);
             this.panelSettings.Controls.Add(this.selectedLanguage);
             this.panelSettings.Controls.Add(this.allBusSettings);
@@ -309,7 +310,6 @@
             // 
             this.allBusSettings.BackColor = System.Drawing.Color.DimGray;
             this.allBusSettings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.allBusSettings.Controls.Add(this.TurnOffBuses);
             this.allBusSettings.Controls.Add(this.backsideCheck);
             this.allBusSettings.Controls.Add(this.stopBuses);
             this.allBusSettings.Controls.Add(this.launchBuses);
@@ -324,6 +324,13 @@
             this.allBusSettings.VerticalScrollbarBarColor = true;
             this.allBusSettings.VerticalScrollbarHighlightOnWheel = false;
             this.allBusSettings.VerticalScrollbarSize = 23;
+            // 
+            // TurnOffBuses
+            // 
+            resources.ApplyResources(this.TurnOffBuses, "TurnOffBuses");
+            this.TurnOffBuses.Name = "TurnOffBuses";
+            this.TurnOffBuses.UseSelectable = true;
+            this.TurnOffBuses.Click += new System.EventHandler(this.TurnOffBuses_Click);
             // 
             // backsideCheck
             // 
@@ -723,13 +730,6 @@
             this.themes.Name = "themes";
             this.themes.UseSelectable = true;
             this.themes.CheckedChanged += new System.EventHandler(this.Themes_CheckedChanged);
-            // 
-            // TurnOffBuses
-            // 
-            resources.ApplyResources(this.TurnOffBuses, "TurnOffBuses");
-            this.TurnOffBuses.Name = "TurnOffBuses";
-            this.TurnOffBuses.UseSelectable = true;
-            this.TurnOffBuses.Click += new System.EventHandler(this.TurnOffBuses_Click);
             // 
             // Main
             // 

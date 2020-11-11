@@ -15,6 +15,7 @@ namespace SystAnalys_lr1.Classes
         public int X { get => _x; set => _x = value; }
         public int Y { get => _y; set => _y = value; }
         public int GridNum { get => _gridNum; set => _gridNum = value; }
+        public bool HaveInfo = false;
 
         public Station()
         { }

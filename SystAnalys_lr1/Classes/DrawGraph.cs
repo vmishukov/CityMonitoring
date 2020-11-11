@@ -65,16 +65,26 @@ namespace SystAnalys_lr1.Classes
 
         }
 
-        public void DrawStation(int x, int y, int r, Brush b)
+        public void DrawStation(int x, int y, int r,bool HaveInfo, Brush b)
         {
-            Gr.FillEllipse(Brushes.Red, (x - r), (y - r), 4 * r, 4 * r);
-            Gr.FillEllipse(b, (x - 30 * r), (y - 30 * r), 60 * r, 60 * r);
+            if (!HaveInfo)
+            {
+                Gr.FillEllipse(Brushes.Red, (x - r), (y - r), 4 * r, 4 * r);
+                Gr.FillEllipse(b, (x - 30 * r), (y - 30 * r), 60 * r, 60 * r);
+            }
+            else
+            {
+                Gr.FillEllipse(Brushes.Green, (x - r), (y - r), 4 * r, 4 * r);
+                b = new SolidBrush(Color.FromArgb(128, 173,255, 47));
+                Gr.FillEllipse(b, (x - 30 * r), (y - 30 * r), 60 * r, 60 * r);
+            }
+            
         }
         public void DrawCarCrash(int x, int y)
         {
             //Data.CarCrashes.Add(new Vertex(e.X / Main.zoom, e.Y / Main.zoom));
             Bitmap carcrash = new Bitmap("../../Resources/CarCrash.PNG");
-            carcrash = new Bitmap(carcrash, new Size(50, 50));
+            carcrash = new Bitmap(carcrash, new Size(30, 30));
             Gr.DrawImage(new Bitmap(carcrash), new PointF(x - carcrash.Width / 2, y- carcrash.Height / 2));
           
         }
@@ -168,11 +178,11 @@ namespace SystAnalys_lr1.Classes
                 pen.Width = 2 * Main.zoom;
                 foreach (var s in Data.Staions)
                 {
-                    DrawStation(s.X * Main.zoom, s.Y * Main.zoom, 2 * Main.zoom, new SolidBrush(Color.FromArgb(128, 178, 34, 34)));
+                    DrawStation(s.X * Main.zoom, s.Y * Main.zoom, 2 * Main.zoom, s.HaveInfo, new SolidBrush(Color.FromArgb(128, 178, 34, 34)));
                 }
                 foreach (var s in Data.CarAccidents)
                 {
-                    DrawCarCrash(s.X, s.Y);
+                    DrawCarCrash(s.X * Main.zoom, s.Y * Main.zoom);
                 }
             };
             for (int i = 0; i < E.Count; i++)
