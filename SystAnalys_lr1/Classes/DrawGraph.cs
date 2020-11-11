@@ -55,11 +55,7 @@ namespace SystAnalys_lr1.Classes
 
         public void ClearSheet2()
         {
-            if (!Main.Ep.IsDisposed)
-            {
-                Bitmap = new Bitmap(DisplayEpicenters.ZoomPicture);
-            }
-
+          
             Gr = null;
             Gr = Graphics.FromImage(Bitmap);
 

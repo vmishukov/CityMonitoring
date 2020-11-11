@@ -57,7 +57,6 @@ namespace SystAnalys_lr1.Classes
         public static int ScrollX { get => s_scrollX; set => s_scrollX = value; }
         public static int ScrollY { get => s_scrollY; set => s_scrollY = value; }
 
-        public List<Epicenter> Epicenters { get => _epicenters; set => _epicenters = value; }
         private readonly Random rnd = new Random();
 
         public int PositionAt { get => _positionAt; set => _positionAt = value; }
@@ -89,7 +88,6 @@ namespace SystAnalys_lr1.Classes
         private static string s_offBusImg = "../../Resources/bus.PNG";
         private static int s_scrollX;
         private static int s_scrollY;
-        private List<Epicenter> _epicenters = new List<Epicenter>();
         private int _positionAt;
         private bool _turnBack;
         private bool _stopAtStationByGrid = false;
@@ -128,16 +126,7 @@ namespace SystAnalys_lr1.Classes
             changeSpeed = rnd.Next(20, 50);
         }
 
-        public void ClearAroundEpic()
-        {
-            foreach (var Epic in Epicenters)
-            {
-                for (int i = 2; i < Epic.EpicenterGrid.Count + 1; i++)
-                {
-                    Epic.EpicenterGrid[i] = new List<GridPart>();
-                }
-            }
-        }
+     
 
 
         public void MoveWithoutGraphicsByGrids()
@@ -453,129 +442,10 @@ namespace SystAnalys_lr1.Classes
             return Route;
         }
 
-        public async Task AsDetectEpicenter()
-        {
-            await Task.Run(() => DetectEpicenter());
-        }
+ 
 
         // обмнаружение  эпицентров через точки
-        public int DetectEpicenter()
-        {
-            foreach (var EpicList in Epicenters)
-            {
-                foreach (var Sector in EpicList.EpicenterGrid)
-                {
-                    foreach (var Square in Sector.Value)
-                        if ((PositionAt < Coordinates.Count))
-                            if (((Coordinates[PositionAt].X * ZoomCoef) >= Square.X * ZoomCoef) && ((Coordinates[PositionAt].X * ZoomCoef) <= Square.X * ZoomCoef + GridPart.Width * ZoomCoef) && ((Coordinates[PositionAt].Y * ZoomCoef) >= Square.Y * ZoomCoef) && ((Coordinates[PositionAt].Y * ZoomCoef) <= (Square.Y * ZoomCoef + GridPart.Height * ZoomCoef)))
-                            {
-                                switch (Sector.Key)
-                                {
-                                    case 1:
-                                        if (Square.Check == false)
-                                        {
-                                            Square.Check = true;
-                                            EpicList.DetectCount++;
-                                        }
-                                        return 3;
-                                    case 2:
-                                        return 2;
-                                    case 3:
-                                        return 1;
-                                    default:
-                                        return 0;
 
-                                }
-                            }
-                }
-            }
-
-            return 0;
-        }
-        public int DetectEpicenterByGrid()
-        {
-            foreach (var EpicList in Epicenters)
-            {
-                foreach (var Sector in EpicList.EpicenterGrid)
-                {
-                    foreach (var Square in Sector.Value)
-                    {
-
-                        if (((Data.TheGrid[Data.AllGridsInRoutes[Route][(int)PositionAt]].X == Square.X) && (Data.TheGrid[Data.AllGridsInRoutes[Route][(int)PositionAt]].Y + GridPart.Height == Square.Y)))
-                        {
-                            CheckEpic(Sector, Square, EpicList);
-                        }
-
-                        if (((Data.TheGrid[Data.AllGridsInRoutes[Route][(int)PositionAt]].X == Square.X) && (Data.TheGrid[Data.AllGridsInRoutes[Route][(int)PositionAt]].Y - GridPart.Height == Square.Y)))
-                        {
-                            CheckEpic(Sector, Square, EpicList);
-                        }
-
-                        if (((Data.TheGrid[Data.AllGridsInRoutes[Route][(int)PositionAt]].X - GridPart.Width == Square.X) && (Data.TheGrid[Data.AllGridsInRoutes[Route][(int)PositionAt]].Y - GridPart.Height == Square.Y)))
-                        {
-                            CheckEpic(Sector, Square, EpicList);
-                        }
-
-                        if (((Data.TheGrid[Data.AllGridsInRoutes[Route][(int)PositionAt]].X + GridPart.Width == Square.X) && (Data.TheGrid[Data.AllGridsInRoutes[Route][(int)PositionAt]].Y - GridPart.Height == Square.Y)))
-                        {
-                            CheckEpic(Sector, Square, EpicList);
-                        }
-
-                        if (((Data.TheGrid[Data.AllGridsInRoutes[Route][(int)PositionAt]].X + GridPart.Width == Square.X) && (Data.TheGrid[Data.AllGridsInRoutes[Route][(int)PositionAt]].Y == Square.Y)))
-                        {
-                            CheckEpic(Sector, Square, EpicList);
-                        }
-
-                        if (((Data.TheGrid[Data.AllGridsInRoutes[Route][(int)PositionAt]].X - GridPart.Width == Square.X) && (Data.TheGrid[Data.AllGridsInRoutes[Route][(int)PositionAt]].Y == Square.Y)))
-                        {
-                            CheckEpic(Sector, Square, EpicList);
-                        }
-
-
-                        if (((Data.TheGrid[Data.AllGridsInRoutes[Route][(int)PositionAt]].X + GridPart.Width == Square.X) && (Data.TheGrid[Data.AllGridsInRoutes[Route][(int)PositionAt]].Y + GridPart.Height == Square.Y)))
-                        {
-                            CheckEpic(Sector, Square, EpicList);
-                        }
-
-                        if (((Data.TheGrid[Data.AllGridsInRoutes[Route][(int)PositionAt]].X - GridPart.Width == Square.X) && (Data.TheGrid[Data.AllGridsInRoutes[Route][(int)PositionAt]].Y + GridPart.Height == Square.Y)))
-                        {
-                            CheckEpic(Sector, Square, EpicList);
-                        }
-
-                        if (((Data.TheGrid[Data.AllGridsInRoutes[Route][(int)PositionAt]].X == Square.X) && (Data.TheGrid[Data.AllGridsInRoutes[Route][(int)PositionAt]].Y == Square.Y)))
-                        {
-                            return CheckEpic(Sector, Square, EpicList);
-                        }
-                    }
-                }
-            }
-
-            return 0;
-        }
-        private int CheckEpic(KeyValuePair<int, List<GridPart>> Sector, GridPart Square, Epicenter EpicList)
-        {
-            lock (Epicenters)
-            {
-                switch (Sector.Key)
-                {
-                    case 1:
-                        if (Square.Check == false)
-                        {
-                            Square.Check = true;
-                            EpicList.DetectCount++;
-                        }
-                        return 3;
-                    case 2:
-                        return 2;
-                    case 3:
-                        return 1;
-
-                    default:
-                        return 0;
-
-                }
-            }
-        }
 
 
         public async Task AsyncDetectRectangle()

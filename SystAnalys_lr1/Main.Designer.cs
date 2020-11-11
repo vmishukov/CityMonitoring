@@ -29,12 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.panelOpt = new MetroFramework.Controls.MetroPanel();
-            this.pollutionOptions = new MetroFramework.Controls.MetroButton();
             this.results = new MetroFramework.Controls.MetroGrid();
             this.Avg = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Walkthrough = new MetroFramework.Controls.MetroLabel();
@@ -44,10 +43,10 @@
             this.optText = new MetroFramework.Controls.MetroTextBox();
             this.speed = new MetroFramework.Controls.MetroTextBox();
             this.panelSettings = new MetroFramework.Controls.MetroPanel();
+            this.TurnOffBuses = new MetroFramework.Controls.MetroButton();
             this.busOptions = new MetroFramework.Controls.MetroLabel();
             this.selectedLanguage = new MetroFramework.Controls.MetroLabel();
             this.allBusSettings = new MetroFramework.Controls.MetroPanel();
-            this.TurnOffBuses = new MetroFramework.Controls.MetroButton();
             this.backsideCheck = new MetroFramework.Controls.MetroCheckBox();
             this.stopBuses = new MetroFramework.Controls.MetroButton();
             this.launchBuses = new MetroFramework.Controls.MetroButton();
@@ -57,7 +56,6 @@
             this.zoomLabel = new MetroFramework.Controls.MetroLabel();
             this.optimization = new MetroFramework.Controls.MetroLabel();
             this.panelMatrix = new MetroFramework.Controls.MetroPanel();
-            this.matrix = new SystAnalys_lr1.Classes.MatrixControl();
             this.zoomBar = new MetroFramework.Controls.MetroTrackBar();
             this.trafficLightLabel = new MetroFramework.Controls.MetroLabel();
             this.theme = new MetroFramework.Controls.MetroLabel();
@@ -69,7 +67,6 @@
             this.toolStripMenu = new System.Windows.Forms.ToolStrip();
             this.saveButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.createModelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openEpicFormToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addRouteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,6 +96,7 @@
             this.saved = new MetroFramework.Controls.MetroLabel();
             this.loadingSpinner = new MetroFramework.Controls.MetroProgressSpinner();
             this.themes = new MetroFramework.Controls.MetroToggle();
+            this.matrix = new SystAnalys_lr1.Classes.MatrixControl();
             this.panelOpt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.results)).BeginInit();
             this.panelSettings.SuspendLayout();
@@ -114,7 +112,7 @@
             // 
             this.panelOpt.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.panelOpt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelOpt.Controls.Add(this.pollutionOptions);
+            this.panelOpt.Controls.Add(this.TurnOffBuses);
             this.panelOpt.Controls.Add(this.results);
             this.panelOpt.Controls.Add(this.Walkthrough);
             this.panelOpt.Controls.Add(this.T);
@@ -130,13 +128,6 @@
             this.panelOpt.VerticalScrollbarBarColor = true;
             this.panelOpt.VerticalScrollbarHighlightOnWheel = false;
             this.panelOpt.VerticalScrollbarSize = 15;
-            // 
-            // pollutionOptions
-            // 
-            resources.ApplyResources(this.pollutionOptions, "pollutionOptions");
-            this.pollutionOptions.Name = "pollutionOptions";
-            this.pollutionOptions.UseSelectable = true;
-            this.pollutionOptions.Click += new System.EventHandler(this.MetroButton2_Click);
             // 
             // results
             // 
@@ -276,7 +267,6 @@
             // panelSettings
             // 
             this.panelSettings.BackColor = System.Drawing.SystemColors.Menu;
-            this.panelSettings.Controls.Add(this.TurnOffBuses);
             this.panelSettings.Controls.Add(this.busOptions);
             this.panelSettings.Controls.Add(this.selectedLanguage);
             this.panelSettings.Controls.Add(this.allBusSettings);
@@ -295,6 +285,13 @@
             this.panelSettings.VerticalScrollbarBarColor = true;
             this.panelSettings.VerticalScrollbarHighlightOnWheel = false;
             this.panelSettings.VerticalScrollbarSize = 15;
+            // 
+            // TurnOffBuses
+            // 
+            resources.ApplyResources(this.TurnOffBuses, "TurnOffBuses");
+            this.TurnOffBuses.Name = "TurnOffBuses";
+            this.TurnOffBuses.UseSelectable = true;
+            this.TurnOffBuses.Click += new System.EventHandler(this.TurnOffBuses_Click);
             // 
             // busOptions
             // 
@@ -324,13 +321,6 @@
             this.allBusSettings.VerticalScrollbarBarColor = true;
             this.allBusSettings.VerticalScrollbarHighlightOnWheel = false;
             this.allBusSettings.VerticalScrollbarSize = 23;
-            // 
-            // TurnOffBuses
-            // 
-            resources.ApplyResources(this.TurnOffBuses, "TurnOffBuses");
-            this.TurnOffBuses.Name = "TurnOffBuses";
-            this.TurnOffBuses.UseSelectable = true;
-            this.TurnOffBuses.Click += new System.EventHandler(this.TurnOffBuses_Click);
             // 
             // backsideCheck
             // 
@@ -394,12 +384,6 @@
             this.panelMatrix.VerticalScrollbarBarColor = true;
             this.panelMatrix.VerticalScrollbarHighlightOnWheel = false;
             this.panelMatrix.VerticalScrollbarSize = 15;
-            // 
-            // matrix
-            // 
-            resources.ApplyResources(this.matrix, "matrix");
-            this.matrix.Name = "matrix";
-            this.matrix.UseSelectable = true;
             // 
             // zoomBar
             // 
@@ -510,7 +494,6 @@
             this.saveButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.saveButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.createModelToolStripMenuItem,
-            this.openEpicFormToolStripMenuItem,
             this.addRouteToolStripMenuItem,
             this.createGridToolStripMenuItem,
             this.saveToolStripMenuItem,
@@ -523,12 +506,6 @@
             this.createModelToolStripMenuItem.Name = "createModelToolStripMenuItem";
             resources.ApplyResources(this.createModelToolStripMenuItem, "createModelToolStripMenuItem");
             this.createModelToolStripMenuItem.Click += new System.EventHandler(this.NewModelToolStripMenuItem_Click);
-            // 
-            // openEpicFormToolStripMenuItem
-            // 
-            this.openEpicFormToolStripMenuItem.Name = "openEpicFormToolStripMenuItem";
-            resources.ApplyResources(this.openEpicFormToolStripMenuItem, "openEpicFormToolStripMenuItem");
-            this.openEpicFormToolStripMenuItem.Click += new System.EventHandler(this.OpenEpicFormToolStripMenuItem_Click);
             // 
             // addRouteToolStripMenuItem
             // 
@@ -731,6 +708,12 @@
             this.themes.UseSelectable = true;
             this.themes.CheckedChanged += new System.EventHandler(this.Themes_CheckedChanged);
             // 
+            // matrix
+            // 
+            resources.ApplyResources(this.matrix, "matrix");
+            this.matrix.Name = "matrix";
+            this.matrix.UseSelectable = true;
+            // 
             // Main
             // 
             resources.ApplyResources(this, "$this");
@@ -803,7 +786,6 @@
         private System.Windows.Forms.ToolStripButton addTraficLight;
         public System.Windows.Forms.ToolStrip toolStripMenu;
         private System.Windows.Forms.ToolStripButton selectRoute;
-        private System.Windows.Forms.ToolStripMenuItem openEpicFormToolStripMenuItem;
         private MetroFramework.Controls.MetroLabel Walkthrough;
         private MetroFramework.Controls.MetroLabel T;
         private System.Windows.Forms.ToolStripMenuItem addRouteToolStripMenuItem;
@@ -827,8 +809,6 @@
         private MetroFramework.Controls.MetroGrid results;
         private System.Windows.Forms.DataGridViewTextBoxColumn Avg;
 
-
-        private MetroFramework.Controls.MetroButton pollutionOptions;
         private System.Windows.Forms.ToolStripButton clearButton;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.ToolStripButton reportTool;

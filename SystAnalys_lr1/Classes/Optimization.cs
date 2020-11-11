@@ -134,50 +134,50 @@ namespace SystAnalys_lr1.Classes
                     Data.Buses[rnd.Next(0, Data.Buses.Count)].Tracker = true;
                 List<int?> mas = new List<int?>();
                 ShuffleBuses();
-                if (EpicSettings.SavePictures == true)
-                {
-                    Directory.CreateDirectory(PathOpt + "/Epics" + "/" + (cicl + 1).ToString());
-                }
-                for (int i = 0; i < OptiCount; i++)
-                {
-                    if (EpicSettings.SavePictures == true)
-                    {
-                        Directory.CreateDirectory(PathOpt + "/Epics" + "/" + (cicl + 1).ToString() + "/" + (i + 1).ToString());
-                    }
-                    Epicenter.CreateOneRandomEpicenter(Main.EpicSizeParam, null);
-                    Modeling.StartModeling(PathOpt, cicl, i);
-                    if ((EpicSettings.SavePictures == true) && (!EpicSettings.ExtendedSavePictures == true))
-                    {
+                //if (EpicSettings.SavePictures == true)
+                //{
+                //    Directory.CreateDirectory(PathOpt + "/Epics" + "/" + (cicl + 1).ToString());
+                //}
+                //for (int i = 0; i < OptiCount; i++)
+                //{
+                //    if (EpicSettings.SavePictures == true)
+                //    {
+                //        Directory.CreateDirectory(PathOpt + "/Epics" + "/" + (cicl + 1).ToString() + "/" + (i + 1).ToString());
+                //    }
+                //    Epicenter.CreateOneRandomEpicenter(Main.EpicSizeParam, null);
+                //    Modeling.StartModeling(PathOpt, cicl, i);
+                //    if ((EpicSettings.SavePictures == true) && (!EpicSettings.ExtendedSavePictures == true))
+                //    {
 
-                        lock (Main.Ep.Esheet)
-                        {
-                            Main.Ep.EDrawEpics(Data.Epics);
-                        }
-                        lock (Main.Ep.Esheet)
-                        {
-                            using (System.Drawing.Image img = (Image)Main.Ep.Esheet.Image.Clone())
-                            {
-                                img.Save(PathOpt + "/Epics" + "/" + (cicl + 1).ToString() + "/" + (i + 1).ToString() + "/" + i.ToString() + "_nat" + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
-                            }
-                        }
+                //        lock (Main.Ep.Esheet)
+                //        {
+                //            Main.Ep.EDrawEpics(Data.Epics);
+                //        }
+                //        lock (Main.Ep.Esheet)
+                //        {
+                //            using (System.Drawing.Image img = (Image)Main.Ep.Esheet.Image.Clone())
+                //            {
+                //                img.Save(PathOpt + "/Epics" + "/" + (cicl + 1).ToString() + "/" + (i + 1).ToString() + "/" + i.ToString() + "_nat" + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                //            }
+                //        }
 
-                        lock (Main.Ep.Esheet)
-                        {
-                            Main.Ep.RecReateFunction();
-                        }
-                        lock (Main.Ep.Esheet)
-                        {
-                            using (System.Drawing.Image img = (Image)Main.Ep.Esheet.Image.Clone())
-                            {
-                                img.Save(PathOpt + "/Epics" + "/" + (cicl + 1).ToString() + "/" + (i + 1).ToString() + "/" + i.ToString() + "_re" + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
-                            }
-                        }
+                //        lock (Main.Ep.Esheet)
+                //        {
+                //            Main.Ep.RecReateFunction();
+                //        }
+                //        lock (Main.Ep.Esheet)
+                //        {
+                //            using (System.Drawing.Image img = (Image)Main.Ep.Esheet.Image.Clone())
+                //            {
+                //                img.Save(PathOpt + "/Epics" + "/" + (cicl + 1).ToString() + "/" + (i + 1).ToString() + "/" + i.ToString() + "_re" + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                //            }
+                //        }
 
-                    }
+                //    }
 
-                    loadingForm.loading.Invoke(new DelInt((s) => loadingForm.loading.Value = s), loadingForm.loading.Value + 1);
-                    Small = 10000;
-                }
+                //    loadingForm.loading.Invoke(new DelInt((s) => loadingForm.loading.Value = s), loadingForm.loading.Value + 1);
+                //    Small = 10000;
+                //}
 
                 int total = Modeling.ResultFromModeling.Sum(x => Convert.ToInt32(x));
                 int count = 0;

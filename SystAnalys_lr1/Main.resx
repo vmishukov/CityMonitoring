@@ -118,30 +118,30 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="pollutionOptions.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="TurnOffBuses.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 72</value>
   </data>
-  <data name="pollutionOptions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 23</value>
+  <data name="TurnOffBuses.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 23</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="pollutionOptions.TabIndex" type="System.Int32, mscorlib">
-    <value>97</value>
+  <data name="TurnOffBuses.TabIndex" type="System.Int32, mscorlib">
+    <value>103</value>
   </data>
-  <data name="pollutionOptions.Text" xml:space="preserve">
-    <value>Загрязнение</value>
+  <data name="TurnOffBuses.Text" xml:space="preserve">
+    <value>Очистить информацию</value>
   </data>
-  <data name="&gt;&gt;pollutionOptions.Name" xml:space="preserve">
-    <value>pollutionOptions</value>
+  <data name="&gt;&gt;TurnOffBuses.Name" xml:space="preserve">
+    <value>TurnOffBuses</value>
   </data>
-  <data name="&gt;&gt;pollutionOptions.Type" xml:space="preserve">
+  <data name="&gt;&gt;TurnOffBuses.Type" xml:space="preserve">
     <value>MetroFramework.Controls.MetroButton, MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a</value>
   </data>
-  <data name="&gt;&gt;pollutionOptions.Parent" xml:space="preserve">
+  <data name="&gt;&gt;TurnOffBuses.Parent" xml:space="preserve">
     <value>panelOpt</value>
   </data>
-  <data name="&gt;&gt;pollutionOptions.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;TurnOffBuses.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="Avg.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -415,31 +415,7 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;panelOpt.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="TurnOffBuses.Location" type="System.Drawing.Point, System.Drawing">
-    <value>167, 208</value>
-  </data>
-  <data name="TurnOffBuses.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 23</value>
-  </data>
-  <data name="TurnOffBuses.TabIndex" type="System.Int32, mscorlib">
-    <value>103</value>
-  </data>
-  <data name="TurnOffBuses.Text" xml:space="preserve">
-    <value>Очистить информацию</value>
-  </data>
-  <data name="&gt;&gt;TurnOffBuses.Name" xml:space="preserve">
-    <value>TurnOffBuses</value>
-  </data>
-  <data name="&gt;&gt;TurnOffBuses.Type" xml:space="preserve">
-    <value>MetroFramework.Controls.MetroButton, MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a</value>
-  </data>
-  <data name="&gt;&gt;TurnOffBuses.Parent" xml:space="preserve">
-    <value>panelSettings</value>
-  </data>
-  <data name="&gt;&gt;TurnOffBuses.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>10</value>
   </data>
   <data name="busOptions.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -466,7 +442,7 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;busOptions.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="selectedLanguage.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -493,7 +469,7 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;selectedLanguage.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="backsideCheck.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -616,7 +592,7 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;allBusSettings.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="changeRoute.IntegralHeight" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -646,7 +622,7 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;changeRoute.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="matrixLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -673,7 +649,7 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;matrixLabel.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="zoomLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -700,7 +676,7 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;zoomLabel.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="optimization.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -727,7 +703,7 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;optimization.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="matrix.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -778,7 +754,7 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;panelMatrix.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>9</value>
   </data>
   <data name="zoomBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>29, 635</value>
@@ -805,7 +781,7 @@
     <value>panelSettings</value>
   </data>
   <data name="&gt;&gt;zoomBar.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>11</value>
   </data>
   <data name="panelSettings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Left</value>
@@ -1039,31 +1015,25 @@
     <value>162, 18</value>
   </metadata>
   <data name="createModelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="createModelToolStripMenuItem.Text" xml:space="preserve">
     <value>Создать модель</value>
   </data>
-  <data name="openEpicFormToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 22</value>
-  </data>
-  <data name="openEpicFormToolStripMenuItem.Text" xml:space="preserve">
-    <value>Открыть 2-ю форму</value>
-  </data>
   <data name="addRouteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="addRouteToolStripMenuItem.Text" xml:space="preserve">
     <value>Добавить маршрут</value>
   </data>
   <data name="createGridToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="createGridToolStripMenuItem.Text" xml:space="preserve">
     <value>Настройка сетки</value>
   </data>
   <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
     <value>Сохранить</value>
@@ -1081,7 +1051,7 @@
     <value>XML</value>
   </data>
   <data name="saveInToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="saveInToolStripMenuItem.Text" xml:space="preserve">
     <value>Сохранить в...</value>
@@ -1458,6 +1428,9 @@
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 8.25pt</value>
   </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
@@ -1504,12 +1477,6 @@
     <value>createModelToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;createModelToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;openEpicFormToolStripMenuItem.Name" xml:space="preserve">
-    <value>openEpicFormToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;openEpicFormToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;addRouteToolStripMenuItem.Name" xml:space="preserve">

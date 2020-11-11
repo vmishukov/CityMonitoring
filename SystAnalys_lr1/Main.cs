@@ -56,7 +56,7 @@ namespace SystAnalys_lr1
         CrossroadsSettings crossSettings;
         AddRoute addR;
         AddGrid addG;
-        public EpicSettings EpSet { get; set; }
+ 
         LoadingForm loadingForm;
         readonly Constructor c = new Constructor();
 
@@ -83,7 +83,7 @@ namespace SystAnalys_lr1
         readonly Random rnd = new Random();
 
         //вторая форма
-        static public DisplayEpicenters Ep { get; set; }
+       
 
         int wsheet;
         int hsheet;
@@ -150,7 +150,7 @@ namespace SystAnalys_lr1
                 Owner = this
             };
             f.ShowDialog();
-            Ep.ERefreshRouts();
+      
         }
 
         private void TextBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -196,7 +196,6 @@ namespace SystAnalys_lr1
             optimize.Invoke(new DelBool((s) => optimize.Enabled = s), true);
             launchBuses.Invoke(new DelBool((s) => launchBuses.Enabled = s), true);
             stopBuses.Invoke(new DelBool((s) => launchBuses.Enabled = s), true);
-            pollutionOptions.Invoke(new DelBool((s) => pollutionOptions.Enabled = s), true);
             toolStripMenu.Invoke((System.Action)(() =>
             {
                 saveButton.Enabled = true;
@@ -209,8 +208,7 @@ namespace SystAnalys_lr1
             changeRoute.Invoke(new DelBool((s) => changeRoute.Enabled = s), false);
             optimize.Invoke(new DelBool((s) => optimize.Enabled = s), false);
             launchBuses.Invoke(new DelBool((s) => launchBuses.Enabled = s), false);
-            stopBuses.Invoke(new DelBool((s) => launchBuses.Enabled = s), false);
-            pollutionOptions.Invoke(new DelBool((s) => pollutionOptions.Enabled = s), false);
+            stopBuses.Invoke(new DelBool((s) => launchBuses.Enabled = s), false);        
             toolStripMenu.Invoke((System.Action)(() =>
             {
                 saveButton.Enabled = false;
@@ -511,8 +509,7 @@ namespace SystAnalys_lr1
                 trafficLightLabel.Visible = false;
                 selectRoute.Enabled = true;
                 selected = new List<int>();
-                stopPointButton.Enabled = true;
-                Ep.ERefreshRouts();
+                stopPointButton.Enabled = true;      
                 loadingForm.loading.Value = 85;
                 loadingForm.loading.Value = 100;
                 loadingForm.close = true;
@@ -542,12 +539,7 @@ namespace SystAnalys_lr1
             {
                 timer.Stop();
                 savepath = null;
-                if (Ep != null)
-                {
-                    Ep.EG = new DrawGraph();
-                    Ep.Close();
-
-                }
+           
                 config.Text = MainStrings.config;
                 DeleteAll();
                 G.Bitmap = null;
@@ -566,11 +558,6 @@ namespace SystAnalys_lr1
 
                 Modeling.CreatePollutionInRoutes();
                 AddInComboBox();
-                Ep = new DisplayEpicenters(this);
-                StyleManager.Clone(Ep);
-                Ep.Show();
-
-                openEpicFormToolStripMenuItem.Enabled = true;
                 addRouteToolStripMenuItem.Enabled = true;
                 createGridToolStripMenuItem.Enabled = true;
                 matrix.MatrixCreate();
@@ -742,10 +729,6 @@ namespace SystAnalys_lr1
                 trafficLightLabel.Visible = false;
                 selected = new List<int>();
                 stopPointButton.Enabled = true;
-                if (!Ep.IsDisposed)
-                {
-                    Ep.ERefreshRouts();
-                }
                 changeRoute.SelectedIndex = index;
                 if (changeRoute.Text == MainStrings.network)
                 {
@@ -892,17 +875,9 @@ namespace SystAnalys_lr1
                         Style = msmMain.Style
                     };
 
-                    if (!Ep.IsDisposed)
-                    {
-                        StyleManager.Clone(Ep);
-                        Ep.Refresh();
-                    }
+                 
 
-                    if (EpicSettings.SavePictures == true)
-                    {
-                        Ep.Hide();
-                        Directory.CreateDirectory(Optimization.PathOpt + "/Epics");
-                    }
+                 
 
                     loadingForm.Show();
                     loadingForm.Refresh();
@@ -933,11 +908,7 @@ namespace SystAnalys_lr1
 
                     msmMain.Style = style;
 
-                    if (!Ep.IsDisposed)
-                    {
-                        StyleManager.Clone(Ep);
-                        Ep.Refresh();
-                    }
+
                     BringToFront();
                     timer.Start();
                     ButtonOn();
@@ -954,10 +925,7 @@ namespace SystAnalys_lr1
             }
         }
 
-        public bool GetSavePictruesCheckBox()
-        {
-            return EpicSettings.SavePictures;
-        }
+   
 
         private void LoadFromToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1006,7 +974,6 @@ namespace SystAnalys_lr1
         }
         public void ToolStripMenuButtonOn()
         {
-            openEpicFormToolStripMenuItem.Enabled = true;
             addRouteToolStripMenuItem.Enabled = true;
             createGridToolStripMenuItem.Enabled = true;
         }
@@ -1186,15 +1153,7 @@ namespace SystAnalys_lr1
 
         private void DeleteAll()
         {
-            if (Ep != null)
-            {
-                if (!Ep.IsDisposed)
-                {
-                    Ep.EG.ClearSheet2();
-                    Ep.Dispose();
-                    Ep.Close();
-                }
-            }
+           
 
             foreach (var bus in Data.Buses)
             {
@@ -1227,7 +1186,6 @@ namespace SystAnalys_lr1
             Data.V.Clear();
             Data.E.Clear();
 
-            Data.Epics.Clear();
             AnimationClear();
         }
 
@@ -1259,7 +1217,6 @@ namespace SystAnalys_lr1
         private void LoadOptions(string load)
         {
 
-            DisplayEpicenters.Path = load;
             sheet.Image = Image.FromFile(load + "/Map.png");
             saveImage = sheet.Image;
             zoomBar.Value = 1;
@@ -1269,7 +1226,6 @@ namespace SystAnalys_lr1
             GlobalMap = sheet.Image;
             G.SetBitmap();
             config.Text = MainStrings.config + load;
-            openEpicFormToolStripMenuItem.Enabled = true;
             GridCreator.CreateGrid(sheet);
             Modeling.CreatePollutionInRoutes();
             ConstructorOnNetwork();
@@ -1278,11 +1234,6 @@ namespace SystAnalys_lr1
             G.DrawALLGraph(Data.V, Data.E);
             sheet.Image = G.GetBitmap();
             GridCreator.DrawGrid(sheet);
-            if (Ep != null)
-                Ep.Close();
-            Ep = new DisplayEpicenters(this);
-            StyleManager.Clone(Ep);
-            Ep.Show();
 
             if (Data.AllCoordinates.Count != 0)
                 coordinates.CreateAllCoordinates();
@@ -1530,10 +1481,6 @@ namespace SystAnalys_lr1
                 f.ShowDialog();
                 c.MapUpdate(sheet);
                 GridCreator.DrawGrid(sheet);
-                if (!Ep.IsDisposed)
-                {
-                    Ep.EDrawGrid();
-                }
 
             }
         }
@@ -1825,14 +1772,7 @@ namespace SystAnalys_lr1
 
         private void OpenEpicFormToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!Ep.IsDisposed)
-            {
-                Ep.Close();
 
-            }
-            Ep = new DisplayEpicenters(this);
-            StyleManager.Clone(Ep);
-            Ep.Show();
 
         }
 
@@ -1842,10 +1782,7 @@ namespace SystAnalys_lr1
             this.StyleManager.Clone(addR);
             addR.ShowDialog();
             addR.Dispose();
-            if (!Ep.IsDisposed)
-            {
-                Ep.ERefreshRouts();
-            }
+
             if (addR.textBox1.Text != "")
             {
                 if (!Data.Routes.ContainsKey(this.addR.textBox1.Text))
@@ -1899,27 +1836,19 @@ namespace SystAnalys_lr1
                 fileV.WriteLine(msmMain.Theme);
             }
 
-            this.StyleManager.Clone(Ep);
-            if (Ep != null)
-            {
-                Ep.Refresh();
 
-            }
         }
 
 
         private void ChangeTheme_SelectedIndexChanged(object sender, EventArgs e)
         {
             msmMain.Style = (MetroFramework.MetroColorStyle)Convert.ToInt32(changeTheme.Items.IndexOf(changeTheme.Text));
-            StyleManager.Clone(Ep);
+  
             using (StreamWriter fileV = new StreamWriter("../../SaveConfig/style.txt"))
             {
                 fileV.WriteLine(Convert.ToInt32(changeTheme.Items.IndexOf(changeTheme.Text)));
             }
-            if (Ep != null)
-            {
-                Ep.Refresh();
-            }
+  
 
         }
 
@@ -2056,12 +1985,7 @@ namespace SystAnalys_lr1
         }
 
 
-        private void MetroButton2_Click(object sender, EventArgs e)
-        {
-            EpSet = new EpicSettings();
-            StyleManager.Clone(EpSet);
-            EpSet.ShowDialog();
-        }
+   
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
@@ -2236,7 +2160,6 @@ namespace SystAnalys_lr1
         private void ClearButton_Click(object sender, EventArgs e)
         {
             clearButton.Enabled = false;
-            openEpicFormToolStripMenuItem.Enabled = false;
             addRouteToolStripMenuItem.Enabled = false;
             createGridToolStripMenuItem.Enabled = false;
             savepath = null;
@@ -2274,19 +2197,12 @@ namespace SystAnalys_lr1
                 StyleManager.Clone(addG);
                 addG.ShowDialog();
                 G.ClearSheet();
-                if (!Ep.IsDisposed)
-                {
-                    Ep.EG.ClearSheet2();
-                }
+      
                 G.DrawALLGraph(Data.V, Data.E);
                 GridCreator.CreateGrid(sheet);
 
                 sheet.Image = G.GetBitmap();
                 GridCreator.DrawGrid(sheet);
-                if (!Ep.IsDisposed)
-                {
-                    Ep.EDrawGrid();
-                }
 
                 coordinates.CreateAllCoordinates();
                 Modeling.CreatePollutionInRoutes();
@@ -2295,14 +2211,7 @@ namespace SystAnalys_lr1
 
         private void Button11_Click(object sender, EventArgs e)
         {
-            if (G.Bitmap != null)
-            {
-                EpicSettings f = new EpicSettings
-                {
-                    Owner = this
-                };
-                f.ShowDialog();
-            }
+           
         }
 
         private void AddInComboBox()
@@ -2354,7 +2263,7 @@ namespace SystAnalys_lr1
 
         private void InitializeElements()
         {
-            EpicSettings.MovingEpicParamet = new List<string>();
+           
             KeyPreview = true;
             deleteBus = new ToolStripButton();
             deleteRoute = new ToolStripButton();
@@ -2562,7 +2471,6 @@ namespace SystAnalys_lr1
             if (sheet.Image == null)
             {
                 addRouteToolStripMenuItem.Enabled = false;
-                openEpicFormToolStripMenuItem.Enabled = false;
                 createGridToolStripMenuItem.Enabled = false;
             }
 
@@ -2607,6 +2515,11 @@ namespace SystAnalys_lr1
             G.ClearSheet();
             G.DrawALLGraph(Data.V, Data.E);
             GridCreator.DrawGrid(sheet);
+        }
+
+        private void pollutionOptions_Click(object sender, EventArgs e)
+        {
+
         }
 
         public void AnimationSettings()
