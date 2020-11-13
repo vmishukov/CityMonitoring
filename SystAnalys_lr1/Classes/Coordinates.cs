@@ -1,6 +1,4 @@
-﻿//This is a personal academic project. Dear PVS-Studio, please check it.
-//PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-using MetroFramework.Forms;
+﻿using MetroFramework.Forms;
 using SystAnalys_lr1.Classes;
 using System;
 using System.Collections.Generic;
@@ -51,6 +49,75 @@ namespace SystAnalys_lr1
          
 
         }
+    
+        public IEnumerable<int> AdjacentVertex(Vertex vertex)
+        {
+            foreach (var e in Data.E)
+                if (e.V1.Equals(Data.V.IndexOf(vertex)))
+                    yield return e.V2;
+        }
+        //public  IEnumerable<int> GetAdjacentVertices(int v)
+        //{
+        //    if (v < 0 ||) throw new ArgumentOutOfRangeException("Cannot access vertex");
+
+        //    List<int> adjacentVertices = new List<int>();
+        //    for (int i = 0; i < this.numVertices; i++)
+        //    {
+        //        if (this.Matrix[v, i] > 0)
+        //            adjacentVertices.Add(i);
+        //    }
+        //    return adjacentVertices;
+        //}
+        private List<Vertex> GenerateRandomRoute()
+        {
+            List<Vertex> randVertexes = new List<Vertex>();
+     
+            Random rnd = new Random();
+            //foreach (var n in Enumerable.Range(2, Data.V.Count - 2).OrderBy(x => rnd.Next()).Take(rnd.Next(2, Data.V.Count - 2)).ToList())
+            //{
+            //    randVertexes.Add(Data.V[n]);
+            //}
+            randVertexes.Add(Data.V.OrderBy(x => Guid.NewGuid()).FirstOrDefault());
+            for (int i = 0; i < 10; i++)
+            { 
+                var test = AdjacentVertex(randVertexes.Last());
+                //int kek = test.ToList().OrderBy(x => Guid.NewGuid()).FirstOrDefault();
+                if (test.Any())
+                {
+                    int kek = test.ToList().OrderBy(x => Guid.NewGuid()).FirstOrDefault();
+                    randVertexes.Add(Data.V[kek]);
+                }
+                
+
+            }
+        
+            return randVertexes;
+         
+                 
+        }
+        public List<Point> CreateOneRouteRandomCoordinates()
+        {
+            List<Point> RandCoordinates = new List<Point>();
+            //try
+            //{
+                
+                if (Data.V.Count >= 2)
+                {
+                    List<int> RandGridsInRoutes = new List<int>();
+                    List<Vertex> RandomRoute = GenerateRandomRoute();
+                    RandCoordinates.AddRange(GetPoints(RandomRoute, null));
+                }
+                Bus.ScrollX = Main.scrollX;
+                Bus.ScrollY = Main.scrollY;
+            //}
+            //catch (Exception)
+            //{
+
+            //    throw;
+            //}          
+            return RandCoordinates;
+
+        }
         public async void AsyncCreateAllCoordinates()
         {
             await Task.Run(() =>
@@ -82,7 +149,11 @@ namespace SystAnalys_lr1
                         if (RectCheckCount == 10)
                         {
                             RectCheckCount = 0;
-                            GetOneRouteGrids(points, route);
+                            if (route != null)
+                            {
+                                GetOneRouteGrids(points, route);
+                            }
+                           
                         }
                         else
                         {
@@ -91,7 +162,10 @@ namespace SystAnalys_lr1
 
                     }
                     points.Add(p2);
-                    GetOneRouteGrids(points, route);
+                    if (route != null)
+                    {
+                        GetOneRouteGrids(points, route);
+                    }
                 }
             }
             return points;

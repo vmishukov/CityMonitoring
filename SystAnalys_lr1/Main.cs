@@ -2517,9 +2517,16 @@ namespace SystAnalys_lr1
             GridCreator.DrawGrid(sheet);
         }
 
-        private void pollutionOptions_Click(object sender, EventArgs e)
-        {
 
+
+        private void metroButton1_Click(object sender, EventArgs e)
+        {
+            foreach (var b in Data.Buses)
+            {
+                b.PositionAt = 0;
+                b.Coordinates = coordinates.CreateOneRouteRandomCoordinates();
+           
+            }
         }
 
         public void AnimationSettings()

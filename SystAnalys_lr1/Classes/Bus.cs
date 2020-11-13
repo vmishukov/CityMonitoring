@@ -69,6 +69,7 @@ namespace SystAnalys_lr1.Classes
 
         private int? Locate = null;
         public List<Point> Coordinates { get => _coordinates; set => _coordinates = value; }
+        public List<int> GridCoordinates { get => _gridCoordinates; set => _gridCoordinates = value; }
         public int R { get => _r; set => _r = value; }
         //сколько автобусу нужно проехать в тиках
         public int TickCount_ { get => _tickCount_; set => _tickCount_ = value; }
@@ -94,6 +95,7 @@ namespace SystAnalys_lr1.Classes
         private Image _busPic;
         private string _route;
         private List<Point> _coordinates;
+        private List<int> _gridCoordinates;
         private int _r = 7;
         private int _tickCount_;
         private int _allTickCount;
@@ -275,112 +277,36 @@ namespace SystAnalys_lr1.Classes
             List<Bus> buses = Data.Buses;
             buses.Remove(thisBus);
             //ProvideInfo(buses, G);
-            if (CheckStops.CheckStop == 0)
+            if (Coordinates.Any())
             {
-                if (TurnBack == false)
+                if (CheckStops.CheckStop == 0)
                 {
-                    if (PositionAt < Coordinates.Count - 1)
+                    if (TurnBack == false)
                     {
-                        if (Data.Buses.Count != 0)
+                        if (PositionAt < Coordinates.Count - 1)
                         {
-                            foreach (var bus in buses)
+                            if (Data.Buses.Count != 0)
                             {
-                                if ((PositionAt < Coordinates.Count) && (bus.PositionAt < bus.Coordinates.Count))
+                                foreach (var bus in buses)
                                 {
-                                    if (Math.Pow((bus.Coordinates[bus.PositionAt].X * (int)ZoomCoef - (Coordinates[PositionAt].X * (int)ZoomCoef)), 2) + Math.Pow((bus.Coordinates[bus.PositionAt].Y * (int)ZoomCoef - (Coordinates[PositionAt].Y * (int)ZoomCoef)), 2) <= bus.R * bus.R && bus.TurnBack == TurnBack && !bus.stopOnBusStop && bus.CheckStops.CheckStop != 0)
+                                    if ((PositionAt < Coordinates.Count) && (bus.PositionAt < bus.Coordinates.Count))
                                     {
-                                        CheckBus(bus);
-                                        break;
-                                    }
-                                    if (Math.Pow((bus.Coordinates[bus.PositionAt].X * (int)ZoomCoef - (Coordinates[PositionAt].X * (int)ZoomCoef)), 2) + Math.Pow((bus.Coordinates[bus.PositionAt].Y * (int)ZoomCoef - (Coordinates[PositionAt].Y * (int)ZoomCoef)), 2) <= bus.R * bus.R)
-                                    {
-                                        if (bus.TurnBack == TurnBack && bus.PositionAt > PositionAt)
+                                        if (Math.Pow((bus.Coordinates[bus.PositionAt].X * (int)ZoomCoef - (Coordinates[PositionAt].X * (int)ZoomCoef)), 2) + Math.Pow((bus.Coordinates[bus.PositionAt].Y * (int)ZoomCoef - (Coordinates[PositionAt].Y * (int)ZoomCoef)), 2) <= bus.R * bus.R && bus.TurnBack == TurnBack && !bus.stopOnBusStop && bus.CheckStops.CheckStop != 0)
                                         {
-                                            SlowDown += 1;
+                                            CheckBus(bus);
                                             break;
                                         }
-                                        else
+                                        if (Math.Pow((bus.Coordinates[bus.PositionAt].X * (int)ZoomCoef - (Coordinates[PositionAt].X * (int)ZoomCoef)), 2) + Math.Pow((bus.Coordinates[bus.PositionAt].Y * (int)ZoomCoef - (Coordinates[PositionAt].Y * (int)ZoomCoef)), 2) <= bus.R * bus.R)
                                         {
-                                            if (SlowDown != 0)
-                                                SlowDown -= 1;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        if (Data.StopPoints.Count != 0 && Data.StopPoints.ContainsKey(Route))
-                        {
-                            if (Skips.SkipStops == 0)
-                            {
-                                foreach (var sp in Data.StopPoints[Route])
-                                {
-                                    if (Math.Pow((double.Parse((sp.X * (int)ZoomCoef - Coordinates[PositionAt].X * (int)ZoomCoef).ToString())), 2) + Math.Pow((double.Parse(((sp.Y * (int)ZoomCoef - Coordinates[PositionAt].Y * (int)ZoomCoef)).ToString())), 2) <= Main.G.R * (int)ZoomCoef * (Main.G.R * (int)ZoomCoef))
-                                    {
-                                        CheckStop();
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        if (Data.TraficLights.Count != 0)
-                        {
-                            if (Skips.SkipTrafficLights == 0)
-                            {
-                                CheckTrafficLight();
-                            }
-                        }
-                        G.DrawImage(BusPic, Coordinates[PositionAt].X * (int)ZoomCoef - BusPic.Width / 2, Coordinates[PositionAt].Y * (int)ZoomCoef - BusPic.Height / 2);
-                        StopDown();
-                        TurnBackOff();
-
-                    }
-                    else
-                    {
-                        StopDown();
-                        Skips.SkipEnd = rnd.Next(0, BusStop.StopTime * 3);
-                        if (PositionAt < Coordinates.Count)
-                        {
-                            G.DrawImage(BusPic, Coordinates[PositionAt].X * (int)ZoomCoef - BusPic.Width / 2, Coordinates[PositionAt].Y * (int)ZoomCoef - BusPic.Height / 2);
-                        }
-                        if (Skips.SkipEnd == 0)
-                        {
-                            TurnBack = true;
-                            TurnBackOn();
-
-                        }
-                    }
-                }
-                else
-                {
-                    if (PositionAt > 0)
-                    {
-                        if (PositionAt < Coordinates.Count)
-                        {
-                            if (CheckStops.CheckStoppedBus == 0)
-                            {
-                                if (Data.Buses.Count != 0)
-                                {
-                                    foreach (var bus in buses)
-                                    {
-                                        if ((PositionAt < Coordinates.Count) && (bus.PositionAt < bus.Coordinates.Count))
-                                        {
-                                            if (Math.Pow((bus.Coordinates[bus.PositionAt].X * (int)ZoomCoef - (Coordinates[PositionAt].X * (int)ZoomCoef)), 2) + Math.Pow((bus.Coordinates[bus.PositionAt].Y * (int)ZoomCoef - (Coordinates[PositionAt].Y * (int)ZoomCoef)), 2) <= bus.R * bus.R && bus.TurnBack == TurnBack && !bus.stopOnBusStop && bus.CheckStops.CheckStop != 0)
+                                            if (bus.TurnBack == TurnBack && bus.PositionAt > PositionAt)
                                             {
-                                                CheckBus(bus);
+                                                SlowDown += 1;
                                                 break;
                                             }
-                                            if (Math.Pow((bus.Coordinates[bus.PositionAt].X * (int)ZoomCoef - (Coordinates[PositionAt].X * (int)ZoomCoef)), 2) + Math.Pow((bus.Coordinates[bus.PositionAt].Y * (int)ZoomCoef - (Coordinates[PositionAt].Y * (int)ZoomCoef)), 2) <= bus.R * bus.R)
+                                            else
                                             {
-                                                if (bus.TurnBack == TurnBack && bus.PositionAt < PositionAt)
-                                                {
-                                                    SlowDown += 1;
-                                                    break;
-                                                }
-                                                else
-                                                {
-                                                    if (SlowDown != 0)
-                                                        SlowDown -= 1;
-                                                }
+                                                if (SlowDown != 0)
+                                                    SlowDown -= 1;
                                             }
                                         }
                                     }
@@ -392,7 +318,6 @@ namespace SystAnalys_lr1.Classes
                                 {
                                     foreach (var sp in Data.StopPoints[Route])
                                     {
-
                                         if (Math.Pow((double.Parse((sp.X * (int)ZoomCoef - Coordinates[PositionAt].X * (int)ZoomCoef).ToString())), 2) + Math.Pow((double.Parse(((sp.Y * (int)ZoomCoef - Coordinates[PositionAt].Y * (int)ZoomCoef)).ToString())), 2) <= Main.G.R * (int)ZoomCoef * (Main.G.R * (int)ZoomCoef))
                                         {
                                             CheckStop();
@@ -408,32 +333,113 @@ namespace SystAnalys_lr1.Classes
                                     CheckTrafficLight();
                                 }
                             }
-
                             G.DrawImage(BusPic, Coordinates[PositionAt].X * (int)ZoomCoef - BusPic.Width / 2, Coordinates[PositionAt].Y * (int)ZoomCoef - BusPic.Height / 2);
                             StopDown();
-                            TurnBackOn();
+                            TurnBackOff();
+
+                        }
+                        else
+                        {
+                            StopDown();
+                            Skips.SkipEnd = rnd.Next(0, BusStop.StopTime * 3);
+                            if (PositionAt < Coordinates.Count)
+                            {
+                                G.DrawImage(BusPic, Coordinates[PositionAt].X * (int)ZoomCoef - BusPic.Width / 2, Coordinates[PositionAt].Y * (int)ZoomCoef - BusPic.Height / 2);
+                            }
+                            if (Skips.SkipEnd == 0)
+                            {
+                                TurnBack = true;
+                                TurnBackOn();
+
+                            }
                         }
                     }
                     else
                     {
-                        StopDown();
-                        Skips.SkipEnd = rnd.Next(0, BusStop.StopTime * 3);
-                        G.DrawImage(BusPic, Coordinates[PositionAt].X * (int)ZoomCoef - BusPic.Width / 2, Coordinates[PositionAt].Y * (int)ZoomCoef - BusPic.Height / 2);
-                        if (Skips.SkipEnd == 0)
+                        if (PositionAt > 0)
                         {
-                            TurnBack = false;
-                            TurnBackOff();
+                            if (PositionAt < Coordinates.Count)
+                            {
+                                if (CheckStops.CheckStoppedBus == 0)
+                                {
+                                    if (Data.Buses.Count != 0)
+                                    {
+                                        foreach (var bus in buses)
+                                        {
+                                            if ((PositionAt < Coordinates.Count) && (bus.PositionAt < bus.Coordinates.Count))
+                                            {
+                                                if (Math.Pow((bus.Coordinates[bus.PositionAt].X * (int)ZoomCoef - (Coordinates[PositionAt].X * (int)ZoomCoef)), 2) + Math.Pow((bus.Coordinates[bus.PositionAt].Y * (int)ZoomCoef - (Coordinates[PositionAt].Y * (int)ZoomCoef)), 2) <= bus.R * bus.R && bus.TurnBack == TurnBack && !bus.stopOnBusStop && bus.CheckStops.CheckStop != 0)
+                                                {
+                                                    CheckBus(bus);
+                                                    break;
+                                                }
+                                                if (Math.Pow((bus.Coordinates[bus.PositionAt].X * (int)ZoomCoef - (Coordinates[PositionAt].X * (int)ZoomCoef)), 2) + Math.Pow((bus.Coordinates[bus.PositionAt].Y * (int)ZoomCoef - (Coordinates[PositionAt].Y * (int)ZoomCoef)), 2) <= bus.R * bus.R)
+                                                {
+                                                    if (bus.TurnBack == TurnBack && bus.PositionAt < PositionAt)
+                                                    {
+                                                        SlowDown += 1;
+                                                        break;
+                                                    }
+                                                    else
+                                                    {
+                                                        if (SlowDown != 0)
+                                                            SlowDown -= 1;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if (Data.StopPoints.Count != 0 && Data.StopPoints.ContainsKey(Route))
+                                {
+                                    if (Skips.SkipStops == 0)
+                                    {
+                                        foreach (var sp in Data.StopPoints[Route])
+                                        {
+
+                                            if (Math.Pow((double.Parse((sp.X * (int)ZoomCoef - Coordinates[PositionAt].X * (int)ZoomCoef).ToString())), 2) + Math.Pow((double.Parse(((sp.Y * (int)ZoomCoef - Coordinates[PositionAt].Y * (int)ZoomCoef)).ToString())), 2) <= Main.G.R * (int)ZoomCoef * (Main.G.R * (int)ZoomCoef))
+                                            {
+                                                CheckStop();
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                if (Data.TraficLights.Count != 0)
+                                {
+                                    if (Skips.SkipTrafficLights == 0)
+                                    {
+                                        CheckTrafficLight();
+                                    }
+                                }
+
+                                G.DrawImage(BusPic, Coordinates[PositionAt].X * (int)ZoomCoef - BusPic.Width / 2, Coordinates[PositionAt].Y * (int)ZoomCoef - BusPic.Height / 2);
+                                StopDown();
+                                TurnBackOn();
+                            }
+                        }
+                        else
+                        {
+                            StopDown();
+                            Skips.SkipEnd = rnd.Next(0, BusStop.StopTime * 3);
+                            G.DrawImage(BusPic, Coordinates[PositionAt].X * (int)ZoomCoef - BusPic.Width / 2, Coordinates[PositionAt].Y * (int)ZoomCoef - BusPic.Height / 2);
+                            if (Skips.SkipEnd == 0)
+                            {
+                                TurnBack = false;
+                                TurnBackOff();
+                            }
+
                         }
 
                     }
-
+                }
+                else
+                {
+                    StopDown();
+                    G.DrawImage(BusPic, Coordinates[PositionAt].X * (int)ZoomCoef - BusPic.Width / 2, Coordinates[PositionAt].Y * (int)ZoomCoef - BusPic.Height / 2);
                 }
             }
-            else
-            {
-                StopDown();
-                G.DrawImage(BusPic, Coordinates[PositionAt].X * (int)ZoomCoef - BusPic.Width / 2, Coordinates[PositionAt].Y * (int)ZoomCoef - BusPic.Height / 2);
-            }
+            
 
         }
 
