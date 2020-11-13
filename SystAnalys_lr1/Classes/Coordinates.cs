@@ -77,7 +77,8 @@ namespace SystAnalys_lr1
             //{
             //    randVertexes.Add(Data.V[n]);
             //}
-            randVertexes.Add(Data.V.OrderBy(x => Guid.NewGuid()).FirstOrDefault());
+            //randVertexes.Add(Data.V.OrderBy(x => Guid.NewGuid()).FirstOrDefault());
+            randVertexes.Add(Data.V[rnd.Next(1, Data.V.Count-1)]);
             for (int i = 0; i < 10; i++)
             { 
                 var test = AdjacentVertex(randVertexes.Last());
