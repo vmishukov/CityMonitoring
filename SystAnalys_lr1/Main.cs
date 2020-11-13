@@ -56,7 +56,7 @@ namespace SystAnalys_lr1
         CrossroadsSettings crossSettings;
         AddRoute addR;
         AddGrid addG;
- 
+
         LoadingForm loadingForm;
         readonly Constructor c = new Constructor();
 
@@ -83,7 +83,7 @@ namespace SystAnalys_lr1
         readonly Random rnd = new Random();
 
         //вторая форма
-       
+
 
         int wsheet;
         int hsheet;
@@ -150,7 +150,7 @@ namespace SystAnalys_lr1
                 Owner = this
             };
             f.ShowDialog();
-      
+
         }
 
         private void TextBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -208,7 +208,7 @@ namespace SystAnalys_lr1
             changeRoute.Invoke(new DelBool((s) => changeRoute.Enabled = s), false);
             optimize.Invoke(new DelBool((s) => optimize.Enabled = s), false);
             launchBuses.Invoke(new DelBool((s) => launchBuses.Enabled = s), false);
-            stopBuses.Invoke(new DelBool((s) => launchBuses.Enabled = s), false);        
+            stopBuses.Invoke(new DelBool((s) => launchBuses.Enabled = s), false);
             toolStripMenu.Invoke((System.Action)(() =>
             {
                 saveButton.Enabled = false;
@@ -509,7 +509,7 @@ namespace SystAnalys_lr1
                 trafficLightLabel.Visible = false;
                 selectRoute.Enabled = true;
                 selected = new List<int>();
-                stopPointButton.Enabled = true;      
+                stopPointButton.Enabled = true;
                 loadingForm.loading.Value = 85;
                 loadingForm.loading.Value = 100;
                 loadingForm.close = true;
@@ -539,7 +539,7 @@ namespace SystAnalys_lr1
             {
                 timer.Stop();
                 savepath = null;
-           
+
                 config.Text = MainStrings.config;
                 DeleteAll();
                 G.Bitmap = null;
@@ -875,9 +875,9 @@ namespace SystAnalys_lr1
                         Style = msmMain.Style
                     };
 
-                 
 
-                 
+
+
 
                     loadingForm.Show();
                     loadingForm.Refresh();
@@ -925,7 +925,7 @@ namespace SystAnalys_lr1
             }
         }
 
-   
+
 
         private void LoadFromToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1153,7 +1153,7 @@ namespace SystAnalys_lr1
 
         private void DeleteAll()
         {
-           
+
 
             foreach (var bus in Data.Buses)
             {
@@ -1169,7 +1169,7 @@ namespace SystAnalys_lr1
                 tl.Stop();
             }
 
-            Data.Staions.Clear();
+            Data.Stations.Clear();
             Data.Routes.Clear();
             Data.RoutesEdge.Clear();
             changeRoute.Items.Clear();
@@ -1333,18 +1333,18 @@ namespace SystAnalys_lr1
                     switch (DelType)
                     {
                         case ElementConstructorType.Station:
-                            G.DrawStation(e.X, e.Y, 2,false,new SolidBrush(Color.FromArgb(128, 178, 34, 34)));
-                            Data.Staions.Add(new Station(e.X / Main.zoom, e.Y / Main.zoom));
+                            G.DrawStation(e.X, e.Y, 2, false, new SolidBrush(Color.FromArgb(128, 178, 34, 34)));
+                            Data.Stations.Add(new Station(e.X / Main.zoom, e.Y / Main.zoom));
                             break;
                         case ElementConstructorType.CarCrash:
                             Bitmap carcrash = new Bitmap("../../Resources/CarCrash.PNG");
                             carcrash = new Bitmap(carcrash, new Size(30, 30));
-                            Data.CarAccidents.Add(new CarAccident(e.X  / Main.zoom, e.Y  / Main.zoom));                          
-                        
-                         
-                            Main.G.Gr.DrawImage(new Bitmap(carcrash),new PointF(e.X  - carcrash.Width/2,e.Y - carcrash.Height / 2));                        
-                            c.MapUpdate(sheet);                  
-                                                
+                            Data.CarAccidents.Add(new CarAccident(e.X / Main.zoom, e.Y / Main.zoom));
+
+
+                            Main.G.Gr.DrawImage(new Bitmap(carcrash), new PointF(e.X - carcrash.Width / 2, e.Y - carcrash.Height / 2));
+                            c.MapUpdate(sheet);
+
                             break;
                         case ElementConstructorType.VertexAndEdge:
                             c.DrawVertex(e, Data.V, sheet);
@@ -1564,7 +1564,7 @@ namespace SystAnalys_lr1
                     }
                 }
                 //Parallel.ForEach(b, (bus) =>
-                foreach(var bus in b)
+                foreach (var bus in b)
                 {
                     foreach (var B in Data.Buses)
                     {
@@ -1843,12 +1843,12 @@ namespace SystAnalys_lr1
         private void ChangeTheme_SelectedIndexChanged(object sender, EventArgs e)
         {
             msmMain.Style = (MetroFramework.MetroColorStyle)Convert.ToInt32(changeTheme.Items.IndexOf(changeTheme.Text));
-  
+
             using (StreamWriter fileV = new StreamWriter("../../SaveConfig/style.txt"))
             {
                 fileV.WriteLine(Convert.ToInt32(changeTheme.Items.IndexOf(changeTheme.Text)));
             }
-  
+
 
         }
 
@@ -1985,7 +1985,7 @@ namespace SystAnalys_lr1
         }
 
 
-   
+
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
@@ -1998,7 +1998,7 @@ namespace SystAnalys_lr1
                 {
                     foreach (var CarCrash in Data.CarAccidents)
                     {
-                        if (!bus.Tracker  && GetDistance(CarCrash.X, CarCrash.Y , bus.Coordinates[bus.PositionAt].X, bus.Coordinates[bus.PositionAt].Y) < 10)
+                        if (!bus.Tracker && GetDistance(CarCrash.X, CarCrash.Y, bus.Coordinates[bus.PositionAt].X, bus.Coordinates[bus.PositionAt].Y) < 10)
                         {
                             bus.Tracker = true;
                             Bitmap busPic = new Bitmap(Bus.BusImg);
@@ -2015,20 +2015,21 @@ namespace SystAnalys_lr1
                             bus.BusPic = new Bitmap(original);
                         }
                     }
-                    Data.Staions.ForEach(st =>
+                    Data.Stations.ForEach(st =>
                     {
-                        if (((Math.Pow((double.Parse((st.X * Main.zoom - bus.Coordinates[bus.PositionAt].X * Main.zoom).ToString())), 2) + Math.Pow((double.Parse(((st.Y * Main.zoom - bus.Coordinates[bus.PositionAt].Y * Main.zoom)).ToString())), 2) <= Main.G.R * Main.zoom * 700)) &&(bus.Tracker == true) &&(!st.HaveInfo))
-                        {                          
-                                st.HaveInfo = true;
-                                G.ClearSheet();
-                                G.DrawALLGraph(Data.V, Data.E);                   
-                                GridCreator.DrawGrid(sheet);                                              
+                        if (((Math.Pow((double.Parse((st.X * Main.zoom - bus.Coordinates[bus.PositionAt].X * Main.zoom).ToString())), 2) + Math.Pow((double.Parse(((st.Y * Main.zoom - bus.Coordinates[bus.PositionAt].Y * Main.zoom)).ToString())), 2) <= Main.G.R * Main.zoom * 700)) && (bus.Tracker == true) && (!st.HaveInfo))
+                        {
+                            st.HaveInfo = true;
+                            G.ClearSheet();
+                            G.DrawALLGraph(Data.V, Data.E);
+                            GridCreator.DrawGrid(sheet);
+                            return;
                         }
                     });
 
                     foreach (var bus2 in Data.Buses)
                     {
-                        if (bus.Tracker && GetDistance(bus.Coordinates[bus.PositionAt].X, bus.Coordinates[bus.PositionAt].Y, bus2.Coordinates[bus2.PositionAt].X, bus2.Coordinates[bus2.PositionAt].Y) <10)
+                        if (bus.Tracker && GetDistance(bus.Coordinates[bus.PositionAt].X, bus.Coordinates[bus.PositionAt].Y, bus2.Coordinates[bus2.PositionAt].X, bus2.Coordinates[bus2.PositionAt].Y) < 10)
                         {
                             if (!bus2.Tracker)
                             {
@@ -2044,7 +2045,7 @@ namespace SystAnalys_lr1
                                     graphics.Dispose();
                                 }
                                 bus2.BusPic = new Bitmap(original);
-                            }                                                   
+                            }
                         }
                     }
                     //
@@ -2197,7 +2198,7 @@ namespace SystAnalys_lr1
                 StyleManager.Clone(addG);
                 addG.ShowDialog();
                 G.ClearSheet();
-      
+
                 G.DrawALLGraph(Data.V, Data.E);
                 GridCreator.CreateGrid(sheet);
 
@@ -2211,7 +2212,7 @@ namespace SystAnalys_lr1
 
         private void Button11_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void AddInComboBox()
@@ -2263,14 +2264,14 @@ namespace SystAnalys_lr1
 
         private void InitializeElements()
         {
-           
+
             KeyPreview = true;
             deleteBus = new ToolStripButton();
             deleteRoute = new ToolStripButton();
             delAllBusesOnRoute = new ToolStripButton();
             report = new Report();
             loadingForm = new LoadingForm();
-            
+
             ReportCount = 0;
             coordinates = new Coordinates();
             Grid = new Classes.Grid(0, 0, 0, 0, 80, 40);
@@ -2481,7 +2482,7 @@ namespace SystAnalys_lr1
             hint.Visible = false;
             report.ch.Titles.Add(MainStrings.report);
             report.ch.Series[ReportCount].LegendText = "1";
-            foreach(var sp in Data.Routes)
+            foreach (var sp in Data.Routes)
             {
                 if (!Data.StopPointsInGrids.ContainsKey(sp.Key))
                     Data.StopPointsInGrids.Add(sp.Key, new List<int>());
@@ -2507,7 +2508,7 @@ namespace SystAnalys_lr1
                 }
                 bus.BusPic = new Bitmap(original);
             }
-            Data.Staions.ForEach(st =>
+            Data.Stations.ForEach(st =>
             {
                 st.HaveInfo = false;
             });
@@ -2525,7 +2526,7 @@ namespace SystAnalys_lr1
             {
                 b.PositionAt = 0;
                 b.Coordinates = coordinates.CreateOneRouteRandomCoordinates();
-           
+
             }
         }
 

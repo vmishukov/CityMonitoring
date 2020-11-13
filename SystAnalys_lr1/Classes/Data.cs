@@ -12,7 +12,7 @@ namespace SystAnalys_lr1.Classes
     public static class Data
     {
         //Лист всех сианций
-        public static List<Station> Staions { get; set; } = new List<Station>();
+        public static List<Station> Stations { get; set; } = new List<Station>();
         //Лист всех аварий
         public static List<CarAccident> CarAccidents { get; set; } = new List<CarAccident>();
         //Лист, в котором хранится сетка

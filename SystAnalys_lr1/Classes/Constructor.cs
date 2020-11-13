@@ -973,11 +973,11 @@ namespace SystAnalys_lr1.Classes
         {
            Main.Flag = false;
 
-            foreach (var el in Data.Staions)
+            for (int i = 0; i < Data.Stations.Count; i++)
             {
-                if (Math.Pow((el.X - e.X / Main.zoom), 2) + Math.Pow((el.Y - e.Y / Main.zoom), 2) <= Main.G.R * Main.G.R * Main.G.R)
+                if (Math.Pow((Data.Stations[i].X - e.X / Main.zoom), 2) + Math.Pow((Data.Stations[i].Y - e.Y / Main.zoom), 2) <= Main.G.R * Main.G.R * Main.G.R)
                 {
-                    Data.Staions.Remove(el);
+                    Data.Stations.RemoveAt(i);
                     Main.Flag = true;
                     return;
                 }

@@ -352,14 +352,14 @@ namespace SystAnalys_lr1.Classes
             if (File.Exists(load + "stations.xml"))
             {
                 using (StreamReader reader = new StreamReader(load + "stations.xml"))
-                    Data.Staions = (List<Station>)stations.Deserialize(reader);
+                    Data.Stations = (List<Station>)stations.Deserialize(reader);
             }
 
             if (File.Exists(load + "stations.json"))
             {
                 using (StreamReader reader = new StreamReader(load + "stations.json"))
                 {
-                    Data.Staions = JsonConvert.DeserializeObject<List<Station>>(reader.ReadToEnd());
+                    Data.Stations = JsonConvert.DeserializeObject<List<Station>>(reader.ReadToEnd());
                 }
             }
         }

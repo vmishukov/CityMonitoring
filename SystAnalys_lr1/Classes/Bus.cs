@@ -256,7 +256,7 @@ namespace SystAnalys_lr1.Classes
 
         private void ProvideInfo(List<Bus> buses, Graphics G)
         {
-            Data.Staions.ForEach(st =>
+            Data.Stations.ForEach(st =>
             {
                 if (this.Tracker == true)
                 {

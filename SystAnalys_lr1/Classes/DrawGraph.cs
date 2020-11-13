@@ -172,7 +172,7 @@ namespace SystAnalys_lr1.Classes
             {
                 pen = darkGoldPen;
                 pen.Width = 2 * Main.zoom;
-                foreach (var s in Data.Staions)
+                foreach (var s in Data.Stations)
                 {
                     DrawStation(s.X * Main.zoom, s.Y * Main.zoom, 2 * Main.zoom, s.HaveInfo, new SolidBrush(Color.FromArgb(128, 178, 34, 34)));
                 }
