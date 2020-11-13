@@ -312,20 +312,20 @@ namespace SystAnalys_lr1.Classes
                                     }
                                 }
                             }
-                            if (Data.StopPoints.Count != 0 && Data.StopPoints.ContainsKey(Route))
-                            {
-                                if (Skips.SkipStops == 0)
-                                {
-                                    foreach (var sp in Data.StopPoints[Route])
-                                    {
-                                        if (Math.Pow((double.Parse((sp.X * (int)ZoomCoef - Coordinates[PositionAt].X * (int)ZoomCoef).ToString())), 2) + Math.Pow((double.Parse(((sp.Y * (int)ZoomCoef - Coordinates[PositionAt].Y * (int)ZoomCoef)).ToString())), 2) <= Main.G.R * (int)ZoomCoef * (Main.G.R * (int)ZoomCoef))
-                                        {
-                                            CheckStop();
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
+                            //if (Data.StopPoints.Count != 0 && Data.StopPoints.ContainsKey(Route))
+                            //{
+                            //    if (Skips.SkipStops == 0)
+                            //    {
+                            //        foreach (var sp in Data.StopPoints[Route])
+                            //        {
+                            //            if (Math.Pow((double.Parse((sp.X * (int)ZoomCoef - Coordinates[PositionAt].X * (int)ZoomCoef).ToString())), 2) + Math.Pow((double.Parse(((sp.Y * (int)ZoomCoef - Coordinates[PositionAt].Y * (int)ZoomCoef)).ToString())), 2) <= Main.G.R * (int)ZoomCoef * (Main.G.R * (int)ZoomCoef))
+                            //            {
+                            //                CheckStop();
+                            //                break;
+                            //            }
+                            //        }
+                            //    }
+                            //}
                             if (Data.TraficLights.Count != 0)
                             {
                                 if (Skips.SkipTrafficLights == 0)
@@ -341,7 +341,7 @@ namespace SystAnalys_lr1.Classes
                         else
                         {
                             StopDown();
-                            Skips.SkipEnd = rnd.Next(0, BusStop.StopTime * 3);
+                            Skips.SkipEnd = 0;// rnd.Next(0, BusStop.StopTime * 3);
                             if (PositionAt < Coordinates.Count)
                             {
                                 G.DrawImage(BusPic, Coordinates[PositionAt].X * (int)ZoomCoef - BusPic.Width / 2, Coordinates[PositionAt].Y * (int)ZoomCoef - BusPic.Height / 2);
@@ -390,21 +390,21 @@ namespace SystAnalys_lr1.Classes
                                         }
                                     }
                                 }
-                                if (Data.StopPoints.Count != 0 && Data.StopPoints.ContainsKey(Route))
-                                {
-                                    if (Skips.SkipStops == 0)
-                                    {
-                                        foreach (var sp in Data.StopPoints[Route])
-                                        {
+                                //if (Data.StopPoints.Count != 0 && Data.StopPoints.ContainsKey(Route))
+                                //{
+                                //    if (Skips.SkipStops == 0)
+                                //    {
+                                //        foreach (var sp in Data.StopPoints[Route])
+                                //        {
 
-                                            if (Math.Pow((double.Parse((sp.X * (int)ZoomCoef - Coordinates[PositionAt].X * (int)ZoomCoef).ToString())), 2) + Math.Pow((double.Parse(((sp.Y * (int)ZoomCoef - Coordinates[PositionAt].Y * (int)ZoomCoef)).ToString())), 2) <= Main.G.R * (int)ZoomCoef * (Main.G.R * (int)ZoomCoef))
-                                            {
-                                                CheckStop();
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
+                                //            if (Math.Pow((double.Parse((sp.X * (int)ZoomCoef - Coordinates[PositionAt].X * (int)ZoomCoef).ToString())), 2) + Math.Pow((double.Parse(((sp.Y * (int)ZoomCoef - Coordinates[PositionAt].Y * (int)ZoomCoef)).ToString())), 2) <= Main.G.R * (int)ZoomCoef * (Main.G.R * (int)ZoomCoef))
+                                //            {
+                                //                CheckStop();
+                                //                break;
+                                //            }
+                                //        }
+                                //    }
+                                //}
                                 if (Data.TraficLights.Count != 0)
                                 {
                                     if (Skips.SkipTrafficLights == 0)
@@ -421,7 +421,7 @@ namespace SystAnalys_lr1.Classes
                         else
                         {
                             StopDown();
-                            Skips.SkipEnd = rnd.Next(0, BusStop.StopTime * 3);
+                            Skips.SkipEnd = 0; // rnd.Next(0, BusStop.StopTime * 3);
                             G.DrawImage(BusPic, Coordinates[PositionAt].X * (int)ZoomCoef - BusPic.Width / 2, Coordinates[PositionAt].Y * (int)ZoomCoef - BusPic.Height / 2);
                             if (Skips.SkipEnd == 0)
                             {
