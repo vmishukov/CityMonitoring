@@ -68,11 +68,12 @@ namespace SystAnalys_lr1
         //    }
         //    return adjacentVertices;
         //}
+        Random rnd = new Random();
         private List<Vertex> GenerateRandomRoute()
         {
             List<Vertex> randVertexes = new List<Vertex>();
      
-            Random rnd = new Random();
+            //Random rnd = new Random();
             //foreach (var n in Enumerable.Range(2, Data.V.Count - 2).OrderBy(x => rnd.Next()).Take(rnd.Next(2, Data.V.Count - 2)).ToList())
             //{
             //    randVertexes.Add(Data.V[n]);
