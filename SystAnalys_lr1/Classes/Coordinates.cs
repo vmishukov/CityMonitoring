@@ -49,60 +49,31 @@ namespace SystAnalys_lr1
          
 
         }
-    
+
         public IEnumerable<int> AdjacentVertex(Vertex vertex)
         {
             foreach (var e in Data.E)
                 if (e.V1.Equals(Data.V.IndexOf(vertex)))
                     yield return e.V2;
-        }
-        //public  IEnumerable<int> GetAdjacentVertices(int v)
-        //{
-        //    if (v < 0 ||) throw new ArgumentOutOfRangeException("Cannot access vertex");
+                else if (e.V2.Equals(Data.V.IndexOf(vertex)))
+                    yield return e.V1;
 
-        //    List<int> adjacentVertices = new List<int>();
-        //    for (int i = 0; i < this.numVertices; i++)
-        //    {
-        //        if (this.Matrix[v, i] > 0)
-        //            adjacentVertices.Add(i);
-        //    }
-        //    return adjacentVertices;
-        //}
+        }
         Random rnd = new Random();
         private List<Vertex> GenerateRandomRoute()
         {
-            List<Vertex> randVertexes = new List<Vertex>();
-     
-            //Random rnd = new Random();
-            //foreach (var n in Enumerable.Range(2, Data.V.Count - 2).OrderBy(x => rnd.Next()).Take(rnd.Next(2, Data.V.Count - 2)).ToList())
-            //{
-            //    randVertexes.Add(Data.V[n]);
-            //}
-            //randVertexes.Add(Data.V.OrderBy(x => Guid.NewGuid()).FirstOrDefault());
+            List<Vertex> randVertexes = new List<Vertex>(); 
             randVertexes.Add(Data.V[rnd.Next(1, Data.V.Count-1)]);
             for (int i = 0; i < 10; i++)
-            { 
-                var test = AdjacentVertex(randVertexes.Last());
-                //int kek = test.ToList().OrderBy(x => Guid.NewGuid()).FirstOrDefault();
-                if (test.Any())
-                {
-                    int kek = test.ToList().OrderBy(x => Guid.NewGuid()).FirstOrDefault();
-                    randVertexes.Add(Data.V[kek]);
-                }
-                
-
+            {       
+                    randVertexes.Add(Data.V[AdjacentVertex(randVertexes.Last()).ToList().OrderBy(x => Guid.NewGuid()).FirstOrDefault()]);               
             }
-        
             return randVertexes;
-         
-                 
         }
         public List<Point> CreateOneRouteRandomCoordinates()
         {
             List<Point> RandCoordinates = new List<Point>();
-            //try
-            //{
-                
+    
                 if (Data.V.Count >= 2)
                 {
                     List<int> RandGridsInRoutes = new List<int>();
@@ -111,12 +82,7 @@ namespace SystAnalys_lr1
                 }
                 Bus.ScrollX = Main.scrollX;
                 Bus.ScrollY = Main.scrollY;
-            //}
-            //catch (Exception)
-            //{
-
-            //    throw;
-            //}          
+         
             return RandCoordinates;
 
         }
