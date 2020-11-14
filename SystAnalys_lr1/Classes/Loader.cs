@@ -73,73 +73,9 @@ namespace SystAnalys_lr1.Classes
                 }
             }
             
-            if (File.Exists(load + "StopPoints.xml"))
-            {
-                using (StreamReader reader = new StreamReader(load + "StopPoints.xml"))
-                {
-                    XmlSerializer deserializerV = new XmlSerializer(typeof(SerializableDictionary<string, List<BusStop>>));
-                    Data.StopPoints = (SerializableDictionary<string, List<BusStop>>)deserializerV.Deserialize(reader);
-                    foreach (var sp in Data.StopPoints.Values)
-                    {
-                        foreach (var s in sp)
-                            if (!Data.AllstopPoints.Contains(s))
-                                Data.AllstopPoints.Add(s);
-                    }
-                    Data.StopPointsInGrids = new SerializableDictionary<string, List<int>>();
-                    foreach (var StopList in Data.StopPoints)
-                    {
-                        Data.StopPointsInGrids.Add(StopList.Key, new List<int>());
-                        foreach (var vertex in StopList.Value)
-                        {
-                            Data.StopPointsInGrids[StopList.Key].Add(vertex.GridNum);
-                        }
 
-                    }
-                }
-            }
 
-            if (File.Exists(load + "allStopPoints.xml"))
-            {
-                using (StreamReader reader = new StreamReader(load + "allStopPoints.xml"))
-                {
-                    XmlSerializer deserializerV = new XmlSerializer(typeof(List<BusStop>));
-                    Data.AllstopPoints = (List<BusStop>)deserializerV.Deserialize(reader);
-
-                }
-            }
-
-            if (File.Exists(load + "StopPoints.json"))
-            {
-                using (StreamReader reader = new StreamReader(load + "StopPoints.json"))
-                {
-                    Data.StopPoints = JsonConvert.DeserializeObject<SerializableDictionary<string, List<BusStop>>>(File.ReadAllText(load + "StopPoints.json"));
-                    foreach (var sp in Data.StopPoints.Values)
-                    {
-                        foreach (var s in sp)
-                            if (!Data.AllstopPoints.Contains(s))
-                                Data.AllstopPoints.Add(s);
-                    }
-                    Data.StopPointsInGrids = new SerializableDictionary<string, List<int>>();
-                    foreach (var StopList in Data.StopPoints)
-                    {
-                        Data.StopPointsInGrids.Add(StopList.Key, new List<int>());
-                        foreach (var vertex in StopList.Value)
-                        {
-                            Data.StopPointsInGrids[StopList.Key].Add(vertex.GridNum);
-                        }
-
-                    }
-
-                }
-            }
-
-            if (File.Exists(load + "allStopPoints.json"))
-            {
-                using (StreamReader reader = new StreamReader(load + "allStopPoints.json"))
-                {
-                    Data.AllstopPoints = JsonConvert.DeserializeObject<List<BusStop>>(File.ReadAllText(load + "allStopPoints.json"));
-                }
-            }            
+          
 
             if (File.Exists(load + "traficLights.xml"))
             {

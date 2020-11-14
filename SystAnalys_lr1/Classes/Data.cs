@@ -34,9 +34,7 @@ namespace SystAnalys_lr1.Classes
         public static List<TraficLight> TraficLights { get; set; } = new List<TraficLight>();
         // словарь номеров квадратов, в которм есть остановка для каждого маршрута
         public static SerializableDictionary<string, List<int>> StopPointsInGrids { get; set; } = new SerializableDictionary<string, List<int>>();
-        //Остановки маршрутов
-        public static List<BusStop> AllstopPoints { get; set; } = new List<BusStop>();
-        public static SerializableDictionary<string, List<BusStop>> StopPoints { get; set; } = new SerializableDictionary<string, List<BusStop>>();
+
         //все координаты движения автобусов
         public static SerializableDictionary<string, List<Point>> AllCoordinates { get; set; } = new SerializableDictionary<string, List<Point>>();
         //все квадраты сетки, которые есть в каждом из маршрутов 

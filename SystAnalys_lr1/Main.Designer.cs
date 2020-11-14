@@ -87,7 +87,6 @@
             this.deleteButton = new System.Windows.Forms.ToolStripButton();
             this.deleteALLButton = new System.Windows.Forms.ToolStripButton();
             this.addBus = new System.Windows.Forms.ToolStripButton();
-            this.stopPointButton = new System.Windows.Forms.ToolStripButton();
             this.addTraficLight = new System.Windows.Forms.ToolStripButton();
             this.msmMain = new MetroFramework.Components.MetroStyleManager(this.components);
             this.config = new MetroFramework.Controls.MetroLabel();
@@ -123,12 +122,12 @@
             this.panelOpt.Controls.Add(this.speed);
             this.panelOpt.HorizontalScrollbarBarColor = true;
             this.panelOpt.HorizontalScrollbarHighlightOnWheel = false;
-            this.panelOpt.HorizontalScrollbarSize = 17;
+            this.panelOpt.HorizontalScrollbarSize = 13;
             resources.ApplyResources(this.panelOpt, "panelOpt");
             this.panelOpt.Name = "panelOpt";
             this.panelOpt.VerticalScrollbarBarColor = true;
             this.panelOpt.VerticalScrollbarHighlightOnWheel = false;
-            this.panelOpt.VerticalScrollbarSize = 20;
+            this.panelOpt.VerticalScrollbarSize = 15;
             // 
             // TurnOffBuses
             // 
@@ -289,11 +288,12 @@
             resources.ApplyResources(this.panelSettings, "panelSettings");
             this.panelSettings.HorizontalScrollbarBarColor = true;
             this.panelSettings.HorizontalScrollbarHighlightOnWheel = false;
-            this.panelSettings.HorizontalScrollbarSize = 17;
+            this.panelSettings.HorizontalScrollbarSize = 13;
             this.panelSettings.Name = "panelSettings";
             this.panelSettings.VerticalScrollbarBarColor = true;
             this.panelSettings.VerticalScrollbarHighlightOnWheel = false;
-            this.panelSettings.VerticalScrollbarSize = 20;
+            this.panelSettings.VerticalScrollbarSize = 15;
+            this.panelSettings.Paint += new System.Windows.Forms.PaintEventHandler(this.panelSettings_Paint);
             // 
             // metroButton1
             // 
@@ -322,14 +322,14 @@
             this.allBusSettings.Controls.Add(this.trackerCheck);
             this.allBusSettings.HorizontalScrollbarBarColor = true;
             this.allBusSettings.HorizontalScrollbarHighlightOnWheel = false;
-            this.allBusSettings.HorizontalScrollbarSize = 29;
+            this.allBusSettings.HorizontalScrollbarSize = 22;
             resources.ApplyResources(this.allBusSettings, "allBusSettings");
             this.allBusSettings.Name = "allBusSettings";
             this.allBusSettings.Style = MetroFramework.MetroColorStyle.Blue;
             this.allBusSettings.UseStyleColors = true;
             this.allBusSettings.VerticalScrollbarBarColor = true;
             this.allBusSettings.VerticalScrollbarHighlightOnWheel = false;
-            this.allBusSettings.VerticalScrollbarSize = 31;
+            this.allBusSettings.VerticalScrollbarSize = 23;
             // 
             // backsideCheck
             // 
@@ -387,12 +387,12 @@
             this.panelMatrix.Controls.Add(this.matrix);
             this.panelMatrix.HorizontalScrollbarBarColor = true;
             this.panelMatrix.HorizontalScrollbarHighlightOnWheel = false;
-            this.panelMatrix.HorizontalScrollbarSize = 17;
+            this.panelMatrix.HorizontalScrollbarSize = 13;
             resources.ApplyResources(this.panelMatrix, "panelMatrix");
             this.panelMatrix.Name = "panelMatrix";
             this.panelMatrix.VerticalScrollbarBarColor = true;
             this.panelMatrix.VerticalScrollbarHighlightOnWheel = false;
-            this.panelMatrix.VerticalScrollbarSize = 20;
+            this.panelMatrix.VerticalScrollbarSize = 15;
             // 
             // matrix
             // 
@@ -453,12 +453,12 @@
             this.mainPanel.HorizontalScrollbar = true;
             this.mainPanel.HorizontalScrollbarBarColor = false;
             this.mainPanel.HorizontalScrollbarHighlightOnWheel = false;
-            this.mainPanel.HorizontalScrollbarSize = 22;
+            this.mainPanel.HorizontalScrollbarSize = 17;
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.VerticalScrollbar = true;
             this.mainPanel.VerticalScrollbarBarColor = false;
             this.mainPanel.VerticalScrollbarHighlightOnWheel = false;
-            this.mainPanel.VerticalScrollbarSize = 23;
+            this.mainPanel.VerticalScrollbarSize = 17;
             this.mainPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.Panel6_Scroll);
             this.mainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel6_Paint);
             // 
@@ -498,7 +498,6 @@
             this.deleteButton,
             this.deleteALLButton,
             this.addBus,
-            this.stopPointButton,
             this.addTraficLight,
             this.toolStripSeparator2});
             resources.ApplyResources(this.toolStripMenu, "toolStripMenu");
@@ -651,14 +650,6 @@
             resources.ApplyResources(this.addBus, "addBus");
             this.addBus.Click += new System.EventHandler(this.AddBus_Click);
             // 
-            // stopPointButton
-            // 
-            this.stopPointButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.stopPointButton.Image = global::SystAnalys_lr1.Properties.Resources.transportation;
-            this.stopPointButton.Name = "stopPointButton";
-            resources.ApplyResources(this.stopPointButton, "stopPointButton");
-            this.stopPointButton.Click += new System.EventHandler(this.GridButton_Click);
-            // 
             // addTraficLight
             // 
             this.addTraficLight.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -788,7 +779,6 @@
         private System.Windows.Forms.PictureBox sheet;
         private MetroFramework.Controls.MetroLabel mean;
         public MetroFramework.Controls.MetroPanel mainPanel;
-        private System.Windows.Forms.ToolStripButton stopPointButton;
         public MetroFramework.Controls.MetroTextBox speed;
         private System.Windows.Forms.ToolStripMenuItem jSONToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem xMLToolStripMenuItem;

@@ -27,10 +27,6 @@ namespace SystAnalys_lr1.Classes
             File.WriteAllText(save + "AllCoordinates.json", json);
             json = JsonConvert.SerializeObject(Data.AllGridsInRoutes);
             File.WriteAllText(save + "AllGridsInRoutes.json", json);
-            json = JsonConvert.SerializeObject(Data.StopPoints);
-            File.WriteAllText(save + "StopPoints.json", json);
-            json = JsonConvert.SerializeObject(Data.AllstopPoints);
-            File.WriteAllText(save + "allStopPoints.json", json);
             json = JsonConvert.SerializeObject(Data.Routes);
             File.WriteAllText(save + "vertexRoutes.json", json);
             json = JsonConvert.SerializeObject(Main.Grid);
@@ -94,19 +90,6 @@ namespace SystAnalys_lr1.Classes
             using (FileStream fileV = new FileStream(save + "vertexRoutes.xml", FileMode.OpenOrCreate))
             {
                 Ver.Serialize(fileV, Data.Routes);
-                Console.WriteLine("Объект сериализован");
-            }
-            File.Delete(save + "StopPoints.xml");
-            using (FileStream fileV = new FileStream(save + "StopPoints.xml", FileMode.OpenOrCreate))
-            {
-                stopV.Serialize(fileV, Data.StopPoints);
-                Console.WriteLine("Объект сериализован");
-            }
-            File.Delete(save + "allStopPoints.xml");
-            using (FileStream fileV = new FileStream(save + "allStopPoints.xml", FileMode.OpenOrCreate))
-            {
-                stopV = new XmlSerializer(typeof(List<BusStop>));
-                stopV.Serialize(fileV, Data.AllstopPoints);
                 Console.WriteLine("Объект сериализован");
             }
 

@@ -193,110 +193,9 @@ namespace SystAnalys_lr1.Classes
         }
 
 
-        public void AddStopPointInRoutes(PictureBox sheet, List<GridPart> gridParts)
-        {
-            bool br = false;
-            foreach (var stopPoints in Data.StopPoints)
-            {
-                foreach (var sp in stopPoints.Value)
-                {
-                    foreach (var gridPart in gridParts)
-                    {
-                        if (((sp.X > gridPart.X * Main.zoom) && (sp.Y > gridPart.Y * Main.zoom)) && ((sp.X < gridPart.X * Main.zoom + GridPart.Width * Main.zoom) && (sp.Y < gridPart.Y * Main.zoom + GridPart.Height * Main.zoom)))
-                        {
-                            if (!Data.StopPointsInGrids.ContainsKey(stopPoints.Key))
-                            {
-                                Data.StopPoints[stopPoints.Key].Last().GridNum = gridParts.IndexOf(gridPart);
-                                Data.StopPointsInGrids.Add(stopPoints.Key, new List<int>());
-                                Data.StopPointsInGrids[stopPoints.Key].Add(gridParts.IndexOf(gridPart));
-
-                                break;
-                            }
-
-                            if (!Data.StopPointsInGrids[stopPoints.Key].Contains(gridParts.IndexOf(gridPart)))
-                            {
-                                Data.StopPoints[stopPoints.Key].Last().GridNum = gridParts.IndexOf(gridPart);
-                                Data.StopPointsInGrids[stopPoints.Key].Add(gridParts.IndexOf(gridPart));
-                            }
-                            else
-                            {
-                                Data.StopPoints[stopPoints.Key].Last().GridNum = gridParts.IndexOf(gridPart);
-                            }
-
-                            break;
 
 
-                        }
-                    }
-                }
 
-            }
-
-        }
-
-
-        public void AddStopPointsInRoute(MouseEventArgs e, List<BusStop> allstopPoints, PictureBox sheet, List<GridPart> gridParts, string route)
-        {
-            foreach (var sp in allstopPoints)
-            {
-                if (Math.Pow((sp.X - e.X / Main.zoom), 2) + Math.Pow((sp.Y - e.Y / Main.zoom), 2) <= Main.G.R * Main.G.R)
-                {
-                    if (Data.StopPoints.ContainsKey(route))
-                    {
-                        if (!Data.StopPoints[route].Contains(new Vertex(sp.X, sp.Y)))
-                        {
-                            if (Data.StopPoints.ContainsKey(route))
-                            {
-                                Data.StopPoints[route].Add(new BusStop(sp.X, sp.Y));
-                            }
-                            else
-                            {
-                                Data.StopPoints.Add(route, new List<BusStop>());
-                                if (!Data.StopPoints[route].Contains(new Vertex(sp.X, sp.Y)))
-                                {
-                                    if (Data.StopPoints.ContainsKey(route) && Data.StopPointsInGrids.ContainsKey(route))
-                                    {
-                                        Data.StopPoints[route].Add(new BusStop(sp.X, sp.Y));
-                                    }
-                                }
-                            }
-                        }
-
-                        Main.G.DrawStopRouteVertex(sp.X, sp.Y);
-                        MapUpdate(sheet);
-
-                        break;
-                    }
-                    else
-                    {
-                        Data.StopPoints.Add(route, new List<BusStop>());
-                        if (!Data.StopPoints[route].Contains(new Vertex(sp.X, sp.Y)))
-                        {
-                            if (Data.StopPoints.ContainsKey(route))
-                            {
-                                Data.StopPoints[route].Add(new BusStop(sp.X, sp.Y));
-                            }
-                            else
-                            {
-                                Data.StopPoints.Add(route, new List<BusStop>());
-                                if (!Data.StopPoints[route].Contains(new Vertex(sp.X, sp.Y)))
-                                {
-                                    if (Data.StopPoints.ContainsKey(route) && Data.StopPointsInGrids.ContainsKey(route))
-                                    {
-                                        Data.StopPoints[route].Add(new BusStop(sp.X, sp.Y));
-                                    }
-                                }
-                            }
-                        }
-
-                        Main.G.DrawStopRouteVertex(sp.X, sp.Y);
-                        MapUpdate(sheet);
-
-                        break;
-                    }
-                }
-            }
-        }
 
 
         public void AddStopPoints(MouseEventArgs e, List<BusStop> allstopPoints, PictureBox sheet, List<GridPart> gridParts)
@@ -750,26 +649,7 @@ namespace SystAnalys_lr1.Classes
         }
 
 
-        public void DeleteStopsOnRoute(MouseEventArgs e, List<Vertex> routeV, PictureBox sheet, string route)
-        {
-            bool flag = false;
-
-            foreach (var stopRoute in Data.StopPoints[route])
-            {
-                if (Math.Pow((stopRoute.X - e.X / Main.zoom), 2) + Math.Pow((stopRoute.Y - e.Y / Main.zoom), 2) <= Main.G.R * Main.G.R)
-                {
-                    Data.StopPointsInGrids[route].Remove(stopRoute.GridNum);
-                    Data.StopPoints[route].Remove(stopRoute);
-                    flag = true;
-                    break;
-                }
-
-            }
-            if (flag)
-            {
-                MapUpdateRoute(sheet, routeV, Data.RoutesEdge[route]);
-            }
-        }
+    
 
         public void DeleteVandE(MouseEventArgs e, List<Vertex> routeV, List<Edge> routesEdge, PictureBox sheet)
         {
@@ -861,114 +741,9 @@ namespace SystAnalys_lr1.Classes
             }
         }
 
-        public void DeleteOnRoute(MouseEventArgs e, List<Vertex> routeV, List<Edge> routesEdge, PictureBox sheet, string route)
-        {
-            bool flag = false;
+        
 
-            foreach (var stopRoute in Data.StopPoints[route])
-            {
-                if (Math.Pow((stopRoute.X - e.X / Main.zoom), 2) + Math.Pow((stopRoute.Y - e.Y / Main.zoom), 2) <= Main.G.R * Main.G.R)
-                {
-                    Data.StopPointsInGrids[route].Remove(stopRoute.GridNum);
-                    Data.StopPoints[route].Remove(stopRoute);
-                    flag = true;
-                    break;
-                }
-            }
-
-            for (int i = 0; i < routeV.Count; i++)
-            {
-                if (Math.Pow((routeV[i].X - e.X / Main.zoom), 2) + Math.Pow((routeV[i].Y - e.Y / Main.zoom), 2) <= Main.G.R * Main.G.R)
-                {
-                    for (int j = 0; j < routesEdge.Count; j++)
-                    {
-                        if ((routesEdge[j].V1 == i) || (routesEdge[j].V2 == i))
-                        {
-                            routesEdge.RemoveAt(j);
-                            j--;
-                        }
-                        else
-                        {
-                            if (routesEdge[j].V1 > i) routesEdge[j].V1--;
-                            if (routesEdge[j].V2 > i) routesEdge[j].V2--;
-                        }
-                    }
-                    routeV.RemoveAt(i);
-                    flag = true;
-                    break;
-                }
-            }
-            if (!flag)
-            {
-                for (int i = 0; i < routesEdge.Count; i++)
-                {
-                    if (routesEdge[i].V1 == routesEdge[i].V2)
-                    {
-                        if ((Math.Pow((routeV[routesEdge[i].V1].X - Main.G.R - e.X / Main.zoom), 2) + Math.Pow((routeV[routesEdge[i].V1].Y - Main.G.R - e.Y / Main.zoom), 2) <= ((Main.G.R + 2) * (Main.G.R + 2))) &&
-                            (Math.Pow((routeV[routesEdge[i].V1].X - Main.G.R - e.X / Main.zoom), 2) + Math.Pow((routeV[routesEdge[i].V1].Y - Main.G.R - e.Y / Main.zoom), 2) >= ((Main.G.R - 2) * (Main.G.R - 2))))
-                        {
-                            routesEdge.RemoveAt(i);
-                            flag = true;
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        try
-                        {
-                            if (((e.X / Main.zoom - routeV[routesEdge[i].V1].X) * (routeV[routesEdge[i].V2].Y - routeV[routesEdge[i].V1].Y) / (routeV[routesEdge[i].V2].X - routeV[routesEdge[i].V1].X) + routeV[routesEdge[i].V1].Y) <= (e.Y / Main.zoom + 4) &&
-                                ((e.X / Main.zoom - routeV[routesEdge[i].V1].X) * (routeV[routesEdge[i].V2].Y - routeV[routesEdge[i].V1].Y) / (routeV[routesEdge[i].V2].X - routeV[routesEdge[i].V1].X) + routeV[routesEdge[i].V1].Y) >= (e.Y / Main.zoom - 4))
-                            {
-                                if ((routeV[routesEdge[i].V1].X <= routeV[routesEdge[i].V2].X && routeV[routesEdge[i].V1].X <= e.X / Main.zoom && e.X / Main.zoom <= routeV[routesEdge[i].V2].X) ||
-                                    (routeV[routesEdge[i].V1].X >= routeV[routesEdge[i].V2].X && routeV[routesEdge[i].V1].X >= e.X / Main.zoom && e.X / Main.zoom >= routeV[routesEdge[i].V2].X))
-                                {
-                                    routesEdge.RemoveAt(i);
-                                    flag = true;
-                                    break;
-                                }
-                            }
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Ребро не удаляется");
-                        }
-                    }
-                }
-            }
-            if (flag)
-            {
-                MapUpdateRoute(sheet, routeV, routesEdge);
-            }
-        }
-
-        public void DeleteBS(MouseEventArgs e, List<Vertex> V, List<Edge> E, PictureBox sheet, SerializableDictionary<string, List<Edge>> routesEdgeE)
-        {
-            foreach (var sp in Data.AllstopPoints)
-            {
-                if (Math.Pow((sp.X - e.X / Main.zoom), 2) + Math.Pow((sp.Y - e.Y / Main.zoom), 2) <= Main.G.R * Main.G.R)
-                {
-                    Data.AllstopPoints.Remove(sp);
-                    Main.Flag = true;
-                    break;
-                }
-            }
-
-
-            foreach (var stop in Data.StopPoints)
-            {
-                foreach (var sp in stop.Value)
-                {
-                    if (Math.Pow((sp.X - e.X / Main.zoom), 2) + Math.Pow((sp.Y - e.Y / Main.zoom), 2) <= Main.G.R * Main.G.R)
-                    {
-                        Data.StopPointsInGrids[stop.Key].Remove(sp.GridNum);
-                        stop.Value.Remove(sp);
-                        Main.Flag = true;
-                        break;
-                    }
-                }
-            }
-
-        }
+        
         public void Delete(MouseEventArgs e, List<Vertex> V, List<Edge> E, PictureBox sheet, SerializableDictionary<string, List<Edge>> routesEdgeE)
         {
            Main.Flag = false;
@@ -995,33 +770,8 @@ namespace SystAnalys_lr1.Classes
                 }
             }
 
-            if (!Main.Flag)
-            {
-                foreach (var sp in Data.AllstopPoints)
-                {
-                    if (Math.Pow((sp.X - e.X / Main.zoom), 2) + Math.Pow((sp.Y - e.Y / Main.zoom), 2) <= Main.G.R * Main.G.R)
-                    {
-                        Data.AllstopPoints.Remove(sp);
-                        Main.Flag = true;
-                        break;
-                    }
-                }
-            }
 
 
-            foreach (var stop in Data.StopPoints)
-            {
-                foreach (var sp in stop.Value)
-                {
-                    if (Math.Pow((sp.X - e.X / Main.zoom), 2) + Math.Pow((sp.Y - e.Y / Main.zoom), 2) <= Main.G.R * Main.G.R)
-                    {
-                        Data.StopPointsInGrids[stop.Key].Remove(sp.GridNum);
-                        stop.Value.Remove(sp);
-                        Main.Flag = true;
-                        break;
-                    }
-                }
-            }
 
 
             if (!Main.Flag)

@@ -196,7 +196,7 @@ namespace SystAnalys_lr1.Classes
                 }
             }
           
-            DrawStopPoints();
+        
             for (int i = 0; i < V.Count; i++)
             {
                 if (rand != 0)
@@ -227,24 +227,7 @@ namespace SystAnalys_lr1.Classes
                 }
             }
         }
-
-        public void DrawStopPoints()
-        {
-            foreach (var stopPoints in Data.AllstopPoints)
-            {
-                DrawStopVertex(stopPoints.X, stopPoints.Y);
-            }
-            if (Main.SelectedRoute != null)
-            {
-                if (Data.StopPoints.ContainsKey(Main.SelectedRoute))
-                {
-                    foreach (var stopPoints in Data.StopPoints[Main.SelectedRoute])
-                    {
-                        DrawStopRouteVertex(stopPoints.X, stopPoints.Y);
-                    }
-                }
-            }
-        }
+   
 
     }
 
