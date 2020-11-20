@@ -1938,7 +1938,7 @@ namespace SystAnalys_lr1
 
 
 
-
+        int ETimerTimeCounts = 0;
         private void Timer1_Tick(object sender, EventArgs e)
         {
             if (Data.Buses.Any())
@@ -2009,6 +2009,13 @@ namespace SystAnalys_lr1
                     }
                 }
             }
+
+            if(Data.Stations.Any() && Data.CarAccidents.Any())
+            {
+                ETimerTimeCounts += 1;
+                metroLabel1.Text = "Time has passed : " + (ETimerTimeCounts / 60).ToString() + " minutes"+" "+ (ETimerTimeCounts % 60).ToString()+" seconds";
+            }
+           
         }
 
 
@@ -2461,6 +2468,7 @@ namespace SystAnalys_lr1
             Data.CarAccidents.Clear();
             G.ClearSheet();
             G.DrawALLGraph(Data.V, Data.E);
+            ETimerTimeCounts = 0;
             //GridCreator.DrawGrid(sheet);
         }
 

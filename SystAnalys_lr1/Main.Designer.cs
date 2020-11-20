@@ -97,6 +97,7 @@
             this.saved = new MetroFramework.Controls.MetroLabel();
             this.loadingSpinner = new MetroFramework.Controls.MetroProgressSpinner();
             this.themes = new MetroFramework.Controls.MetroToggle();
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.panelOpt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.results)).BeginInit();
             this.panelSettings.SuspendLayout();
@@ -714,10 +715,16 @@
             this.themes.UseSelectable = true;
             this.themes.CheckedChanged += new System.EventHandler(this.Themes_CheckedChanged);
             // 
+            // metroLabel1
+            // 
+            resources.ApplyResources(this.metroLabel1, "metroLabel1");
+            this.metroLabel1.Name = "metroLabel1";
+            // 
             // Main
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.metroLabel1);
             this.Controls.Add(this.loadingSpinner);
             this.Controls.Add(this.saved);
             this.Controls.Add(this.hint);
@@ -826,6 +833,7 @@
         private MetroFramework.Controls.MetroToggle themes;
         private MetroFramework.Controls.MetroButton TurnOffBuses;
         private MetroFramework.Controls.MetroButton metroButton1;
+        private MetroFramework.Controls.MetroLabel metroLabel1;
     }
 }
 
