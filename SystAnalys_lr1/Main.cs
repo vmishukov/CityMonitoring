@@ -547,8 +547,6 @@ namespace SystAnalys_lr1
                 GridCreator.CreateGrid(sheet);
                 AnimationBitmap = new Bitmap(sheet.Width, sheet.Height);
                 AnimationBox.Image = AnimationBitmap;
-
-                Modeling.CreatePollutionInRoutes();
                 AddInComboBox();
                 addRouteToolStripMenuItem.Enabled = true;
                 createGridToolStripMenuItem.Enabled = true;
@@ -598,7 +596,6 @@ namespace SystAnalys_lr1
                             Data.Routes.Remove(changeRoute.Text);
                             Data.RoutesEdge.Remove(changeRoute.Text);
                             Data.AllCoordinates.Remove(changeRoute.Text);             
-                            Data.StopPointsInGrids.Remove(changeRoute.Text);
 
                             foreach (var b in Data.Buses)
                             {
@@ -680,12 +677,11 @@ namespace SystAnalys_lr1
                         if (MBSave == DialogResult.Yes && changeRoute.Text != MainStrings.network)
                         {
                             LoadingVisible();
-                            Data.StopPointsInGrids[changeRoute.Text].Clear();
                         }
                         if (MBSave == DialogResult.Yes && changeRoute.Text == MainStrings.network)
                         {
                             LoadingVisible();
-                            Data.StopPointsInGrids.Clear();
+
                         }
                         break;
                     case ElementConstructorType.TrafficLight:
@@ -812,17 +808,24 @@ namespace SystAnalys_lr1
         {
             if (Data.Buses != null && optText.Text != "" && speed.Text != "" && Data.Buses.Count != 0 && int.Parse(optText.Text) > 0 && int.Parse(speed.Text) > 0)
             {
-                c.AddGridPart(Data.TraficLights, Data.TheGrid);
+                c.AddTrafficLightsToGrid(Data.TraficLights, Data.TheGrid);
+                c.AddStationsToGrid(Data.Stations, Data.TheGrid);
+                c.AddCarAccidentsToGrid(Data.CarAccidents, Data.TheGrid);
+                foreach (var item in Data.Stations)
+                {
+                    item.HaveInfo = false;
+                }
                 report.Hide();
-                coordinates.CreateAllCoordinates();
-                Optimization.WithoutSensorsBuses = new List<int>();
+                //coordinates.CreateAllCoordinates();
+                //Optimization.WithoutSensorsBuses = new List<int>();
                 Optimization.CountWithoutSensors = Data.Buses.Where((bus) => bus.Tracker == true).Count();
                 var busesparkreturn = Data.BusesPark;
                 bool check = false;
                 foreach (var bus in Data.Buses)
                 {
-                    if (bus.Tracker == true)
+                    if (bus.Tracker == false)
                     {
+                        //bus.PositionAt = 0;
                         check = true;
                         break;
                     }
@@ -1156,8 +1159,6 @@ namespace SystAnalys_lr1
             Data.RoutesEdge.Clear();
             changeRoute.Items.Clear();
             Data.AllCoordinates.Clear();
-            Data.StopPointsInGrids.Clear();
-
             Data.TraficLights.Clear();
             Data.TraficLights.TrimExcess();
             Data.TraficLightsInGrids.Clear();
@@ -1206,7 +1207,7 @@ namespace SystAnalys_lr1
             G.SetBitmap();
             config.Text = MainStrings.config + load;
             GridCreator.CreateGrid(sheet);
-            Modeling.CreatePollutionInRoutes();
+
             ConstructorOnNetwork();
             AddInComboBox();
             G.ClearSheet();
@@ -2157,13 +2158,12 @@ namespace SystAnalys_lr1
                 G.ClearSheet();
 
                 G.DrawALLGraph(Data.V, Data.E);
-                //GridCreator.CreateGrid(sheet);
+                GridCreator.CreateGrid(sheet);
 
                 sheet.Image = G.GetBitmap();
                 //GridCreator.DrawGrid(sheet);
 
                 coordinates.CreateAllCoordinates();
-                Modeling.CreatePollutionInRoutes();
             }
         }
 
@@ -2436,11 +2436,7 @@ namespace SystAnalys_lr1
             hint.Visible = false;
             report.ch.Titles.Add(MainStrings.report);
             report.ch.Series[ReportCount].LegendText = "1";
-            foreach (var sp in Data.Routes)
-            {
-                if (!Data.StopPointsInGrids.ContainsKey(sp.Key))
-                    Data.StopPointsInGrids.Add(sp.Key, new List<int>());
-            }
+
         }
 
         private void TurnOffBuses_Click(object sender, EventArgs e)
@@ -2481,8 +2477,8 @@ namespace SystAnalys_lr1
             foreach (var b in Data.Buses)
             {
                 b.PositionAt = 0;
-                b.Coordinates = coordinates.CreateOneRouteRandomCoordinates();
-
+                b.Coordinates = coordinates.CreateOneRouteRandomCoordinates(b);
+                Console.WriteLine(b.GridCoordinates.Count.ToString());
             }
         }
 

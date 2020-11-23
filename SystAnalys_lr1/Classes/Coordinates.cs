@@ -24,7 +24,7 @@ namespace SystAnalys_lr1
             {
                 Data.AllCoordinates[i] = new List<Point>();
                 Data.AllGridsInRoutes[i] = new List<int>();
-                Data.AllCoordinates[i].AddRange(GetPoints(Data.Routes[i], i));
+                Data.AllCoordinates[i].AddRange(GetPoints(Data.Routes[i], Data.AllGridsInRoutes[i]));
 
             }
             Bus.ScrollX = Main.scrollX;
@@ -79,9 +79,7 @@ namespace SystAnalys_lr1
             randVertexes.Add(Data.V[rnd.Next(1, Data.V.Count - 1)]);
             var previous = randVertexes.Last();
             for (int i = 0; i < 20; i++)
-            {
-
-               // var vertlist = Data.V[AdjacentVertex(randVertexes.Last()).ToList().OrderBy(x => Guid.NewGuid()).FirstOrDefault()];
+            {            
                 var vertlist = AdjacentVertex(randVertexes.Last()).ToList();
                 Shuffle(vertlist);
                 foreach (var vert in vertlist)
@@ -100,15 +98,16 @@ namespace SystAnalys_lr1
             }
             return randVertexes;
         }
-        public List<Point> CreateOneRouteRandomCoordinates()
+        public List<Point> CreateOneRouteRandomCoordinates(Bus b)
         {
             List<Point> RandCoordinates = new List<Point>();
-
+     
             if (Data.V.Count >= 2)
             {
                 List<int> RandGridsInRoutes = new List<int>();
                 List<Vertex> RandomRoute = GenerateRandomRoute();
-                RandCoordinates.AddRange(GetPoints(RandomRoute, null));
+                b.GridCoordinates = new List<int>();
+                RandCoordinates.AddRange(GetPoints(RandomRoute, b.GridCoordinates));
             }
             Bus.ScrollX = Main.scrollX;
             Bus.ScrollY = Main.scrollY;
@@ -124,7 +123,7 @@ namespace SystAnalys_lr1
             });
         }
 
-        public List<Point> GetPoints(List<Vertex> routeVertexes, string route)
+        public List<Point> GetPoints(List<Vertex> routeVertexes, List<int> GridsInRoute)
         {
             var points = new List<Point>();
             int RectCheckCount = 0;
@@ -146,12 +145,8 @@ namespace SystAnalys_lr1
                         points.Add(new Point((int)Math.Round(x) + p1.X, (int)Math.Round(y) + p1.Y));
                         if (RectCheckCount == 10)
                         {
-                            RectCheckCount = 0;
-                            if (route != null)
-                            {
-                                GetOneRouteGrids(points, route);
-                            }
-
+                            RectCheckCount = 0;                      
+                                GetOneRouteGrids(points, GridsInRoute);                         
                         }
                         else
                         {
@@ -160,15 +155,15 @@ namespace SystAnalys_lr1
 
                     }
                     points.Add(p2);
-                    if (route != null)
-                    {
-                        GetOneRouteGrids(points, route);
-                    }
+                  
+                        GetOneRouteGrids(points, GridsInRoute);
+                   
+                 
                 }
             }
             return points;
         }
-        public void GetOneRouteGrids(List<Point> points, string route)
+        public void GetOneRouteGrids(List<Point> points,List<int>GridsInRoute)
         {
             int Locate = 0;
             int LastLocate = 0;
@@ -186,7 +181,7 @@ namespace SystAnalys_lr1
                 {
                     if (LastLocate != Locate)
                     {
-                        Data.AllGridsInRoutes[route].Add(k);
+                        GridsInRoute.Add(k);
 
                         LastLocate = Locate;
                     }
@@ -206,7 +201,7 @@ namespace SystAnalys_lr1
                 Data.AllGridsInRoutes.Add(Data.Routes.ElementAt(i).Key, new List<int>());
                 if (Data.Routes.ElementAt(i).Value.Count >= 2)
                 {
-                    Data.AllCoordinates[Data.AllCoordinates.ElementAt(i).Key].AddRange(GetPoints(Data.Routes.ElementAt(i).Value, Data.Routes.ElementAt(i).Key));
+                    Data.AllCoordinates[Data.AllCoordinates.ElementAt(i).Key].AddRange(GetPoints(Data.Routes.ElementAt(i).Value, Data.AllGridsInRoutes[Data.Routes.ElementAt(i).Key]));
                 }
                 Bus.ScrollX = Main.scrollX;
                 Bus.ScrollY = Main.scrollY;

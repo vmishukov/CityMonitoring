@@ -13,8 +13,12 @@ namespace SystAnalys_lr1.Classes
     {
         //Лист всех сианций
         public static List<Station> Stations { get; set; } = new List<Station>();
+        // лист номеров квадратов, в которм есть станция
+        public static List<int> SationsInGrids { get; set; } = new List<int>();
         //Лист всех аварий
         public static List<CarAccident> CarAccidents { get; set; } = new List<CarAccident>();
+        // лист номеров квадратов, в которм есть авария
+        public static List<int> CarAccidentsInGrids { get; set; } = new List<int>();
         //Лист, в котором хранится сетка
         public static List<GridPart> TheGrid { get; set; } = new List<GridPart>();
         //Лист, в котором хранятся автобусы
@@ -32,9 +36,6 @@ namespace SystAnalys_lr1.Classes
         public static List<int> TraficLightsInGrids { get; set; } = new List<int>();
         //Светофоры
         public static List<TraficLight> TraficLights { get; set; } = new List<TraficLight>();
-        // словарь номеров квадратов, в которм есть остановка для каждого маршрута
-        public static SerializableDictionary<string, List<int>> StopPointsInGrids { get; set; } = new SerializableDictionary<string, List<int>>();
-
         //все координаты движения автобусов
         public static SerializableDictionary<string, List<Point>> AllCoordinates { get; set; } = new SerializableDictionary<string, List<Point>>();
         //все квадраты сетки, которые есть в каждом из маршрутов 

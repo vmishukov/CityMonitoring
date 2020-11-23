@@ -392,7 +392,7 @@ namespace SystAnalys_lr1.Classes
             }
         }
 
-        public void AddGridPart(List<TraficLight> traficLights, List<GridPart> gridParts)
+        public void AddTrafficLightsToGrid(List<TraficLight> traficLights, List<GridPart> gridParts)
         {
             foreach (var tf in traficLights)
             {
@@ -410,7 +410,42 @@ namespace SystAnalys_lr1.Classes
                 }
             }
         }
-
+        public void AddStationsToGrid(List<Station> Stations, List<GridPart> gridParts)
+        {
+            foreach (var st in Stations)
+            {
+                foreach (var gridPart in gridParts)
+                {
+                    if (((st.X > gridPart.X * Main.zoom) && (st.Y > gridPart.Y * Main.zoom)) && ((st.X < gridPart.X * Main.zoom + GridPart.Width * Main.zoom) && (st.Y < gridPart.Y * Main.zoom + GridPart.Height * Main.zoom)))
+                    {
+                        if (!Data.SationsInGrids.Contains(gridParts.IndexOf(gridPart)))
+                        {
+                            Data.SationsInGrids.Add(gridParts.IndexOf(gridPart));
+                            st.GridNum = gridParts.IndexOf(gridPart);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        public void AddCarAccidentsToGrid(List<CarAccident> CarAccidents, List<GridPart> gridParts)
+        {
+            foreach (var ca in CarAccidents)
+            {
+                foreach (var gridPart in gridParts)
+                {
+                    if (((ca.X > gridPart.X * Main.zoom) && (ca.Y > gridPart.Y * Main.zoom)) && ((ca.X < gridPart.X * Main.zoom + GridPart.Width * Main.zoom) && (ca.Y < gridPart.Y * Main.zoom + GridPart.Height * Main.zoom)))
+                    {
+                        if (!Data.CarAccidentsInGrids.Contains(gridParts.IndexOf(gridPart)))
+                        {
+                            Data.CarAccidentsInGrids.Add(gridParts.IndexOf(gridPart));
+                            ca.GridNum = gridParts.IndexOf(gridPart);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
         public void FirstTrafficLight(MouseEventArgs e, List<TraficLight> traficLights, PictureBox sheet, List<GridPart> gridParts)
         {
             traficLights.Add(new TraficLight(e.X / Main.zoom, e.Y / Main.zoom, Main.FirstCrossRoadsGreenLight, Main.FirstCrossRoadsRedLight));

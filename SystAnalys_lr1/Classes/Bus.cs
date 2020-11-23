@@ -61,7 +61,6 @@ namespace SystAnalys_lr1.Classes
 
         public int PositionAt { get => _positionAt; set => _positionAt = value; }
         public bool TurnBack { get => _turnBack; set => _turnBack = value; }
-        public bool StopAtStationByGrid { get => _stopAtStationByGrid; set => _stopAtStationByGrid = value; }
 
         [XmlIgnore, JsonIgnore]
         public Image BusPic { get => _busPic; set => _busPic = value; }
@@ -73,11 +72,8 @@ namespace SystAnalys_lr1.Classes
         public int R { get => _r; set => _r = value; }
         //сколько автобусу нужно проехать в тиках
         public int TickCount_ { get => _tickCount_; set => _tickCount_ = value; }
-        //все время, которое проехал автобус
-        public int AllTickCount { get => _allTickCount; set => _allTickCount = value; }
+
         //за сколько времени автобус нашел эпицентр
-        public static int FoundTime { get => s_foundTime; set => s_foundTime = value; }
-        public bool EpicFounded { get => _epicFounded; set => _epicFounded = value; }
         static public int? ZoomCoef { get => s_zoomCoef; set => s_zoomCoef = value; }
         public bool Tracker { get => _tracker; set => _tracker = value; }
 
@@ -98,7 +94,7 @@ namespace SystAnalys_lr1.Classes
         private List<int> _gridCoordinates;
         private int _r = 7;
         private int _tickCount_;
-        private int _allTickCount;
+
         private static int s_foundTime;
         private bool _epicFounded;
         private static int? s_zoomCoef = 1;
@@ -133,11 +129,10 @@ namespace SystAnalys_lr1.Classes
 
         public void MoveWithoutGraphicsByGrids()
         {
-            if (Tracker == true)
-            {
+           
                 if (TurnBack == false)
                 {
-                    if (PositionAt < Data.AllGridsInRoutes[Route].Count - 1)
+                    if (PositionAt < GridCoordinates.Count - 1)
                     {
                         PositionAt++;
                     }
@@ -145,7 +140,6 @@ namespace SystAnalys_lr1.Classes
                     {
                         TurnBack = true;
                         PositionAt--;
-                        StopAtStationByGrid = true;
                     }
                 }
                 else
@@ -158,10 +152,8 @@ namespace SystAnalys_lr1.Classes
                     {
                         TurnBack = false;
                         PositionAt++;
-                        StopAtStationByGrid = true;
                     }
-                }
-            }
+                }          
         }
 
         private void StopDown()
@@ -312,20 +304,7 @@ namespace SystAnalys_lr1.Classes
                                     }
                                 }
                             }
-                            //if (Data.StopPoints.Count != 0 && Data.StopPoints.ContainsKey(Route))
-                            //{
-                            //    if (Skips.SkipStops == 0)
-                            //    {
-                            //        foreach (var sp in Data.StopPoints[Route])
-                            //        {
-                            //            if (Math.Pow((double.Parse((sp.X * (int)ZoomCoef - Coordinates[PositionAt].X * (int)ZoomCoef).ToString())), 2) + Math.Pow((double.Parse(((sp.Y * (int)ZoomCoef - Coordinates[PositionAt].Y * (int)ZoomCoef)).ToString())), 2) <= Main.G.R * (int)ZoomCoef * (Main.G.R * (int)ZoomCoef))
-                            //            {
-                            //                CheckStop();
-                            //                break;
-                            //            }
-                            //        }
-                            //    }
-                            //}
+
                             if (Data.TraficLights.Count != 0)
                             {
                                 if (Skips.SkipTrafficLights == 0)
@@ -390,21 +369,7 @@ namespace SystAnalys_lr1.Classes
                                         }
                                     }
                                 }
-                                //if (Data.StopPoints.Count != 0 && Data.StopPoints.ContainsKey(Route))
-                                //{
-                                //    if (Skips.SkipStops == 0)
-                                //    {
-                                //        foreach (var sp in Data.StopPoints[Route])
-                                //        {
 
-                                //            if (Math.Pow((double.Parse((sp.X * (int)ZoomCoef - Coordinates[PositionAt].X * (int)ZoomCoef).ToString())), 2) + Math.Pow((double.Parse(((sp.Y * (int)ZoomCoef - Coordinates[PositionAt].Y * (int)ZoomCoef)).ToString())), 2) <= Main.G.R * (int)ZoomCoef * (Main.G.R * (int)ZoomCoef))
-                                //            {
-                                //                CheckStop();
-                                //                break;
-                                //            }
-                                //        }
-                                //    }
-                                //}
                                 if (Data.TraficLights.Count != 0)
                                 {
                                     if (Skips.SkipTrafficLights == 0)
@@ -447,11 +412,6 @@ namespace SystAnalys_lr1.Classes
         {
             return Route;
         }
-
- 
-
-        // обмнаружение  эпицентров через точки
-
 
 
         public async Task AsyncDetectRectangle()
