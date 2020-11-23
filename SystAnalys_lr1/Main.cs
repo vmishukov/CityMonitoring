@@ -1306,7 +1306,7 @@ namespace SystAnalys_lr1
                     switch (DelType)
                     {
                         case ElementConstructorType.Station:
-                            G.DrawStation(e.X, e.Y, 2, false, new SolidBrush(Color.FromArgb(128, 178, 34, 34)));
+                            G.DrawStation(e.X, e.Y, 1, false, new SolidBrush(Color.FromArgb(128, 178, 34, 34)));
                             Data.Stations.Add(new Station(e.X / Main.zoom, e.Y / Main.zoom));
                             break;
                         case ElementConstructorType.CarCrash:
@@ -1969,12 +1969,13 @@ namespace SystAnalys_lr1
                     }
                     Data.Stations.ForEach(st =>
                     {
-                        if (((Math.Pow((double.Parse((st.X * Main.zoom - bus.Coordinates[bus.PositionAt].X * Main.zoom).ToString())), 2) + Math.Pow((double.Parse(((st.Y * Main.zoom - bus.Coordinates[bus.PositionAt].Y * Main.zoom)).ToString())), 2) <= Main.G.R * Main.zoom * 700)) && (bus.Tracker == true) && (!st.HaveInfo))
+                        if (((Math.Pow((double.Parse((st.X * Main.zoom - bus.Coordinates[bus.PositionAt].X * Main.zoom).ToString())), 2) + Math.Pow((double.Parse(((st.Y * Main.zoom - bus.Coordinates[bus.PositionAt].Y * Main.zoom)).ToString())), 2) <= Main.G.R * Main.zoom * 400)) && (bus.Tracker == true) && (!st.HaveInfo))
                         {
                             st.HaveInfo = true;
                             G.ClearSheet();
                             G.DrawALLGraph(Data.V, Data.E);
-                            //GridCreator.DrawGrid(sheet);
+                            // GridCreator.DrawGrid(sheet);
+                            sheet.Image = Main.G.GetBitmap();
                             return;
                         }
                     });
@@ -2468,6 +2469,7 @@ namespace SystAnalys_lr1
             Data.CarAccidents.Clear();
             G.ClearSheet();
             G.DrawALLGraph(Data.V, Data.E);
+            sheet.Image = Main.G.GetBitmap();
             ETimerTimeCounts = 0;
             //GridCreator.DrawGrid(sheet);
         }
