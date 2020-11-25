@@ -861,10 +861,6 @@ namespace SystAnalys_lr1
                         Style = msmMain.Style
                     };
 
-
-
-
-
                     loadingForm.Show();
                     loadingForm.Refresh();
 

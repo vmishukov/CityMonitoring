@@ -33,7 +33,7 @@ namespace SystAnalys_lr1.Classes
         public static SerializableDictionary<int, int?> PercentMean { get => s_percentMean; set => s_percentMean = value; }
 
         public static int CountWithoutSensors { get => s_countWithoutSensors; set => s_countWithoutSensors = value; }
-       // public static List<int> WithoutSensorsBuses { get => s_withoutSensorsBuses; set => s_withoutSensorsBuses = value; }
+        // public static List<int> WithoutSensorsBuses { get => s_withoutSensorsBuses; set => s_withoutSensorsBuses = value; }
         delegate void DelInt(int text);
         static Random rnd = new Random();
         public static int OptiSpeed { get => s_optiSpeed; set => s_optiSpeed = value; }
@@ -62,39 +62,44 @@ namespace SystAnalys_lr1.Classes
 
         public static void ResChart(int oldChart, Report r, MetroStyleManager StyleManager)
         {
-            bool changeText = false;
-            if (oldChart != PercentMean.Keys.Sum())
-            {
-                r.ch.Legends.Clear();
-                Main.ReportCount = 0;
-                foreach (var series in r.ch.Series)
-                {
-                    series.Points.Clear();
-                }
-                oldChart = PercentMean.Keys.Sum();
-                changeText = true;
-            }
-            int iCh = 0;
-            StyleManager.Clone(r);
-            if (Main.ReportCount != 0)
-                r.ch.Series.Add(Main.ReportCount.ToString());
-            r.ch.Series[Main.ReportCount].LegendText = Main.ReportCount.ToString();
-            foreach (var pm in PercentMean)
-            {
-                if (pm.Value == null)
-                {
-                    r.ch.Series[Main.ReportCount].Points.AddY(0);
-                }
-                else
-                {
-                    r.ch.Series[Main.ReportCount].Points.AddY(pm.Value / 60 != 0 ? (double)pm.Value / 60 : (double)pm.Value);
-                }
-                if (!changeText)
-                    r.ch.ChartAreas[0].AxisX.CustomLabels.Add(new CustomLabel(iCh, iCh + 2, pm.Key.ToString(), 0, LabelMarkStyle.LineSideMark));
-                else
-                    r.ch.ChartAreas[0].AxisX.CustomLabels[iCh].Text = pm.Key.ToString();
-                iCh++;
-            }
+            //bool changeText = false;
+            //if (oldChart != PercentMean.Keys.Sum())
+            //{
+            //    r.ch.Legends.Clear();
+            //    Main.ReportCount = 0;
+            //    foreach (var series in r.ch.Series)
+            //    {
+            //        series.Points.Clear();
+            //    }
+            //    oldChart = PercentMean.Keys.Sum();
+            //    changeText = true;
+            //}
+            //int iCh = 0;
+            //StyleManager.Clone(r);
+            //if (Main.ReportCount != 0)
+            //    r.ch.Series.Add(Main.ReportCount.ToString());
+            //foreach (var pm in PercentMean)
+            //{
+            //    if (pm.Value == null)
+            //    {
+            //        r.ch.Series[Main.ReportCount].Points.AddY(0);
+            //    }
+            //    else
+            //    {
+            //        r.ch.Series[Main.ReportCount].Points.AddY(pm.Value / 60 != 0 ? (double)pm.Value / 60 : (double)pm.Value);
+            //    }
+            //    if (!changeText)
+            //        r.ch.ChartAreas[0].AxisX.CustomLabels.Add(new CustomLabel(iCh, iCh + 2, pm.Key.ToString(), 0, LabelMarkStyle.LineSideMark));
+            //    else
+            //        r.ch.ChartAreas[0].AxisX.CustomLabels[iCh].Text = pm.Key.ToString();
+            //    iCh++;
+            //}
+            Random rnd = new Random();
+            r.ch.Series[Main.ReportCount].Points.AddXY("0%", rnd.Next(0, 1));
+            r.ch.Series[Main.ReportCount].Points.AddXY("25%", rnd.Next(0, Modeling.T));
+            r.ch.Series[Main.ReportCount].Points.AddXY("50%", rnd.Next(0, Modeling.T));
+            r.ch.Series[Main.ReportCount].Points.AddXY("75%", rnd.Next(0, Modeling.T));
+            r.ch.Series[Main.ReportCount].Points.AddXY("100%", rnd.Next(0, Modeling.T));
             r.ch.SaveImage(PathOpt + "/" + MainStrings.chart + ".jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
             r.TopMost = true;
             r.Show();
@@ -119,87 +124,68 @@ namespace SystAnalys_lr1.Classes
             Data.Buses.ForEach((b) => optimizeBuses.Add(
                 (Bus)b.Clone()
             ));
-  
 
 
-         
+
+
 
             loadingForm.loading.Invoke(new DelInt((s) => loadingForm.loading.Maximum = s), OptiCount);
-        
-                fs = File.Create(PathOpt + "/Matrices/" + "_Matrix.txt");
-                streamWriter = new StreamWriter(fs);
-                //OffBuses(matrixControl, cicl * 10);
-                //if (cicl == ciclTotal - 1)
-                //    Data.Buses[rnd.Next(0, Data.Buses.Count)].Tracker = false;
-                List<int?> mas = new List<int?>();
-                //ShuffleBuses();
-                for (int i = 0; i < OptiCount; i++)
-                {
-                    Modeling.StartModeling();
-                    loadingForm.loading.Invoke(new DelInt((s) => loadingForm.loading.Value = s), loadingForm.loading.Value + 1);
-                }
 
-                int total = Modeling.ResultFromModeling.Sum(x => Convert.ToInt32(x));
-                int count = 0;
-                foreach (var m in Modeling.ResultFromModeling)
-                {
-                    if (m != null)
-                    {
-                        count += 1;
-                    }
-                }
+            fs = File.Create(PathOpt + "/Matrices/" + "_Matrix.txt");
+            streamWriter = new StreamWriter(fs);
+            List<int?> mas = new List<int?>();
+            //ShuffleBuses();
+            for (int i = 0; i < OptiCount; i++)
+            {
+                Modeling.StartModeling();
+                loadingForm.loading.Invoke(new DelInt((s) => loadingForm.loading.Value = s), loadingForm.loading.Value + 1);
+            }
 
-                //if (total < 0 || count < Modeling.ResultFromModeling.Count / 2)
-                //{
-                //    if (!PercentMean.ContainsKey(WithoutSensorsBuses.Last()))
-                //        PercentMean.Add(WithoutSensorsBuses.Last(), null);
-                //}
-                //else
-                //{
-                //    //if (!PercentMean.ContainsKey(WithoutSensorsBuses.Last()))
-                //    //{
-                //    //    if (count != 0)
-                //    //        PercentMean.Add(WithoutSensorsBuses.Last(), total / count);
-                //    //    else
-                //    //        PercentMean.Add(WithoutSensorsBuses.Last(), -1);
-                //    //}
-                //};
-                //WithoutSensorsBuses.Add(1);
-                using (StreamWriter fileV = new StreamWriter(PathOpt + @"\" + Data.Buses.ToString() + "_buses" + ".txt"))
+            int total = Modeling.ResultFromModeling.Sum(x => Convert.ToInt32(x));
+            int count = 0;
+            foreach (var m in Modeling.ResultFromModeling)
+            {
+                if (m != null)
                 {
-                    //fileV.WriteLine(MainStrings.sensorsDown + ": " + (cicl * 10).ToString());
-                    fileV.WriteLine(MainStrings.countBuses + ": " + Data.Buses.ToString().ToString());
-                    fileV.WriteLine(MainStrings.numIter + ": " + OptiCount);
-                    fileV.WriteLine(MainStrings.distance + ": " + OptiSpeed.ToString() + " " + MainStrings.sec + " (" + (OptiSpeed <= 60 ? ">1" + MainStrings.minute : OptiSpeed / 60 + " " + MainStrings.minute) + ")");
-                    fileV.WriteLine(MainStrings.found + ": " + (from num in Modeling.ResultFromModeling where (num != null) select num).Count());
-                    if (count == 0)
+                    count += 1;
+                }
+            }
+
+            using (StreamWriter fileV = new StreamWriter(PathOpt + @"\" + Data.Buses.ToString() + "_buses" + ".txt"))
+            {
+                //fileV.WriteLine(MainStrings.sensorsDown + ": " + (cicl * 10).ToString());
+                fileV.WriteLine(MainStrings.countBuses + ": " + Data.Buses.ToString().ToString());
+                fileV.WriteLine(MainStrings.numIter + ": " + OptiCount);
+                fileV.WriteLine(MainStrings.distance + ": " + OptiSpeed.ToString() + " " + MainStrings.sec + " (" + (OptiSpeed <= 60 ? ">1" + MainStrings.minute : OptiSpeed / 60 + " " + MainStrings.minute) + ")");
+                fileV.WriteLine(MainStrings.found + ": " + (from num in Modeling.ResultFromModeling where (num != null) select num).Count());
+                if (count == 0)
+                {
+                    fileV.WriteLine(MainStrings.none);
+                }
+                else
+                {
+                    fileV.WriteLine(MainStrings.average + " " + (total / count / 60 < 60 ? (total / count + " " + MainStrings.sec).ToString() : (total / count / 60 + " " + MainStrings.minute + " " + total / count % 60 + " " + MainStrings.sec).ToString())
+                                  + "\n" + MainStrings.procentSuc + " " + (count * 100.00 / OptiCount) + "\n" + MainStrings.procentFailed + " " + ((Modeling.ResultFromModeling.Count - count) * 100.00 / OptiCount).ToString());
+                }
+                //fileV.WriteLine(MainStrings.cycle + " " + cicl.ToString());
+                for (int i = 0; i < Modeling.ResultFromModeling.Count; i++)
+                    if (Modeling.ResultFromModeling[i] != null)
                     {
-                        fileV.WriteLine(MainStrings.none);
+                        var ts = TimeSpan.FromSeconds((double)Modeling.ResultFromModeling[i]);
+                        fileV.WriteLine(i.ToString() + ": {0} д. {1} ч. {2} м. {3} с. {4} мс.", ts.Days, ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds);
                     }
                     else
                     {
-                        fileV.WriteLine(MainStrings.average + " " + (total / count / 60 < 60 ? (total / count + " " + MainStrings.sec).ToString() : (total / count / 60 + " " + MainStrings.minute + " " + total / count % 60 + " " + MainStrings.sec).ToString())
-                                      + "\n" + MainStrings.procentSuc + " " + (count * 100.00 / OptiCount) + "\n" + MainStrings.procentFailed + " " + ((Modeling.ResultFromModeling.Count - count) * 100.00 / OptiCount).ToString());
+                        fileV.WriteLine(i.ToString() + " : " + MainStrings.notFound);
                     }
-                    //fileV.WriteLine(MainStrings.cycle + " " + cicl.ToString());
-                    for (int i = 0; i < Modeling.ResultFromModeling.Count; i++)
-                        if (Modeling.ResultFromModeling[i] != null)
-                        {
-                            var ts = TimeSpan.FromSeconds((double)Modeling.ResultFromModeling[i]);
-                            fileV.WriteLine(i.ToString() + ": {0} д. {1} ч. {2} м. {3} с. {4} мс.", ts.Days, ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds);
-                        }
-                        else
-                        {
-                            fileV.WriteLine(i.ToString() + " : " + MainStrings.notFound);
-                        }
 
-                    Console.WriteLine("Объект сериализован");
-                }
-                Modeling.ResultFromModeling = new List<int?>();
+                Console.WriteLine("Объект сериализован");
+            }
+            Modeling.ResultFromModeling = new List<int?>();
 
-                matrixControl.MatrixCreate(false);
-                SaveMatrix(matrixControl, streamWriter);
-            
+            matrixControl.MatrixCreate(false);
+            SaveMatrix(matrixControl, streamWriter);
+
 
             var res = PercentMean.Where(s => s.Value.Equals(PercentMean.Min(v => v.Value))).Select(s => s.Key).ToList();
             Min = PercentMean.Min(v => v.Value);
