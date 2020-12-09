@@ -23,7 +23,15 @@ namespace SystAnalys_lr1.Classes
             }
             return false;
         }
-
+        public void RandomMoving(Coordinates c)
+        {
+            foreach (var b in Data.Buses)
+            {
+                b.PositionAt = 0;
+                b.Coordinates = c.CreateOneRouteRandomCoordinates(b);
+                Console.WriteLine(b.GridCoordinates.Count.ToString());
+            }
+        }
 
         public void MapUpdate(PictureBox sheet)
         {

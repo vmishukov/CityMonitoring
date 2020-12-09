@@ -39,6 +39,8 @@ namespace SystAnalys_lr1.Classes
         //все координаты движения автобусов
         public static SerializableDictionary<string, List<Point>> AllCoordinates { get; set; } = new SerializableDictionary<string, List<Point>>();
         //все квадраты сетки, которые есть в каждом из маршрутов 
-        public static SerializableDictionary<string, List<int>> AllGridsInRoutes { get; set; } = new SerializableDictionary<string, List<int>>();        
+        public static SerializableDictionary<string, List<int>> AllGridsInRoutes { get; set; } = new SerializableDictionary<string, List<int>>();
+        //
+        public static List<int> AllGridsCoordinates { get; set; } = new List<int>();
     }
 }

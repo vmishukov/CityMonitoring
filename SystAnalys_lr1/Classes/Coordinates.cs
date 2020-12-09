@@ -188,7 +188,16 @@ namespace SystAnalys_lr1
                 }
             }
         }
-
+        public void GetAllRoadInGrid()
+        {
+            List<Vertex> dfssdf = new List<Vertex>();
+            foreach (var e in Data.E)
+            {
+                dfssdf.Clear();
+                dfssdf.Add(Data.V[e.V1]);
+                dfssdf.Add(Data.V[e.V2]);
+            }
+        }
 
         //функция, которая создает все координаты для всех маршрутов
         public void CreateAllCoordinates()

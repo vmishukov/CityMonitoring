@@ -808,6 +808,7 @@ namespace SystAnalys_lr1
         {
             if (Data.Buses != null && optText.Text != "" && speed.Text != "" && Data.Buses.Count != 0 && int.Parse(optText.Text) > 0 && int.Parse(speed.Text) > 0)
             {
+                c.RandomMoving(coordinates);
                 c.AddTrafficLightsToGrid(Data.TraficLights, Data.TheGrid);
                 c.AddStationsToGrid(Data.Stations, Data.TheGrid);
                 c.AddCarAccidentsToGrid(Data.CarAccidents, Data.TheGrid);
@@ -885,6 +886,9 @@ namespace SystAnalys_lr1
                     loadingForm.Dispose();
 
                     matrix.MatrixCreate();
+
+                   //coordinates.GetPoints(,)
+
                     Optimization.ResMatrix(results);
                     Data.BusesPark = busesparkreturn;
 
@@ -2470,12 +2474,12 @@ namespace SystAnalys_lr1
 
         private void metroButton1_Click(object sender, EventArgs e)
         {
-            foreach (var b in Data.Buses)
+            //c.RandomMoving(coordinates);
+            foreach (var item in Data.AllCoordinates)
             {
-                b.PositionAt = 0;
-                b.Coordinates = coordinates.CreateOneRouteRandomCoordinates(b);
-                Console.WriteLine(b.GridCoordinates.Count.ToString());
+                Console.WriteLine(item.Key);
             }
+                    
         }
 
         private void panelSettings_Paint(object sender, PaintEventArgs e)
