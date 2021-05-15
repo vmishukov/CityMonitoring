@@ -2056,7 +2056,7 @@ namespace SystAnalys_lr1
                 delAllBusesOnRoute.Enabled = false;
                 G.ClearSheet();
                 G.DrawTrafficLights();
-                GridCreator.DrawGrid(sheet);
+                //GridCreator.DrawGrid(sheet);
                 sheet.Image = G.GetBitmap();
                 trafficLightLabel.Visible = false;
                 selected = new List<int>();
@@ -2450,18 +2450,21 @@ namespace SystAnalys_lr1
                 Bitmap original = new Bitmap(Math.Max(busPic.Width, num.Width), Math.Max(busPic.Height, num.Height) * 2);
                 using (Graphics graphics = Graphics.FromImage(original))
                 {
-
                     graphics.DrawImage(busPic, 0, 0);
                     graphics.DrawImage(num, 0, 15);
                     graphics.Dispose();
-
                 }
                 bus.BusPic = new Bitmap(original);
             }
             Data.Stations.ForEach(st =>
             {
-                st.HaveInfo = false;
+               st.HaveInfo = false;
             });
+            //Data.Buses.ForEach(b =>
+            //{
+            //    if (rnd.Next(2) == 1)
+            //        b.Tracker = true;
+            //});
             Data.CarAccidents.Clear();
             G.ClearSheet();
             G.DrawALLGraph(Data.V, Data.E);
@@ -2474,7 +2477,7 @@ namespace SystAnalys_lr1
 
         private void metroButton1_Click(object sender, EventArgs e)
         {
-            //c.RandomMoving(coordinates);
+            c.RandomMoving(coordinates);
             foreach (var item in Data.AllCoordinates)
             {
                 Console.WriteLine(item.Key);
