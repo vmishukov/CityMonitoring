@@ -82,7 +82,7 @@ namespace SystAnalys_lr1.Classes
             {
                 for (int j = 0; j < buses.Count - i - 1; j++)
                 {
-                    if (buses[j + 1].Route == buses[j].Route && buses[j + 1].Tracker == true && buses[j].Tracker == false)
+                    if (buses[j + 1].Route == buses[j].Route && buses[j + 1].accident_check == true && buses[j].accident_check == false)
                     {
                         temp = buses[j + 1];
                         buses[j + 1] = buses[j];
@@ -161,7 +161,7 @@ namespace SystAnalys_lr1.Classes
                         {
                             if (j < busesPark[i].Count)
                             {
-                                if (busesPark[i][j].Tracker == true)
+                                if (busesPark[i][j].accident_check == true)
                                 {
                                     myArr[i, j] = 1;
                                     total++;

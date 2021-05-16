@@ -294,7 +294,6 @@
             this.panelSettings.VerticalScrollbarBarColor = true;
             this.panelSettings.VerticalScrollbarHighlightOnWheel = false;
             this.panelSettings.VerticalScrollbarSize = 20;
-            this.panelSettings.Paint += new System.Windows.Forms.PaintEventHandler(this.panelSettings_Paint);
             // 
             // metroButton1
             // 
@@ -469,7 +468,6 @@
             resources.ApplyResources(this.sheet, "sheet");
             this.sheet.Name = "sheet";
             this.sheet.TabStop = false;
-            this.sheet.Click += new System.EventHandler(this.sheet_Click);
             this.sheet.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Sheet_MouseClick_1);
             // 
             // toolStripSeparator1

@@ -23,7 +23,7 @@ namespace SystAnalys_lr1.Classes
             foreach (var bus in cqBus)
             {
                 bus.PositionAt = rnd.Next(1, bus.GridCoordinates.Count - 2);
-                bus.Tracker = false;
+                bus.accident_check = false;
             }
             foreach (var item in Data.Stations)
             {
@@ -39,23 +39,23 @@ namespace SystAnalys_lr1.Classes
 
                     if (Data.CarAccidentsInGrids.Contains(bus.GridCoordinates[bus.PositionAt]))
                     {
-                        bus.Tracker = true;
+                        bus.accident_check = true;
                     }
-                    Data.SationsInGrids.ForEach(st =>
+                    Data.SationsInGrids.ForEach((Action<int>)(st =>
                     {
-                        if (bus.GridCoordinates[bus.PositionAt] == st && bus.Tracker)
+                        if (bus.GridCoordinates[bus.PositionAt] == st && bus.accident_check)
                         {
                             Data.Stations[Data.SationsInGrids.IndexOf(st)].HaveInfo = true;
                         }
-                    });
+                    }));
 
                     foreach (var bus2 in cqBus)
                     {
                         if (bus.GridCoordinates[bus.PositionAt] == bus2.GridCoordinates[bus2.PositionAt])
                         {
-                            if (!bus2.Tracker)
+                            if (!bus2.accident_check)
                             {
-                                bus2.Tracker = true;
+                                bus2.accident_check = true;
                             }
                         }
                     }

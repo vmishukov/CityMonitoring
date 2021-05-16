@@ -850,12 +850,12 @@ namespace SystAnalys_lr1
                 report.Hide();
                 //coordinates.CreateAllCoordinates();
                 //Optimization.WithoutSensorsBuses = new List<int>();
-                Optimization.CountWithoutSensors = Data.Buses.Where((bus) => bus.Tracker == true).Count();
+                Optimization.CountWithoutSensors = Data.Buses.Where((bus) => bus.accident_check == true).Count();
                 var busesparkreturn = Data.BusesPark;
                 bool check = false;
                 foreach (var bus in Data.Buses)
                 {
-                    if (bus.Tracker == false)
+                    if (bus.accident_check == false)
                     {
                         //bus.PositionAt = 0;
                         check = true;
@@ -2012,26 +2012,32 @@ namespace SystAnalys_lr1
                 {
                     foreach (var CarCrash in Data.CarAccidents)
                     {
-                        if (!bus.Tracker && GetDistance(CarCrash.X, CarCrash.Y, bus.Coordinates[bus.PositionAt].X, bus.Coordinates[bus.PositionAt].Y) < 10)
+                        if (!bus.accident_check && GetDistance(CarCrash.X, CarCrash.Y, bus.Coordinates[bus.PositionAt].X, bus.Coordinates[bus.PositionAt].Y) < 10)
                         {
-                            bus.Tracker = true;
-                            Bitmap busPic = new Bitmap(Bus.BusImg);
+                            bus.accident_check = true;
+                            Bitmap busPic;                   
+                            if (bus.tracker)
+                                busPic = new Bitmap(Bus.TrackerBusImg);
+                            else
+                                busPic = new Bitmap(Bus.BusImg);                
                             busPic = new Bitmap(busPic, new Size(15, 15));
                             Bitmap num = new Bitmap(busPic.Height, busPic.Width);
                             Bitmap original = new Bitmap(Math.Max(busPic.Width, num.Width), Math.Max(busPic.Height, num.Height) * 2);
                             using (Graphics graphics = Graphics.FromImage(original))
-                            {
-                                graphics.DrawImage(busPic, 0, 0);
-                                graphics.DrawImage(num, 0, 15);
-                                graphics.Dispose();
+                                {
+                                    graphics.DrawImage(busPic, 0, 0);
+                                    graphics.DrawImage(num, 0, 15);
+                                    graphics.Dispose();
 
-                            }
+                                }
                             bus.BusPic = new Bitmap(original);
+                            
+              
                         }
                     }
-                    Data.Stations.ForEach(st =>
+                    Data.Stations.ForEach((Action<Station>)(st =>
                     {
-                        if (((Math.Pow((double.Parse((st.X * Main.zoom - bus.Coordinates[bus.PositionAt].X * Main.zoom).ToString())), 2) + Math.Pow((double.Parse(((st.Y * Main.zoom - bus.Coordinates[bus.PositionAt].Y * Main.zoom)).ToString())), 2) <= Main.G.R * Main.zoom * 400)) && (bus.Tracker == true) && (!st.HaveInfo))
+                        if (((Math.Pow((double.Parse((st.X * Main.zoom - bus.Coordinates[bus.PositionAt].X * Main.zoom).ToString())), 2) + Math.Pow((double.Parse(((st.Y * Main.zoom - bus.Coordinates[bus.PositionAt].Y * Main.zoom)).ToString())), 2) <= Main.G.R * Main.zoom * 400)) && (bus.accident_check == true) && (!st.HaveInfo) && bus.tracker==true)
                         {
                             st.HaveInfo = true;
                             G.ClearSheet();
@@ -2040,16 +2046,20 @@ namespace SystAnalys_lr1
                             sheet.Image = Main.G.GetBitmap();
                             return;
                         }
-                    });
+                    }));
 
                     foreach (var bus2 in Data.Buses)
                     {
-                        if (bus.Tracker && GetDistance(bus.Coordinates[bus.PositionAt].X, bus.Coordinates[bus.PositionAt].Y, bus2.Coordinates[bus2.PositionAt].X, bus2.Coordinates[bus2.PositionAt].Y) < 10)
+                        if (bus.accident_check && GetDistance(bus.Coordinates[bus.PositionAt].X, bus.Coordinates[bus.PositionAt].Y, bus2.Coordinates[bus2.PositionAt].X, bus2.Coordinates[bus2.PositionAt].Y) < 10)
                         {
-                            if (!bus2.Tracker)
+                            if (!bus2.accident_check)
                             {
-                                bus2.Tracker = true;
-                                Bitmap busPic = new Bitmap(Bus.BusImg);
+                                Bitmap busPic;
+                                bus2.accident_check = true;
+                                if (bus2.tracker)
+                                     busPic = new Bitmap(Bus.TrackerBusImg);
+                                else 
+                                     busPic = new Bitmap(Bus.BusImg);
                                 busPic = new Bitmap(busPic, new Size(15, 15));
                                 Bitmap num = new Bitmap(busPic.Height, busPic.Width);
                                 Bitmap original = new Bitmap(Math.Max(busPic.Width, num.Width), Math.Max(busPic.Height, num.Height) * 2);
@@ -2505,8 +2515,13 @@ namespace SystAnalys_lr1
             Rectangle rect = new Rectangle(0, 0, 200, 100);
             foreach (var bus in Data.Buses)
             {
-                bus.Tracker = false;
-                Bitmap busPic = new Bitmap(Bus.OffBusImg);
+                bus.accident_check = false;
+                //bus.tracker = false;
+                Bitmap busPic;
+                if (bus.tracker)
+                    busPic = new Bitmap(Bus.TrackerOffBusImg);
+                else
+                    busPic = new Bitmap(Bus.OffBusImg);
                 busPic = new Bitmap(busPic, new Size(15, 15));
                 Bitmap num = new Bitmap(busPic.Height, busPic.Width);
                 using (Graphics gr = Graphics.FromImage(num))
@@ -2573,15 +2588,6 @@ namespace SystAnalys_lr1
                     
         }
 
-        private void panelSettings_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void sheet_Click(object sender, EventArgs e)
-        {
-
-        }
 
         public void AnimationSettings()
         {
