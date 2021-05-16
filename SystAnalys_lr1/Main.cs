@@ -2502,13 +2502,28 @@ namespace SystAnalys_lr1
 
         private void clearCrashes(bool init = true)
         {
-
+            Rectangle rect = new Rectangle(0, 0, 200, 100);
             foreach (var bus in Data.Buses)
             {
                 bus.Tracker = false;
                 Bitmap busPic = new Bitmap(Bus.OffBusImg);
                 busPic = new Bitmap(busPic, new Size(15, 15));
                 Bitmap num = new Bitmap(busPic.Height, busPic.Width);
+                using (Graphics gr = Graphics.FromImage(num))
+                {
+                    using (Font font = new Font("Segoe UI", 8))
+                    {
+                        gr.FillRectangle(Brushes.Transparent, rect);
+
+                        gr.DrawString(
+                            bus.Route,
+                            font,
+                            Brushes.Black,
+                            rect,
+                            StringFormat.GenericTypographic
+                            );
+                    }
+                }
                 Bitmap original = new Bitmap(Math.Max(busPic.Width, num.Width), Math.Max(busPic.Height, num.Height) * 2);
                 using (Graphics graphics = Graphics.FromImage(original))
                 {
@@ -2516,6 +2531,7 @@ namespace SystAnalys_lr1
                     graphics.DrawImage(num, 0, 15);
                     graphics.Dispose();
                 }
+       
                 bus.BusPic = new Bitmap(original);
             }
             Data.Stations.ForEach(st =>
