@@ -135,11 +135,11 @@ namespace SystAnalys_lr1
                 Data.AllCoordinates.Add("Random", new List<Point>());
 
 
-                for (int i = 0; i < 3; i++)
-                {
-                    Data.Routes["Random"].Add(Data.V[rnd.Next(Data.V.Count - 1)]);
-                    Data.RoutesEdge["Random"].Add(Data.E[rnd.Next(Data.E.Count - 1)]);
-                }
+                //for (int i = 0; i < Data.V.Count; i++)
+                //{
+                    Data.Routes["Random"] = Data.V;
+                    Data.RoutesEdge["Random"] = Data.E;
+                //}
 
                 for (int i = 0; i < 25; i++)
                 {
@@ -1998,7 +1998,7 @@ namespace SystAnalys_lr1
         private void Timer1_Tick(object sender, EventArgs e)
         {
             randomCrash();
-            if (!initCarsStop && Data.V.Count > 2 && Data.E.Count > 2 && G.Bitmap != null)
+            if (!initCarsStop && Data.V.Count > 15 && Data.E.Count > 15 && G.Bitmap != null)
             {
                 initCars();
                 initCarsStop = true;
