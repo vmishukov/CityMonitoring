@@ -43,16 +43,6 @@ namespace SystAnalys_lr1.Classes
         public static List<int> Result { get => result; set => result = value; }
 
 
-        public static void checkWithoutBuses()
-        {
-            int i = 0;
-            foreach (var bus in Data.Buses)
-            {
-                if (bus.HaveTracker == true)
-                    WithoutSensorsBuses.Add(++i);
-            }
-        }
-
         public static void ResMatrix(MetroGrid results)
         {
             results.Rows.Clear();
@@ -142,7 +132,6 @@ namespace SystAnalys_lr1.Classes
                 fs = File.Create(PathOpt + "/Matrices/" + "_Matrix.txt");
                 streamWriter = new StreamWriter(fs);
                 OffBuses(matrixControl, cicl * 10);
-                checkWithoutBuses();
                 List<int?> mas = new List<int?>();
                 //ShuffleBuses();
                 for (int i = 0; i < OptiCount; i++)
@@ -295,7 +284,7 @@ namespace SystAnalys_lr1.Classes
             Data.BusesPark = matrixControl1.busesPark;
             foreach (var b in Data.BusesPark)
             {
-                var BusesParkWithSensors = b.Where((bus) => bus.Tracker == true);
+                var BusesParkWithSensors = b.Where((bus) => bus.HaveTracker == true);
                 double razm = Math.Round(b.Count - b.Count * 0.01 * proc);
                 double limit = Math.Round(b.Count - razm, 0);
                 foreach (var bus in BusesParkWithSensors)
@@ -303,7 +292,7 @@ namespace SystAnalys_lr1.Classes
                     if (0 != limit)
                     {
                         countSensors += 1;
-                        bus.Tracker = false;
+                        bus.HaveTracker = false;
                         limit = limit - 1;
                     }
                     else
