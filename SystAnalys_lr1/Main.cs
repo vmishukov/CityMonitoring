@@ -147,7 +147,7 @@ namespace SystAnalys_lr1
                 changeRoute.SelectedIndex = changeRoute.Items.IndexOf("Random");
             }
 
-            TurnOffBuses_Click(new Object(), new EventArgs());
+            clearCrashes();
             c.RandomMoving(coordinates);
         }
 
@@ -2490,8 +2490,9 @@ namespace SystAnalys_lr1
 
         }
 
-        private void TurnOffBuses_Click(object sender, EventArgs e)
+        private void clearCrashes(bool init = true)
         {
+
             foreach (var bus in Data.Buses)
             {
                 bus.Tracker = false;
@@ -2509,7 +2510,7 @@ namespace SystAnalys_lr1
             }
             Data.Stations.ForEach(st =>
             {
-               st.HaveInfo = false;
+                st.HaveInfo = false;
             });
 
             //Data.Buses.ForEach(b =>
@@ -2519,11 +2520,19 @@ namespace SystAnalys_lr1
             //});
 
             Data.CarAccidents.Clear();
-            G.ClearSheet();
+            if (init)
+            {
+                G.ClearSheet();
+            }
             G.DrawALLGraph(Data.V, Data.E);
             sheet.Image = Main.G.GetBitmap();
             ETimerTimeCounts = 0;
             //GridCreator.DrawGrid(sheet);
+        }
+
+        private void TurnOffBuses_Click(object sender, EventArgs e)
+        {
+            clearCrashes(false);
         }
 
 
