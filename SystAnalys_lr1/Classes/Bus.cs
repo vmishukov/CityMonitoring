@@ -51,8 +51,13 @@ namespace SystAnalys_lr1.Classes
 
         public Skips Skips;
 
+        public static string TrackerBusImg { get => s_tracker_busImg; set => s_tracker_busImg = value; }
+        public static string TrackerOffBusImg { get => s_tracker_busImgoffBusImg; set => s_tracker_busImgoffBusImg = value; }
+
+
         public static string BusImg { get => s_busImg; set => s_busImg = value; }
-        public static string OffBusImg { get => s_offBusImg; set => s_offBusImg = value; }
+        public static string OffBusImg { get => s_busImgoffBusImg; set => s_busImgoffBusImg = value; }
+
 
         public static int ScrollX { get => s_scrollX; set => s_scrollX = value; }
         public static int ScrollY { get => s_scrollY; set => s_scrollY = value; }
@@ -76,16 +81,21 @@ namespace SystAnalys_lr1.Classes
         //за сколько времени автобус нашел эпицентр
         static public int? ZoomCoef { get => s_zoomCoef; set => s_zoomCoef = value; }
 
-
-        public bool Tracker { get => _tracker; set => _tracker = value; }
+        
+        //есть ли инфа об аварии 
+        public bool tracker { get => _accident_check; set => _accident_check = value; }
+        //может ли передавать инфу на датчик
+        public bool accident_check { get => _tracker; set => _tracker = value; }
         private bool haveTracker;
 
         private int speed;
         private int changeSpeed;
         private CheckStops CheckStops;
         private bool stopOnBusStop = false;
-        private static string s_busImg = "../../Resources/newbus.PNG";
-        private static string s_offBusImg = "../../Resources/bus.PNG";
+        private static string s_tracker_busImg = "../../Resources/newbus.PNG";
+        private static string s_tracker_busImgoffBusImg = "../../Resources/bus.PNG";
+        private static string s_busImg = "../../Resources/bus_no_cheked.PNG";
+        private static string s_busImgoffBusImg = "../../Resources/bus_no.PNG";
         private static int s_scrollX;
         private static int s_scrollY;
         private int _positionAt;
@@ -102,10 +112,10 @@ namespace SystAnalys_lr1.Classes
         private int SlowDown { get; set; }
         public bool HaveTracker { get => haveTracker; set => haveTracker = value; }
 
-        private static int s_foundTime;
-        private bool _epicFounded;
+
         private static int? s_zoomCoef = 1;
         private bool _tracker;
+        private bool _accident_check;
 
         public object Clone()
         {
@@ -118,9 +128,9 @@ namespace SystAnalys_lr1.Classes
         public Bus()
         { }
 
-        public Bus(Image BusPic, int PositionAt, bool Turn, string Route, List<Point> Coordinates, bool not)
+        public Bus(Image BusPic, int PositionAt, bool Turn, string Route, List<Point> Coordinates, bool tracker)
         {
-            Tracker = not;
+            this.tracker = tracker;
             this.BusPic = BusPic;
             this.PositionAt = PositionAt;
             TurnBack = Turn;
@@ -253,9 +263,9 @@ namespace SystAnalys_lr1.Classes
 
         private void ProvideInfo(List<Bus> buses, Graphics G)
         {
-            Data.Stations.ForEach(st =>
+            Data.Stations.ForEach((Action<Station>)(st =>
             {
-                if (this.Tracker == true)
+                if (this.accident_check == true)
                 {
                     if (Math.Pow((double.Parse((st.X * (int)ZoomCoef - Coordinates[PositionAt].X * (int)ZoomCoef).ToString())), 2) + Math.Pow((double.Parse(((st.Y * (int)ZoomCoef - Coordinates[PositionAt].Y * (int)ZoomCoef)).ToString())), 2) <= Main.G.R * (int)ZoomCoef * 700)
                     {
@@ -264,15 +274,15 @@ namespace SystAnalys_lr1.Classes
                         return;
                     }
                 }
-            }
+            })
             );
         }
 
         public void MoveWithGraphics(Graphics G)
         {
-            Bus thisBus = new Bus(BusPic, PositionAt, TurnBack, Route, Coordinates, Tracker);
-            List<Bus> buses = Data.Buses;
-            buses.Remove(thisBus);
+            Bus thisBus = new Bus(BusPic, PositionAt, TurnBack, Route, Coordinates, accident_check);
+            //Data.Buses;
+            Data.Buses.Remove(thisBus);
             //ProvideInfo(buses, G);
             if (Coordinates.Any())
             {
@@ -284,7 +294,7 @@ namespace SystAnalys_lr1.Classes
                         {
                             if (Data.Buses.Count != 0)
                             {
-                                foreach (var bus in buses)
+                                foreach (var bus in Data.Buses)
                                 {
                                     if ((PositionAt < Coordinates.Count) && (bus.PositionAt < bus.Coordinates.Count))
                                     {
@@ -348,7 +358,7 @@ namespace SystAnalys_lr1.Classes
                                 {
                                     if (Data.Buses.Count != 0)
                                     {
-                                        foreach (var bus in buses)
+                                        foreach (var bus in Data.Buses)
                                         {
                                             if ((PositionAt < Coordinates.Count) && (bus.PositionAt < bus.Coordinates.Count))
                                             {

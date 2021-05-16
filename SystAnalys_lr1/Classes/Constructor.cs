@@ -116,7 +116,7 @@ namespace SystAnalys_lr1.Classes
                 if (trackerCheck)
                 {
                     Rectangle rect = new Rectangle(0, 0, 200, 100);
-                    Bitmap busPic = new Bitmap(Bus.BusImg);
+                    Bitmap busPic = new Bitmap(Bus.TrackerOffBusImg);
                     busPic = new Bitmap(busPic, new Size(15, 15));
                     Bitmap num = new Bitmap(busPic.Height, busPic.Width);
                     using (Graphics gr = Graphics.FromImage(num))
@@ -144,7 +144,7 @@ namespace SystAnalys_lr1.Classes
                         graphics.Dispose();
 
                     }
-                    Data.Buses.Add(new Bus(original, pos, backsideCheck, route, Data.AllCoordinates[route], true));
+                    Data.Buses.Add(new Bus(original, pos, backsideCheck, route, Data.AllCoordinates[route], trackerCheck));
                 }
                 else
                 {

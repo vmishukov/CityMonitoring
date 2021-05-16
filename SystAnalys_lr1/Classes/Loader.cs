@@ -143,10 +143,10 @@ namespace SystAnalys_lr1.Classes
             foreach (var x in Data.Buses)
             {
 
-                if (x.Tracker == true)
+                if (x.tracker == true)
                 {
                     Rectangle rect = new Rectangle(0, 0, 200, 100);
-                    x.BusPic = new Bitmap(Bus.BusImg);
+                    x.BusPic = new Bitmap(Bus.TrackerOffBusImg);
                     x.BusPic = new Bitmap(x.BusPic, new Size(15, 15));
                     num = new Bitmap(x.BusPic.Height, x.BusPic.Width);
                     using (Graphics gr = Graphics.FromImage(num))
