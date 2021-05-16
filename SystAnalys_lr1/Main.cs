@@ -1142,18 +1142,18 @@ namespace SystAnalys_lr1
             //GridCreator.DrawGrid(sheet);
         }
 
-        private void SaveRoutes(string saveFormat = "xml", string save = "../../Configs/")
+        private void SaveRoutes(string saveFormat = "json", string save = "../../Configs/")
         {
             try
             {
-                if (saveFormat == "xml")
-                {
-                    Saver.SaveXML(save, loadingForm, saveFormat);
-                }
-                if (saveFormat == "json")
-                {
+                //if (saveFormat == "xml")
+                //{
+                //    Saver.SaveXML(save, loadingForm, saveFormat);
+                //}
+                //if (saveFormat == "json")
+                //{
                     Saver.SaveJSON(save, loadingForm, saveFormat);
-                }
+                //}
 
             }
             catch (Exception exc)
@@ -1998,7 +1998,7 @@ namespace SystAnalys_lr1
         private void Timer1_Tick(object sender, EventArgs e)
         {
             randomCrash();
-            if (!initCarsStop && Data.V.Count > 2 && Data.E.Count > 2)
+            if (!initCarsStop && Data.V.Count > 2 && Data.E.Count > 2 && G.Bitmap != null)
             {
                 initCars();
                 initCarsStop = true;
