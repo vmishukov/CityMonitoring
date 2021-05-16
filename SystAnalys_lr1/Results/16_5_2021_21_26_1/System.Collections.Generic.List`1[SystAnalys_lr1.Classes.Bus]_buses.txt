@@ -1,0 +1,5 @@
+Кол-во автобусов: System.Collections.Generic.List`1[SystAnalys_lr1.Classes.Bus]
+Кол-во итераций: 100
+При T равном: 100 сек (1 мин)
+Найдено: 0
+Ничего

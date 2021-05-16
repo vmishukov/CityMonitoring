@@ -137,8 +137,8 @@ namespace SystAnalys_lr1
 
                 //for (int i = 0; i < Data.V.Count; i++)
                 //{
-                    Data.Routes["Random"] = Data.V;
-                    Data.RoutesEdge["Random"] = Data.E;
+                Data.Routes["Random"] = Data.V;
+                Data.RoutesEdge["Random"] = Data.E;
                 //}
 
                 for (int i = 0; i < 25; i++)
@@ -152,7 +152,7 @@ namespace SystAnalys_lr1
             }
 
             clearCrashes();
-            c.RandomMoving(coordinates);
+            //c.RandomMoving(coordinates);
             changeRoute.SelectedIndex = 1;
             SelectRoute_Click(new Object(), new EventArgs());
         }
