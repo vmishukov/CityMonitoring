@@ -126,7 +126,7 @@ namespace SystAnalys_lr1.Classes
             File.Delete(save + "stations.xml");
             using (FileStream fileTL = new FileStream(save + "stations.xml", FileMode.OpenOrCreate))
             {
-                XmlSerializer tl = new XmlSerializer(typeof(List<Vertex>));
+                XmlSerializer tl = new XmlSerializer(typeof(List<Station>));
                 tl.Serialize(fileTL, Data.Stations);
 
                 Console.WriteLine("Объект сериализован");

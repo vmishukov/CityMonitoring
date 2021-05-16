@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<dictionary>
+  <item>
+    <key>
+      <string>Random</string>
+    </key>
+    <value>
+      <ArrayOfVertex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <Vertex>
+          <X>299</X>
+          <Y>266</Y>
+          <GridNum>0</GridNum>
+        </Vertex>
+        <Vertex>
+          <X>335</X>
+          <Y>491</Y>
+          <GridNum>0</GridNum>
+        </Vertex>
+        <Vertex>
+          <X>335</X>
+          <Y>491</Y>
+          <GridNum>0</GridNum>
+        </Vertex>
+      </ArrayOfVertex>
+    </value>
+  </item>
+</dictionary>

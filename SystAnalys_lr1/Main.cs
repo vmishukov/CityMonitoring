@@ -153,6 +153,8 @@ namespace SystAnalys_lr1
 
             clearCrashes();
             c.RandomMoving(coordinates);
+            changeRoute.SelectedIndex = 1;
+            SelectRoute_Click(new Object(), new EventArgs());
         }
 
 
