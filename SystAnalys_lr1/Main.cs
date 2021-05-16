@@ -140,7 +140,7 @@ namespace SystAnalys_lr1
                 for (int i = 0; i < 25; i++)
                 {
                     Vertex rndV = Data.V[rnd.Next(Data.V.Count - 1)];
-                    // Добавить басы
+                    Data.Buses.Add(new Bus(new Bitmap("../../Resources/bus.PNG"), 1, true, "Random", Data.AllCoordinates["Random"], true));
                 }
 
                 changeRoute.Items.Add("Random");
