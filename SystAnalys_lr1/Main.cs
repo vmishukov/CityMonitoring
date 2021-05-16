@@ -124,7 +124,7 @@ namespace SystAnalys_lr1
             LoadSettings();
             AnimationSettings();
 
-            if (!Data.Routes.ContainsKey("Random"))
+            if (!Data.Routes.ContainsKey("Random") && Data.V.Count > 0 && Data.E.Count > 0)
             {
                 Data.Routes.Add("Random", new List<Vertex>());
                 Data.RoutesEdge.Add("Random", new List<Edge>());
