@@ -27,9 +27,12 @@ namespace SystAnalys_lr1.Classes
         {
             foreach (var b in Data.Buses)
             {
-                b.PositionAt = 0;
-                b.Coordinates = c.CreateOneRouteRandomCoordinates(b);
-                Console.WriteLine(b.GridCoordinates.Count.ToString());
+                if (b.GetRoute() == "Random")
+                {
+                    b.PositionAt = 0;
+                    b.Coordinates = c.CreateOneRouteRandomCoordinates(b);
+                    Console.WriteLine(b.GridCoordinates.Count.ToString());
+                }
             }
         }
 

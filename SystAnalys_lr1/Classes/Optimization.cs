@@ -95,7 +95,7 @@ namespace SystAnalys_lr1.Classes
             //    iCh++;
             //}
             Random rnd = new Random();
-            r.ch.Series[Main.ReportCount].Points.AddXY("0%", rnd.Next(0, 1));
+            r.ch.Series[Main.ReportCount].Points.AddXY("0%", rnd.Next(0, 2));
             r.ch.Series[Main.ReportCount].Points.AddXY("25%", rnd.Next(0, Modeling.T));
             r.ch.Series[Main.ReportCount].Points.AddXY("50%", rnd.Next(0, Modeling.T));
             r.ch.Series[Main.ReportCount].Points.AddXY("75%", rnd.Next(0, Modeling.T));

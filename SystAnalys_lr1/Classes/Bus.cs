@@ -75,7 +75,10 @@ namespace SystAnalys_lr1.Classes
 
         //за сколько времени автобус нашел эпицентр
         static public int? ZoomCoef { get => s_zoomCoef; set => s_zoomCoef = value; }
+
+
         public bool Tracker { get => _tracker; set => _tracker = value; }
+        private bool haveTracker;
 
         private int speed;
         private int changeSpeed;
@@ -94,6 +97,10 @@ namespace SystAnalys_lr1.Classes
         private List<int> _gridCoordinates;
         private int _r = 7;
         private int _tickCount_;
+
+
+        private int SlowDown { get; set; }
+        public bool HaveTracker { get => haveTracker; set => haveTracker = value; }
 
         private static int s_foundTime;
         private bool _epicFounded;
@@ -243,8 +250,6 @@ namespace SystAnalys_lr1.Classes
                 }
             }
         }
-
-        private int SlowDown { get; set; }
 
         private void ProvideInfo(List<Bus> buses, Graphics G)
         {

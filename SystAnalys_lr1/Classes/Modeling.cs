@@ -1,16 +1,8 @@
 ﻿//This is a personal academic project. Dear PVS-Studio, please check it.
 //PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-using SystAnalys_lr1.Forms;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SystAnalys_lr1.Classes;
-
 namespace SystAnalys_lr1.Classes
 {
     static class Modeling

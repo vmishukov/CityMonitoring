@@ -123,6 +123,32 @@ namespace SystAnalys_lr1
             InitializeElements();
             LoadSettings();
             AnimationSettings();
+
+            if (!Data.Routes.ContainsKey("Random"))
+            {
+                Data.Routes.Add("Random", new List<Vertex>());
+                Data.RoutesEdge.Add("Random", new List<Edge>());
+                Data.AllCoordinates.Add("Random", new List<Point>());
+
+
+                for (int i = 0; i < 3; i++)
+                {
+                    Data.Routes["Random"].Add(Data.V[rnd.Next(Data.V.Count - 1)]);
+                    Data.RoutesEdge["Random"].Add(Data.E[rnd.Next(Data.E.Count - 1)]); 
+                }
+
+                for (int i = 0; i < 25; i++)
+                {
+                    Vertex rndV = Data.V[rnd.Next(Data.V.Count - 1)];
+                    // Добавить басы
+                }
+
+                changeRoute.Items.Add("Random");
+                changeRoute.SelectedIndex = changeRoute.Items.IndexOf("Random");
+            }
+
+            TurnOffBuses_Click(new Object(), new EventArgs());
+            c.RandomMoving(coordinates);
         }
 
 
@@ -1943,19 +1969,22 @@ namespace SystAnalys_lr1
         int maxCrash = 0;
         public void randomCrash()
         {
-            if (maxCrash < 3)
+            if (Data.V.Count > 0 && Data.Buses.Count > 30)
             {
-                if (rnd.Next(100) > 98)
+                if (maxCrash < 3)
                 {
-                    maxCrash++;
-                    Bitmap carcrash = new Bitmap("../../Resources/CarCrash.PNG");
-                    carcrash = new Bitmap(carcrash, new Size(30, 30));
-                    Vertex rndV = Data.V[rnd.Next(Data.V.Count - 1)];
-                    Data.CarAccidents.Add(new CarAccident(rndV.X / zoom, rndV.Y / Main.zoom));
+                    if (rnd.Next(100) > 98)
+                    {
+                        maxCrash++;
+                        Bitmap carcrash = new Bitmap("../../Resources/CarCrash.PNG");
+                        carcrash = new Bitmap(carcrash, new Size(30, 30));
+                        Vertex rndV = Data.V[rnd.Next(Data.V.Count - 1)];
+                        Data.CarAccidents.Add(new CarAccident(rndV.X / zoom, rndV.Y / Main.zoom));
 
 
-                    Main.G.Gr.DrawImage(new Bitmap(carcrash), new PointF(rndV.X - carcrash.Width / 2, rndV.Y - carcrash.Height / 2));
-                    c.MapUpdate(sheet);
+                        Main.G.Gr.DrawImage(new Bitmap(carcrash), new PointF(rndV.X - carcrash.Width / 2, rndV.Y - carcrash.Height / 2));
+                        c.MapUpdate(sheet);
+                    }
                 }
             }
         }
@@ -2482,11 +2511,13 @@ namespace SystAnalys_lr1
             {
                st.HaveInfo = false;
             });
+
             //Data.Buses.ForEach(b =>
             //{
             //    if (rnd.Next(2) == 1)
             //        b.Tracker = true;
             //});
+
             Data.CarAccidents.Clear();
             G.ClearSheet();
             G.DrawALLGraph(Data.V, Data.E);
@@ -2500,10 +2531,10 @@ namespace SystAnalys_lr1
         private void metroButton1_Click(object sender, EventArgs e)
         {
             c.RandomMoving(coordinates);
-            foreach (var item in Data.AllCoordinates)
-            {
-                Console.WriteLine(item.Key);
-            }
+            //foreach (var item in Data.AllCoordinates)
+            //{
+            //    Console.WriteLine(item.Key);
+            //}
                     
         }
 
