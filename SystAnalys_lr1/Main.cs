@@ -1940,8 +1940,30 @@ namespace SystAnalys_lr1
 
 
         int ETimerTimeCounts = 0;
+        int maxCrash = 0;
+        public void randomCrash()
+        {
+            if (maxCrash < 3)
+            {
+                if (rnd.Next(100) > 98)
+                {
+                    maxCrash++;
+                    Bitmap carcrash = new Bitmap("../../Resources/CarCrash.PNG");
+                    carcrash = new Bitmap(carcrash, new Size(30, 30));
+                    Vertex rndV = Data.V[rnd.Next(Data.V.Count - 1)];
+                    Data.CarAccidents.Add(new CarAccident(rndV.X / zoom, rndV.Y / Main.zoom));
+
+
+                    Main.G.Gr.DrawImage(new Bitmap(carcrash), new PointF(rndV.X - carcrash.Width / 2, rndV.Y - carcrash.Height / 2));
+                    c.MapUpdate(sheet);
+                }
+            }
+        }
+
+
         private void Timer1_Tick(object sender, EventArgs e)
         {
+            randomCrash();
             if (Data.Buses.Any())
             {
                 AnimationBitmap = new Bitmap(sheet.Width, sheet.Height);
@@ -2486,6 +2508,11 @@ namespace SystAnalys_lr1
         }
 
         private void panelSettings_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void sheet_Click(object sender, EventArgs e)
         {
 
         }
