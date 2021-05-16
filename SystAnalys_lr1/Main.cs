@@ -123,6 +123,10 @@ namespace SystAnalys_lr1
             InitializeElements();
             LoadSettings();
             AnimationSettings();
+        }
+
+        public void initCars()
+        {
 
             if (!Data.Routes.ContainsKey("Random") && Data.V.Count > 0 && Data.E.Count > 0)
             {
@@ -134,7 +138,7 @@ namespace SystAnalys_lr1
                 for (int i = 0; i < 3; i++)
                 {
                     Data.Routes["Random"].Add(Data.V[rnd.Next(Data.V.Count - 1)]);
-                    Data.RoutesEdge["Random"].Add(Data.E[rnd.Next(Data.E.Count - 1)]); 
+                    Data.RoutesEdge["Random"].Add(Data.E[rnd.Next(Data.E.Count - 1)]);
                 }
 
                 for (int i = 0; i < 25; i++)
@@ -547,7 +551,6 @@ namespace SystAnalys_lr1
 
         private void NewModelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             OpenFileDialog fb = new OpenFileDialog
             {
                 FilterIndex = 1,
@@ -1989,10 +1992,15 @@ namespace SystAnalys_lr1
             }
         }
 
-
+        bool initCarsStop = false;
         private void Timer1_Tick(object sender, EventArgs e)
         {
             randomCrash();
+            if (!initCarsStop && Data.V.Count > 2 && Data.E.Count > 2)
+            {
+                initCars();
+                initCarsStop = true;
+            }
             if (Data.Buses.Any())
             {
                 AnimationBitmap = new Bitmap(sheet.Width, sheet.Height);
