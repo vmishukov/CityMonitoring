@@ -183,7 +183,7 @@ namespace SystAnalys_lr1.Classes
                     }
                     if (check)
                     {
-                        result.Invoke(new DelString((s) => result.Text = s), MainStrings.matrixFirst + res.ToString() + " " + MainStrings.matrixSecond + (Data.Buses.Count - res).ToString());
+                        result.Invoke(new DelString((s) => result.Text = s), MainStrings.matrixFirst + Data.Buses.Where((bus) => bus.tracker == true).Count() + " " + MainStrings.matrixSecond + (Data.Buses.Count - res).ToString());
                         count.Invoke(new DelString((s) => count.Text = s), MainStrings.matrixThird + Data.Buses.Count.ToString());
                     }
                 }
