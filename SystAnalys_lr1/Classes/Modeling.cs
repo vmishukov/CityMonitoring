@@ -93,7 +93,7 @@ namespace SystAnalys_lr1.Classes
                     }
 
                 }
-                if (yabidlo == Data.Stations.Count)
+                if (yabidlo > 0)
                 {
                     if (!found)
                     {

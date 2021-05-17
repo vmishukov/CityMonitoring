@@ -29,8 +29,10 @@ namespace SystAnalys_lr1.Classes
         private static int s_optiSpeed;
         private static int s_optiCount;
 
+
         public static string PathOpt { get => s_pathOpt; set => s_pathOpt = value; }
         public static SerializableDictionary<int, int?> PercentMean { get => s_percentMean; set => s_percentMean = value; }
+     
 
         public static int CountWithoutSensors { get => s_countWithoutSensors; set => s_countWithoutSensors = value; }
         public static List<int> WithoutSensorsBuses { get => s_withoutSensorsBuses; set => s_withoutSensorsBuses = value; }
@@ -80,13 +82,19 @@ namespace SystAnalys_lr1.Classes
                 r.ch.Series.Add(Main.ReportCount.ToString());
             foreach (var pm in PercentMean)
             {
-                if (pm.Value == null)
+                if (pm.Value == null || Data.CarAccidents.Count == 0)
                 {
                     r.ch.Series[Main.ReportCount].Points.AddY(0);
                 }
                 else
                 {
-                    r.ch.Series[Main.ReportCount].Points.AddY(pm.Value / 60 != 0 ? (double)pm.Value / 60 : (double)pm.Value);
+                    if (pm.Key == 0)
+                    {
+                        r.ch.Series[Main.ReportCount].Points.AddY(0);
+                    } else
+                    {
+                        r.ch.Series[Main.ReportCount].Points.AddY((double)pm.Value * 20);
+                    }
                 }
                 if (!changeText)
                     r.ch.ChartAreas[0].AxisX.CustomLabels.Add(new CustomLabel(iCh, iCh + 2, pm.Key.ToString(), 0, LabelMarkStyle.LineSideMark));
@@ -279,26 +287,31 @@ namespace SystAnalys_lr1.Classes
         private static void OffBuses(MatrixControl matrixControl1, int proc = 0)
         {
             int countSensors = 0;
+            //CountWithoutSensors = 0;
             int tot = 0;
             matrixControl1.SplitBuses();
             Data.BusesPark = matrixControl1.busesPark;
             foreach (var b in Data.BusesPark)
             {
-                var BusesParkWithSensors = b.Where((bus) => bus.HaveTracker == true);
+                var BusesParkWithSensors = b.Where((bus) => bus.tracker == true);
                 double razm = Math.Round(b.Count - b.Count * 0.01 * proc);
                 double limit = Math.Round(b.Count - razm, 0);
                 foreach (var bus in BusesParkWithSensors)
                 {
-                    if (0 != limit)
-                    {
-                        countSensors += 1;
-                        bus.HaveTracker = false;
-                        limit = limit - 1;
-                    }
-                    else
-                    {
-                        break;
-                    };
+                    //if (bus.Route != "Random")
+                    //{
+                        if (0 != limit)
+                        {
+                            countSensors += 1;
+                            bus.HaveTracker = false;
+                            limit = limit - 1;
+                        }
+                        else
+                        {
+                            break;
+                        };
+                    //}
+                    //CountWithoutSensors++;
                 };
                 for (var i = 0; i < b.Count; i++)
                 {
@@ -306,15 +319,10 @@ namespace SystAnalys_lr1.Classes
                     tot += 1;
                 }
             };
-            CountWithoutSensors -= countSensors;
-            if (WithoutSensorsBuses.Count == 4)
-            {
-                CountWithoutSensors = 1;
-            }
-            if (WithoutSensorsBuses.Count != 5)
-            {
-                WithoutSensorsBuses.Add(CountWithoutSensors);
-            }
+            CountWithoutSensors = countSensors;
+            
+            WithoutSensorsBuses.Add(CountWithoutSensors);
+            
         }
         //private static void ShuffleBuses()
         //{

@@ -177,7 +177,7 @@ namespace SystAnalys_lr1.Classes
                                 matrixGrid.Rows[i].Cells[j].Value = 0;
                             }
                             matrixGrid.Rows[i].Cells[parkSize].Value = total;
-
+                            
                         }
                         res += total;
                     }
@@ -206,6 +206,11 @@ namespace SystAnalys_lr1.Classes
         private void MetroButton1_Click(object sender, EventArgs e)
         {
             MatrixCreate();
+        }
+
+        private void result_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -43,6 +43,7 @@
             // 
             resources.ApplyResources(this.result, "result");
             this.result.Name = "result";
+            this.result.Click += new System.EventHandler(this.result_Click);
             // 
             // count
             // 

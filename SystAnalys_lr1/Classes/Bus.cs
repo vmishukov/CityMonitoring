@@ -87,7 +87,6 @@ namespace SystAnalys_lr1.Classes
         //может ли передавать инфу на датчик
         public bool accident_check { get => _tracker; set => _tracker = value; }
         private bool haveTracker;
-
         private int speed;
         private int changeSpeed;
         private CheckStops CheckStops;
@@ -111,6 +110,7 @@ namespace SystAnalys_lr1.Classes
 
         private int SlowDown { get; set; }
         public bool HaveTracker { get => haveTracker; set => haveTracker = value; }
+
 
 
         private static int? s_zoomCoef = 1;

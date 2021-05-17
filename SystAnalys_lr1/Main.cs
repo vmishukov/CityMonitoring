@@ -145,6 +145,8 @@ namespace SystAnalys_lr1
                 {
                     Vertex rndV = Data.V[rnd.Next(Data.V.Count - 1)];
                     Data.Buses.Add(new Bus(new Bitmap("../../Resources/bus.PNG"), 1, true, "Random", Data.AllCoordinates["Random"], true));
+                    Data.Buses.Last().accident_check = true;
+                    Data.Buses.Last().tracker = false;
                 }
 
                 changeRoute.Items.Add("Random");
@@ -152,7 +154,7 @@ namespace SystAnalys_lr1
             }
 
             clearCrashes();
-            //c.RandomMoving(coordinates);
+            c.RandomMoving(coordinates);
             changeRoute.SelectedIndex = 1;
             SelectRoute_Click(new Object(), new EventArgs());
         }
@@ -1976,7 +1978,7 @@ namespace SystAnalys_lr1
         {
             if (Data.V.Count > 0 && Data.Buses.Count > 30)
             {
-                if (maxCrash < 3)
+                if (maxCrash < 1)
                 {
                     if (rnd.Next(100) > 98)
                     {
@@ -1997,7 +1999,7 @@ namespace SystAnalys_lr1
         bool initCarsStop = false;
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            randomCrash();
+            //randomCrash();
             if (!initCarsStop && Data.V.Count > 15 && Data.E.Count > 15 && G.Bitmap != null)
             {
                 initCars();
@@ -2588,6 +2590,10 @@ namespace SystAnalys_lr1
                     
         }
 
+        private void matrix_Load(object sender, EventArgs e)
+        {
+
+        }
 
         public void AnimationSettings()
         {
