@@ -905,9 +905,9 @@ namespace SystAnalys_lr1
                         Optimization.Opt(matrix, loadingForm);
                     });
 
-                    if (Average == "Found")
+                    if (Average == "Found" || Data.CarAccidents.Count > 0)
                     {
-                        mean.Text = MainStrings.average + " " + (Optimization.Min / 60 == 0 ? (Optimization.Min + " " + MainStrings.sec).ToString() : (Optimization.Min / 60 + " " + MainStrings.minute).ToString()) + " " + " - " + MainStrings.countSensors + ": " + Optimization.Result[0];
+                        mean.Text = MainStrings.average + " " + (Optimization.Min / 60 == 0 ? (Optimization.Min + " " + MainStrings.minute).ToString() : (Optimization.Min / 60 + " " + MainStrings.minute).ToString()) + " " + " - " + MainStrings.countSensors + ": " + Optimization.Result[0];
                     }
                     else
                     {
